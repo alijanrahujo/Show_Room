@@ -32,7 +32,7 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'Employee.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::model($employee, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['Employee.update', $employee->id]]) !!}
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

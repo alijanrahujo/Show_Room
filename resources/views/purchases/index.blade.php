@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Employee</a></li>
-                        <li class="breadcrumb-item active">Employee list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
+                        <li class="breadcrumb-item active">Purchase list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
@@ -27,7 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('Employee.create')}}" class="btn btn-primary float-right">Add Employee</a>
+                            <a href="{{Route('purchases.create')}}" class="btn btn-primary float-right">Purchase Bike</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -35,11 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Personal Id</th>
-                                    <th>Service Book No</th>
                                     <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Bps</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -47,23 +45,24 @@
 
 
                             <tbody>
-                                @foreach($employees as $employee)
+                                @foreach($purchases as $purchase)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$employee->personal_id}} </td>
-                                    <td> {{$employee->service_book_no}} </td>
-                                    <td> {{$employee->name}} </td>
-                                    <td> {{$employee->designation->designation??''}} </td>
-                                    <td> BPS-{{$employee->designation->bps??''}} </td>
-                                    <td> {{$employee->status}} </td>
+                                    <td> {{$purchase->name}} </td>
+                                    <td> {{$purchase->email}} </td>
+                                    <td> @foreach($purchase->roles as $role)
+                                        <span class="badge badge-success">{{$role->name}}</span>
+                                        @endforeach
+                                    </td>
+                                    <td> {{$purchase->status}} </td>
                                     <td>
-                                        <a href="{{Route('Employee.show',$employee->id)}}" class="btn btn-sm btn-primary">
+                                        <a href="{{Route('purchases.show',$purchase->id)}}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
-                                        <a href="{{Route('Employee.edit',$employee->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('purchases.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['Employee.destroy', $employee->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['purchases.destroy', $purchase->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

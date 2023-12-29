@@ -10,80 +10,93 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Employee Type</a></li>
-                        <li class="breadcrumb-item active">Add Employee Type</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
+                        <li class="breadcrumb-item active">Add User</li>
                     </ol>
                 </div>
-                <!-- <h4 class="page-title">Add Employee Type</h4> -->
+                <!-- <h4 class="page-title">Add Designation</h4> -->
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
     <!-- end page title end breadcrumb -->
     <div class="row mt-4">
         <div class="col-lg-12">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($leave, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['Leaves.update', $leave->id]]) !!}
+                    {!! Form::open(['route' => 'users.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="leave_title">Leave Title</label>
-                                {!! Form::text('leave_title', null, array('placeholder' => 'Leave Title','class' => 'form-control','id'=>'leave_title')) !!}
+                                {!! Form::label('name', 'Name *') !!}
+                                {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Name']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="leave_type">Leave Type</label>
-                                {!! Form::select('leave_type',['Casual'=>'Casual','Anual'=>'Anual'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'leave_type')) !!}
+                                {!! Form::label('email', 'Email *') !!}
+                                {!! Form::email('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter Email']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="employee">Select Employee</label>
-                                {!! Form::select('employee_id',$employees, null, array('placeholder' => 'Select','class' => 'form-control','id'=>'employee')) !!}
+                                {!! Form::label('password', 'password *') !!}
+                                {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Enter password']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <label for="from">From</label>
-                            {!! form::date('from', null, array('class' => 'form-control','id'=>'from')) !!}
-                        </div>
-                        <div class="col-md-3">
-                            <label for="to">To</label>
-                            {!! form::date('to', null, array('class' => 'form-control','id'=>'to')) !!}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('conform_password', 'Conform Password *') !!}
+                                {!! Form::password('conform_password', ['class' => 'form-control', 'id' => 'conform_password']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="description">Description</label>
-                                {!! Form::textarea('description', null, ['placeholder' => 'Description', 'class' => 'form-control', 'id' => 'description']) !!}
+                                {!! Form::label('role', 'Role *') !!}
+                                {!! Form::select('role',$roles, null, array('placeholder' => 'Select Role','class' => 'form-control','id'=>'role')) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status">Leave Type</label>
-                                {!! Form::select('status',['0'=>'Pending','1'=>'Approve','2'=>'Reject'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-gradient-primary">Submit</button>
-                                <button type="reset" class="btn btn-gradient-danger">Cancel</button>
+                                {!! Form::label('status', 'Status *') !!}
+                                {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="row">
+                        <div class="col-6 mt-4">
+                            {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                        </div>
+                    </div>
+
                     {!! Form::close() !!}
+
                 </div>
             </div>
         </div><!--end card-->
     </div><!--end col-->
 </div><!--end card-->
-</div><!--end row-->
-
-</div><!-- container -->
 @endsection
 @section('style')
 <!-- DataTables -->

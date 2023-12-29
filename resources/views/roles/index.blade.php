@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Employee Type')
+@section('title','Designation')
 
 @section('content')
 <div class="container-fluid">
@@ -10,11 +10,11 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Employee</a></li>
-                        <li class="breadcrumb-item active">Employee list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
+                        <li class="breadcrumb-item active">Users list</li>
                     </ol>
                 </div>
-                <!-- <h4 class="page-title">Employee Type list</h4> -->
+                <!-- <h4 class="page-title">Employee list</h4> -->
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -27,34 +27,32 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('EmployeeType.create')}}" class="btn btn-primary float-right">Add Employee Type
-                            </a>
-                            <!-- <button class="btn btn-primary float-right">Add Customer</button> -->
+                            <a href="{{Route('roles.create')}}" class="btn btn-primary float-right">Add Role</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="datatable-buttons" class="text-center table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Employee Type</th>
-                                    <th>Status</th>
+                                    <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
-
                             <tbody>
-                                @foreach($employeeTypes as $employee)
+                                @foreach($roles as $role)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$employee->title}} </td>
-                                    <td> {{$employee->status}} </td>
+                                    <td> {{$role->name}} </td>
                                     <td>
-                                        <a href="{{Route('EmployeeType.edit',$employee->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('roles.show',$role->id)}}" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{Route('roles.edit',$role->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['EmployeeType.destroy', $employee->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

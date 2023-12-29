@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Customer')
+@section('title','Role')
 
 @section('content')
 <div class="container-fluid">
@@ -10,49 +10,50 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Employee Type</a></li>
-                        <li class="breadcrumb-item active">Add Employee Type</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Roles</a></li>
+                        <li class="breadcrumb-item active">Add Role</li>
                     </ol>
                 </div>
+                <!-- <h4 class="page-title">Add Designation</h4> -->
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
     <!-- end page title end breadcrumb -->
     <div class="row mt-4">
         <div class="col-lg-12">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'EmployeeType.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
-                    @csrf
+                    {!! Form::open(['route' => 'roles.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label for="type">Employee Type</label>
-                                {!! Form::text('title', null, array('placeholder' => 'Employee Type','class' => 'form-control','id'=>'type')) !!}
+                                {!! Form::label('name', 'Role *') !!}
+                                {!! Form::text('role', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Role']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="status">Status</label>
-                                {!! Form::select('status',['0'=>'Deactive','1'=>'Active'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'type')) !!}
-                            </div>
+                        <div class="col-6 mt-4">
+                            <input type="hidden" name="guard_name" value="web">
+                            {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-gradient-primary">Submit</button>
-                            <button type="reset" class="btn btn-gradient-danger">Cancel</button>
-                        </div>
-                    </div>
+
                     {!! Form::close() !!}
+
                 </div>
             </div>
         </div><!--end card-->
     </div><!--end col-->
 </div><!--end card-->
-</div><!--end row-->
-
-</div><!-- container -->
 @endsection
 @section('style')
 <!-- DataTables -->

@@ -10,11 +10,11 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Designation</a></li>
-                        <li class="breadcrumb-item active">Designation list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
+                        <li class="breadcrumb-item active">Users list</li>
                     </ol>
                 </div>
-                <!-- <h4 class="page-title">Designation list</h4> -->
+                <!-- <h4 class="page-title">Employee list</h4> -->
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -27,7 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('Designation.create')}}" class="btn btn-primary float-right">Add Designation</a>
+                            <a href="{{Route('users.create')}}" class="btn btn-primary float-right">Add User</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -35,12 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Designation</th>
-                                    <th>Bps</th>
-                                    <th>Total Strength</th>
-                                    <th>Working</th>
-                                    <th>Vacant</th>
-                                    <th>Leave</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -48,21 +45,24 @@
 
 
                             <tbody>
-                                @foreach($designations as $designation)
+                                @foreach($users as $user)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$designation->designation}} </td>
-                                    <td> {{$designation->bps}} </td>
-                                    <td> {{$designation->total}} </td>
-                                    <td> {{$designation->working}} </td>
-                                    <td> {{$designation->vacant}} </td>
-                                    <td> {{$designation->leave}} </td>
-                                    <td> {{$designation->status}} </td>
+                                    <td> {{$user->name}} </td>
+                                    <td> {{$user->email}} </td>
+                                    <td> @foreach($user->roles as $role)
+                                        <span class="badge badge-success">{{$role->name}}</span>
+                                        @endforeach
+                                    </td>
+                                    <td> {{$user->status}} </td>
                                     <td>
-                                        <a href="{{Route('Designation.edit',$designation->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('users.show',$user->id)}}" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{Route('users.edit',$user->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['Designation.destroy', $designation->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

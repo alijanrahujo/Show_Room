@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Leaves')
+@section('title','Designation')
 
 @section('content')
 <div class="container-fluid">
@@ -10,10 +10,11 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Leaves</a></li>
-                        <li class="breadcrumb-item active">Leaves list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Permissions</a></li>
+                        <li class="breadcrumb-item active">Permission list</li>
                     </ol>
                 </div>
+                <!-- <h4 class="page-title">Employee list</h4> -->
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -26,9 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('Leaves.create')}}" class="btn btn-primary float-right">Add Leave
-                            </a>
-                            <!-- <button class="btn btn-primary float-right">Add Customer</button> -->
+                            <a href="{{Route('permissions.create')}}" class="btn btn-primary float-right">Add Permission</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -36,32 +35,22 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Leave Title</th>
-                                    <th>Leave Type</th>
-                                    <th>Employee</th>
-                                    <th>From</th>
-                                    <th>To</th>
-                                    <th>Status</th>
+                                    <th>Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
-                                @foreach($leaves as $leave)
+                                @foreach($permissions as $permission)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$leave->leave_title}} </td>
-                                    <td> {{$leave->leave_type}} </td>
-                                    <td> {{$leave->employee->name}} </td>
-                                    <td> {{$leave->from}} </td>
-                                    <td> {{$leave->to}} </td>
-                                    <td> {{$leave->status}} </td>
+                                    <td> {{$permission->name}} </td>
                                     <td>
-                                        <a href="{{Route('Leaves.edit',$leave->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('permissions.edit',$permission->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['Leaves.destroy', $leave->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

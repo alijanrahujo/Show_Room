@@ -34,11 +34,11 @@
         <div class="topbar-left">
             <a href="../dashboard/crm-index.html" class="logo">
                 <span>
-                    <img src="{{asset('assets/images/logo-sm.png')}}" alt="logo-small" class="logo-sm">
+                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="height: 70px;" alt="logo-small" class="logo-sm">
                 </span>
                 <span>
-                    <img src="{{asset('assets/images/logo.png')}}" alt="logo-large" class="logo-lg logo-light">
-                    <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo-large" class="logo-lg">
+                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="height: 70px;" alt="logo-large" class="logo-lg logo-light">
+                    <!-- <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo-large" class="logo-lg"> -->
                 </span>
             </a>
         </div>
@@ -183,20 +183,21 @@
             <li>
                 <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Dashboard</span></a>
             </li>
+            <li class=""><a href="javascript: void(0);" aria-expanded="false"><i class="ti-user"></i><span>Manage User</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="nav-second-level mm-collapse" aria-expanded="false" style="height: 0px;">
+                    <li>
+                        <a href="{{route('users.index')}}"><i class="fa fa-user"></i><span>User</span></a>
+                    </li>
+                    <li>
+                        <a href="{{route('roles.index')}}"><i class="fa fa-key"></i></i><span>Role</span></a>
+                    </li>
+                    <li>
+                        <a href="{{route('permissions.index')}}"><i class="fa fa-pen"></i></i><span>Permission</span></a>
+                    </li>
+                </ul>
             <li>
-                <a href="{{Route('EmployeeType.index')}}"><i class="fa fa-user"></i><span>Employee Type</span></a>
+                <a href="{{route('purchases.index')}}"><i class="ti-bar-chart"></i><span>Purchase</span></a>
             </li>
-            <li>
-                <a href="{{Route('Designation.index')}}"><i class="fa fa-user"></i><span>Designation</span></a>
-            </li>
-            <li>
-                <a href="{{Route('Employee.index')}}"><i class="fa fa-user"></i><span>Employees</span><span class="menu-arrow"><i class="mdi mdi-dashboard"></i></span></a>
-            </li>
-            <li>
-                <a href="{{Route('Leaves.index')}}"><i class="fa fa-users"></i><span>Leaves</span><span class="menu-arrow"><i class="mdi mdi-dashboard"></i></span></a>
-            </li>
-            <li>
-                <a href="{{Route('report.leave')}}"><i class="fa fa-users"></i><span>Leave Report</span><span class="menu-arrow"><i class="mdi mdi-dashboard"></i></span></a>
             </li>
         </ul>
     </div>
