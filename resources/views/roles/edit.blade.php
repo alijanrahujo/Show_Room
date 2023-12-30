@@ -45,14 +45,18 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            @foreach($permissions as $permission)
-                            <div class="form-check" style="display: inline-block; margin-right: 10px;">
-                                <input class="form-check-input" type="checkbox" name="permission_{{$loop->iteration}}" value="{{$permission->id}}" id="checkbox_{{$permission->id}}" />
-                                <label class="form-check-label" for="checkbox_{{ $permission->id }}">{{ $permission->name }}</label>
+                            <div class="form-group">
+                                {!! Form::label('permissions', 'Permissions *') !!}
+                                <br/>
+                                @foreach($permission as $value)
+                                    <label>{{ Form::checkbox('permission[]', $value->name, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
+                                    {{ $value->name }}</label>
+                                <br/>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
-
+                    </div>
+                    <div class="row">
                         <div class="col-6 ">
                             <input type="hidden" name="role_id" value="{{$role->id}}">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}

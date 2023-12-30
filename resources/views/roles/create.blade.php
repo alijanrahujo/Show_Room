@@ -41,6 +41,21 @@
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('permissions', 'Permissions *') !!}
+                                <br/>
+                                @foreach($permissions as $permission)
+                                    <label>{{ Form::checkbox('permission[]', $permission->name, false, array('class' => 'name')) }}
+                                    {{ $permission->name }}</label>
+                                <br/>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-4">
                             <input type="hidden" name="guard_name" value="web">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
