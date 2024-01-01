@@ -33,60 +33,36 @@
                                             <div class="file-box-content">
                                                 <table class="table">
                                                     <tr class="h5">
-                                                        <th>personal ID </th>
-                                                        <td>{{($employee->personal_id)?$employee->personal_id:'......'}}</td>
+                                                        <th>Title</th>
+                                                        <td>{{($purchase->title)?$purchase->title:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Service Book No</th>
-                                                        <td>{{($employee->service_book_no)?$employee->service_book_no:'......'}}</td>
+                                                        <th>Engine</th>
+                                                        <td>{{($purchase->engine)?$purchase->engine:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Full Name </th>
-                                                        <td>{{$employee->name}}</td>
+                                                        <th>Chassis </th>
+                                                        <td>{{($purchase->chassis)?$purchase->chassis:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>father Name </th>
-                                                        <td>{{$employee->father_name}}</td>
+                                                        <th>Color </th>
+                                                        <td>{{($purchase->color)?$purchase->color:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>CNIC</th>
-                                                        <td>{{$employee->cnic}}</td>
+                                                        <th>Model</th>
+                                                        <td>{{($purchase->model)?$purchase->model:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Date Of Birth</th>
-                                                        <td>{{$employee->doa}}</td>
+                                                        <th>Paid Amount</th>
+                                                        <td>{{($purchase->title)?$purchase->title:'0'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Phone </th>
-                                                        <td>{{$employee->mobile}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Education </th>
-                                                        <td>{{($employee->education)?$employee->education:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Address </th>
-                                                        <td>{{($employee->adress)?$employee->adress:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Designation </th>
-                                                        <td>{{($employee->designation->designation)?$employee->designations->designation:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Employee Type </th>
-                                                        <td>{{($employee->employeeType->title)?$employee->employeeTypes->title:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Date Of Appointed </th>
-                                                        <td>{{($employee->doa)?$employee->doa:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Remarks </th>
-                                                        <td>{{($employee->remarks)?$employee->remarks:'......'}}</td>
+                                                        <th>Remaining Amount </th>
+                                                        <td>{{($purchase->title)?$purchase->title:'0'}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Status </th>
-                                                        <td>{{($employee->status)?$employee->status:'......'}}</td>
+                                                        <td>{{($purchase->status)?$purchase->status:'......'}}</td>
                                                     </tr>
                                                 </table>
                                             </div>

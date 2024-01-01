@@ -13,7 +13,8 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        //
+        $sales = Sale::orderBy('id', 'DESC')->get();
+        return view('sales.index', compact('sales'));
     }
 
     /**
@@ -21,7 +22,7 @@ class Salescontroller extends Controller
      */
     public function create()
     {
-        //
+        return view('sales.create');
     }
 
     /**
@@ -29,38 +30,65 @@ class Salescontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $this->validate($request, [
+            'customer' => 'required',
+            'father' => 'required',
+            'phone' => 'required',
+            'cnic' => 'required',
+        ]);
+        Sale::create([
+            'customer_name' => $request->customer,
+            'father_name' => $request->father,
+            'phone' => $request->phone,
+            'cnic' => $request->cnic,
+            'address' => $request->address,
+            'status' => $request->status,
+        ]);
+        return redirect()->route('sales.index')->with('success', 'Sale  created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Sale $sale)
+    public function show($id)
     {
-        //
+        $sale = Sale::find($id);
+        return view('sales.show', compact('sale'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sale $sale)
+    public function edit($id)
     {
-        //
+        $sale = Sale::find($id);
+        return view('sales.edit', compact('sale'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sale $sale)
+    public function update(Request $request, $id)
     {
-        //
+        Sale::find($id)->update([
+            'company_name' => $request->company_name,
+            'dealer_name' => $request->dealer_name,
+            'phone' => $request->phone,
+            'cnic' => $request->cnic,
+            'address' => $request->address,
+            'status' => $request->status,
+        ]);
+        return redirect()->route('sales.index')->with('success', 'Sale updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sale $sale)
+    public function destroy($id)
     {
-        //
+        // return $id;
+        Sale::find($id)->delete();
+        return redirect()->route('sales.index')->with('success', 'Sale deleted successfully');
     }
 }

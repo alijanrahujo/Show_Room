@@ -32,19 +32,20 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($employee, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['Employee.update', $employee->id]]) !!}
+                    {!! Form::model($purchase, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['purchases.update', $purchase->id]]) !!}
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('personal', 'Personal Id') !!}
-                                {!! Form::text('personal_id', null, ['class' => 'form-control', 'id' => 'personal', 'placeholder' => 'Enter Personal Id']) !!}
+                                {!! Form::label('title', 'Title *') !!}
+                                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('service', 'Service Book No') !!}
-                                {!! Form::text('service_book_no', null, ['class' => 'form-control', 'id' => 'service', 'placeholder' => 'Enter Service Book No']) !!}
+                                {!! Form::label('eng', 'Engine Number *') !!}
+                                {!! Form::text('engine', null, ['class' => 'form-control', 'id' => 'eng', 'placeholder' => 'Engine Number']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -53,15 +54,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Name *') !!}
-                                {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Name']) !!}
+                                {!! Form::label('chassis', 'Chassis Number *') !!}
+                                {!! Form::text('chassis', null, ['class' => 'form-control', 'id' => 'chassis', 'placeholder' => 'Chassis Number']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('fname', 'Father Name *') !!}
-                                {!! Form::text('father_name', null, ['class' => 'form-control', 'id' => 'fname', 'placeholder' => 'Enter Father Name']) !!}
+                                {!! Form::label('model', 'Model *') !!}
+                                {!! Form::text('model', null, ['class' => 'form-control', 'id' => 'model', 'placeholder' => 'Model']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -70,95 +71,38 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('cnic', 'CNIC *') !!}
-                                {!! Form::text('cnic', null, ['class' => 'form-control', 'id' => 'cnic', 'placeholder' => 'Enter CNIC']) !!}
+                                {!! Form::label('color', 'Color *') !!}
+                                {!! Form::text('color', null, ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'Color']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('dob', 'Date Of Birth *') !!}
-                                {!! Form::date('dob', null, ['class' => 'form-control', 'id' => 'dob']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('mobile', 'Mobile Number *') !!}
-                                {!! Form::text('mobile', null, ['class' => 'form-control', 'id' => 'mobile', 'placeholder' => 'Enter Mobile Number']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('edu', 'Education *') !!}
-                                {!! Form::text('education', null, ['class' => 'form-control', 'id' => 'edu', 'placeholder' => 'Enter Education']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('employeeType', 'Employee Type *') !!}
-                                {!! Form::select('employee_type_id',$employeeTypes, null, array('placeholder' => 'Select Employee Type','class' => 'form-control','id'=>'employeType')) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('designation', 'Designation *') !!}
-                                {!! Form::select('designation_id',$designations, null, array('placeholder' => 'Select Designation','class' => 'form-control','id'=>'designation')) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('posting', 'Posting *') !!}
-                                {!! Form::text('pop', null, ['class' => 'form-control', 'id' => 'posting', 'placeholder' => 'Enter Posting']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('doa', 'Date Of Appointment *') !!}
-                                {!! Form::date('doa', null, ['class' => 'form-control', 'id' => 'doa']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('remarks', 'Remarks') !!}
-                                {!! Form::text('remarks', null, ['class' => 'form-control', 'id' => 'remarks', 'placeholder' => 'Enter Remarks']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('address', 'Address') !!}
-                                {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Enter Address']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('status', 'Status *') !!}
-                                {!! Form::select('status',['1'=>'On Duty','2'=>'Promote','3'=>'Expire','4'=>'Retired'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
+                                {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
                             </div>
                         </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('total', 'Purchase Amount *') !!}
+                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('paid', 'Paid *') !!}
+                                {!! Form::number('paid', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
                         <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>

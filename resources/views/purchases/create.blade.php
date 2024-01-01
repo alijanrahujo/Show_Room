@@ -95,7 +95,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
+                                {!! Form::number('paid', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>

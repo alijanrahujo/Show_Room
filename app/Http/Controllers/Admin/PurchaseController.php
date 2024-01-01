@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::get();
+        $purchases = Purchase::orderBy('id', 'DESC')->get();
         return view('purchases.index', compact('purchases'));
     }
 
@@ -46,38 +47,67 @@ class PurchaseController extends Controller
             'model' => $request->model,
             'color' => $request->color,
         ]);
+        $id = Purchase::first()->orderBy('id', 'DESC')->get();
+
+        Payment::create([
+            'type' => 'purchase',
+            'type' => $id,
+        ]);
+
         return redirect()->route('purchases.index')->with('success', 'Purchase created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Purchase $purchase)
+    public function show($id)
     {
-        //
+        $purchase = Purchase::find($id);
+        return view('purchases.show', compact('purchase'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Purchase $purchase)
+    public function edit($id)
     {
-        //
+        $purchase = Purchase::find($id);
+        return view('purchases.edit', compact('purchase'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Purchase $purchase)
+    public function update(Request $request, $id)
     {
-        //
+        // return $request;
+        Purchase::find($id)->update([
+            'company_name' => $request->company_name,
+            'dealer_name' => $request->dealer_name,
+            'phone' => $request->phone,
+            'cnic' => $request->cnic,
+            'address' => $request->address,
+            'status' => $request->status,
+        ]);
+
+        $pending = $request->total - $request->paid;
+        Payment::create([
+            'type' => 'purchase',
+            'type_id' => $id,
+            'total' => $request->total,
+            'recived' => $request->paid,
+            'pending' => $request->$pending,
+        ]);
+        return redirect()->route('purchases.index')->with('success', 'Purchase updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        // return $id;
+        Purchase::find($id)->delete();
+        return redirect()->route('purchases.index')->with('success', 'Purchase deleted successfully');
     }
 }
