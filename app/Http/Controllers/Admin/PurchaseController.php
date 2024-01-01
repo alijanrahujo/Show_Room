@@ -14,7 +14,7 @@ class PurchaseController extends Controller
     public function index()
     {
         $purchases = Purchase::get();
-        return view('roles.index', compact('purchases'));
+        return view('purchases.index', compact('purchases'));
     }
 
     /**
@@ -22,7 +22,7 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        //
+        return view("purchases.create");
     }
 
     /**
@@ -30,7 +30,23 @@ class PurchaseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $request->validate([
+            'title' => 'required',
+            'engine' => 'required',
+            'chassis' => 'required',
+            'model' => 'required',
+            'color' => 'required',
+            // 'status' => 'required',
+        ]);
+        Purchase::create([
+            'title' => $request->title,
+            'engine' => $request->engine,
+            'chassis' => $request->chassis,
+            'model' => $request->model,
+            'color' => $request->color,
+        ]);
+        return redirect()->route('purchases.index')->with('success', 'Purchase created successfully');
     }
 
     /**

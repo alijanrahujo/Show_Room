@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Users')
+@section('title','Dealers')
 
 @section('content')
 <div class="container-fluid">
@@ -10,11 +10,11 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
-                        <li class="breadcrumb-item active">User View</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Dealers</a></li>
+                        <li class="breadcrumb-item active">Dealer Profile</li>
                     </ol>
                 </div>
-                <h4 class="page-title">View</h4>
+                <h4 class="page-title">Dealer Profile</h4>
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -33,65 +33,32 @@
                                             <div class="file-box-content">
                                                 <table class="table">
                                                     <tr class="h5">
-                                                        <th>personal ID </th>
-                                                        <td>{{($employee->personal_id)?$employee->personal_id:'......'}}</td>
+                                                        <th>Company Name </th>
+                                                        <td>{{$dealer->company_name}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Service Book No</th>
-                                                        <td>{{($employee->service_book_no)?$employee->service_book_no:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Full Name </th>
-                                                        <td>{{$employee->name}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>father Name </th>
-                                                        <td>{{$employee->father_name}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>CNIC</th>
-                                                        <td>{{$employee->cnic}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Date Of Birth</th>
-                                                        <td>{{$employee->doa}}</td>
+                                                        <th>Dealer Name </th>
+                                                        <td>{{$dealer->dealer_name}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Phone </th>
-                                                        <td>{{$employee->mobile}}</td>
+                                                        <td>{{($dealer->phone)?$dealer->phone:'Not Availabel'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Education </th>
-                                                        <td>{{($employee->education)?$employee->education:'......'}}</td>
+                                                        <th>CNIC</th>
+                                                        <td>{{$dealer->cnic}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Address </th>
-                                                        <td>{{($employee->adress)?$employee->adress:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Designation </th>
-                                                        <td>{{($employee->designation->designation)?$employee->designations->designation:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Employee Type </th>
-                                                        <td>{{($employee->employeeType->title)?$employee->employeeTypes->title:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Date Of Appointed </th>
-                                                        <td>{{($employee->doa)?$employee->doa:'......'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Remarks </th>
-                                                        <td>{{($employee->remarks)?$employee->remarks:'......'}}</td>
+                                                        <td>{{($dealer->address)?$dealer->address:'Not Availabel'}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Status </th>
-                                                        <td>{{($employee->status)?$employee->status:'......'}}</td>
+                                                        <td>{{($dealer->status)?$dealer->status:'Not Availabel'}}</td>
                                                     </tr>
                                                 </table>
                                             </div>
                                         </div><!--end tab-pane-->
-
                                         <!--end tab-content-->
                                     </div><!--end card-body-->
                                 </div>

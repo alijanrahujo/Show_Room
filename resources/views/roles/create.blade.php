@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Role')
+@section('title','Roles')
 
 @section('content')
 <div class="container-fluid">
@@ -11,7 +11,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Roles</a></li>
-                        <li class="breadcrumb-item active">Add Role</li>
+                        <li class="breadcrumb-item active">Role add</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Add Designation</h4> -->

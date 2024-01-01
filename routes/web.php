@@ -1,17 +1,18 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
+use App\Http\Controllers\Admin\Customercontroller;
+use App\Http\Controllers\Admin\Dealercontroller;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\EmployeeController;
-use App\Http\Controllers\Admin\DesignationController;
-use App\Http\Controllers\Admin\EmployeeTypeController;
-use App\Http\Controllers\Admin\LeaveController;
+use App\Http\Controllers\Admin\Expenissioncontroller;
+use App\Http\Controllers\Admin\Ledgercontroller;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PurchaseController;
-use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SaleInvoicecontroller;
+use App\Http\Controllers\Admin\Salescontroller;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\ReportController as testReportController;
-use Illuminate\Routing\Route as RoutingRoute;
 
 
 /*
@@ -41,11 +42,12 @@ Route::middleware([
 Route::resource("users", UserController::class);
 Route::resource("roles", RoleController::class);
 Route::resource("permissions", PermissionController::class);
-Route::resource("purchases",PurchaseController::class);
-// Route::resource('EmployeeType', EmployeeTypeController::class);
-// Route::resource("Designation", DesignationController::class);
-// Route::resource("Employee", EmployeeController::class);
-// Route::resource("Leaves", LeaveController::class);
-// Route::get('report/leave', [ReportController::class, 'leaveReport'])->name('report.leave');
-
-// Route::resource('report', testReportController::class);
+Route::resource("purchases", PurchaseController::class);
+Route::resource('sales', Salescontroller::class);
+Route::resource('payments', PaymentController::class);
+Route::resource('customers', Customercontroller::class);
+Route::resource('dealers', Dealercontroller::class);
+Route::resource('saleinvoices', SaleInvoicecontroller::class);
+Route::resource('dailyexp', Expenissioncontroller::class);
+Route::resource('ledgers', Ledgercontroller::class);
+Route::resource('accounts', AccountController::class);

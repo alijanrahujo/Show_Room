@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Designation')
+@section('title','Roles')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
-                        <li class="breadcrumb-item active">Users list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Roles</a></li>
+                        <li class="breadcrumb-item active">Role list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
