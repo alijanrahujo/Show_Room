@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Designation')
+@section('title','Purchases')
 
 @section('content')
 <div class="container-fluid">
@@ -35,9 +35,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Title</th>
+                                    <th>Enging</th>
+                                    <th>Chaches</th>
+                                    <th>Color</th>
+                                    <th>Model</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -48,12 +50,11 @@
                                 @foreach($purchases as $purchase)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$purchase->name}} </td>
-                                    <td> {{$purchase->email}} </td>
-                                    <td> @foreach($purchase->roles as $role)
-                                        <span class="badge badge-success">{{$role->name}}</span>
-                                        @endforeach
-                                    </td>
+                                    <td> {{$purchase->title}} </td>
+                                    <td> {{$purchase->engine}} </td>
+                                    <td> {{$purchase->chassis}} </td>
+                                    <td> {{$purchase->color}} </td>
+                                    <td> {{$purchase->model}} </td>
                                     <td> {{$purchase->status}} </td>
                                     <td>
                                         <a href="{{Route('purchases.show',$purchase->id)}}" class="btn btn-sm btn-primary">

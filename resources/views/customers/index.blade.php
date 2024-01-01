@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Permission')
+@section('title','Customers')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Permissions</a></li>
-                        <li class="breadcrumb-item active">Permission list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Customers</a></li>
+                        <li class="breadcrumb-item active">Customer list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
@@ -27,7 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('permissions.create')}}" class="btn btn-primary float-right">Add Permission</a>
+                            <a href="{{Route('customers.create')}}" class="btn btn-primary float-right">Add Customer</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -36,21 +36,30 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>father Name</th>
+                                    <th>Phone</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
-                                @foreach($permissions as $permission)
+                                @foreach($customers as $customer)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$permission->name}} </td>
+                                    <td> {{$customer->customer_name}} </td>
+                                    <td> {{$customer->father_name}} </td>
+                                    <td> {{$customer->phone}} </td>
+                                    <td> {{$customer->status}} </td>
                                     <td>
-                                        <a href="{{Route('permissions.edit',$permission->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('customers.show',$customer->id)}}" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </a>
+                                        <a href="{{Route('customers.edit',$customer->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['customers.destroy', $customer->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Roles')
+@section('title','Customers')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Roles</a></li>
-                        <li class="breadcrumb-item active">Role add</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Customers</a></li>
+                        <li class="breadcrumb-item active">Customer Add</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Add Designation</h4> -->
@@ -32,17 +32,61 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'roles.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['route' => 'customers.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Role *') !!}
-                                {!! Form::text('role', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Role']) !!}
+                                {!! Form::label('customer', 'Customer Name *') !!}
+                                {!! Form::text('customer', null, ['class' => 'form-control', 'id' => 'customer', 'placeholder' => 'Customer Name']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('father', 'Father Name *') !!}
+                                {!! Form::text('father', null, ['class' => 'form-control', 'id' => 'father', 'placeholder' => 'Father Name']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('phone', 'Phone Number *') !!}
+                                {!! Form::text('phone', null, ['class' => 'form-control', 'id' => 'phone', 'placeholder' => 'Phone Number']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('cnic', 'Customer Cnic') !!}
+                                {!! Form::text('cnic', null, ['class' => 'form-control', 'id' => 'cnic', 'placeholder' => 'Customer Cnic']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('address', 'Customer Address') !!}
+                                {!! Form::textarea('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Customer Address']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('status', 'Status') !!}
+                                {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], '0', array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
                         <div class="col-6 mt-4">
-                            <input type="hidden" name="guard_name" value="web">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>

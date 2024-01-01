@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Customer')
+@section('title','Purchases')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
-                        <li class="breadcrumb-item active">Add User</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
+                        <li class="breadcrumb-item active">Add Purchase</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Add Designation</h4> -->
@@ -32,19 +32,20 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::open(['route' => 'users.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['route' => 'purchases.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('name', 'Name *') !!}
-                                {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Enter Name']) !!}
+                                {!! Form::label('title', 'Title *') !!}
+                                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('email', 'Email *') !!}
-                                {!! Form::email('email', null, ['class' => 'form-control', 'id' => 'email', 'placeholder' => 'Enter Email']) !!}
+                                {!! Form::label('eng', 'Engine Number *') !!}
+                                {!! Form::text('engine', null, ['class' => 'form-control', 'id' => 'eng', 'placeholder' => 'Engine Number']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -53,15 +54,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('password', 'password *') !!}
-                                {!! Form::password('password', ['class' => 'form-control', 'id' => 'password', 'placeholder' => 'Enter password']) !!}
+                                {!! Form::label('chassis', 'Chassis Number *') !!}
+                                {!! Form::text('chassis', null, ['class' => 'form-control', 'id' => 'chassis', 'placeholder' => 'Chassis Number']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('conform_password', 'Conform Password *') !!}
-                                {!! Form::password('conform_password', ['class' => 'form-control', 'id' => 'conform_password']) !!}
+                                {!! Form::label('model', 'Model *') !!}
+                                {!! Form::text('model', null, ['class' => 'form-control', 'id' => 'model', 'placeholder' => 'Model']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -70,8 +71,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('role', 'Role *') !!}
-                                {!! Form::select('role',$roles, null, array('placeholder' => 'Select Role','class' => 'form-control','id'=>'role')) !!}
+                                {!! Form::label('color', 'Color *') !!}
+                                {!! Form::text('color', null, ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'Color']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -79,6 +80,23 @@
                             <div class="form-group">
                                 {!! Form::label('status', 'Status *') !!}
                                 {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('total', 'Purchase Amount *') !!}
+                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('paid', 'Paid *') !!}
+                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                     </div>

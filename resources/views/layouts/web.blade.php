@@ -32,7 +32,7 @@
 
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="../dashboard/crm-index.html" class="logo">
+            <a href="{{route('dashboard')}}" class="logo">
                 <span>
                     <img src="{{asset('assets/images/honda-logo2.png')}}" style="height: 70px;" alt="logo-small" class="logo-sm">
                 </span>
@@ -181,24 +181,84 @@
     <div class="left-sidenav">
         <ul class="metismenu left-sidenav-menu">
             <li>
-                <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Dashboard</span></a>
+                <a href="javascript: void(0);"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
             </li>
-            <li class=""><a href="javascript: void(0);" aria-expanded="false"><i class="ti-user"></i><span>Manage User</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-                <ul class="nav-second-level mm-collapse" aria-expanded="false" style="height: 0px;">
-                    <li>
+
+            <li>
+                <a href="javascript: void(0);"><i class="fas fa-user-tag"></i><span>Manage User</span><span class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='users.index')?'mm-active':''}}">
                         <a href="{{route('users.index')}}"><i class="fa fa-user"></i><span>User</span></a>
                     </li>
-                    <li>
+                    <li class="{{(Route::currentRouteName() =='roles.index')?'mm-active':''}}">
                         <a href="{{route('roles.index')}}"><i class="fa fa-key"></i></i><span>Role</span></a>
                     </li>
-                    <li>
+                    <li class="{{(Route::currentRouteName() =='permissions.index')?'mm-active':''}}">
                         <a href="{{route('permissions.index')}}"><i class="fa fa-pen"></i></i><span>Permission</span></a>
                     </li>
                 </ul>
+            </li>
+
             <li>
-                <a href="{{route('purchases.index')}}"><i class="ti-bar-chart"></i><span>Purchase</span></a>
+                <a href="javascript: void(0);"><i class="fas fa-users"></i><span>Dealer & Customer</span><span class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='dealers.index')?'mm-active':''}}">
+                        <a href="{{route('dealers.index')}}"><i class="fa fa-user"></i><span>Dealer</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='customers.index')?'mm-active':''}}">
+                        <a href="{{route('customers.index')}}"><i class="fa fa-user"></i><span>Customer</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
+                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
+                    </li>
+                </ul>
             </li>
+
+            <li>
+                <a href="javascript: void(0);"><i class="fas fa-bicycle" aria-hidden="true"></i><span>Purchase & Sale</span><span class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='purchases.index')?'mm-active':''}}">
+                        <a href="{{route('purchases.index')}}"><i class="fas fa-balance-scale-right"></i><span>Purchase</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='sales.index')?'mm-active':''}}">
+                        <a href="{{route('sales.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Sales</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
+                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
+                    </li>
+                </ul>
             </li>
+
+            <li>
+                <a href="javascript: void(0);"><i class="fas fa-file-alt"></i><span>Invoices</span><span class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='saleinvoices.index')?'mm-active':''}}">
+                        <a href="{{route('saleinvoices.index')}}"><i class="fas fa-balance-scale-right"></i><span>Sale Invoice </span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='sales.index')?'mm-active':''}}">
+                        <a href="{{route('sales.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Sales</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
+                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);"><i class="fas fa-file-invoice-dollar"></i></i><span>Expenissions</span><span class="menu-arrow"></span></a>
+                <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='saleinvoices.index')?'mm-active':''}}">
+                        <a href="{{route('saleinvoices.index')}}"><i class="fas fa-clipboard"></i><span>Daily Expenission </span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='ledgers.index')?'mm-active':''}}">
+                        <a href="{{route('ledgers.index')}}"><i class="fas fa-book"></i><span>Ledger</span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='accounts.index')?'mm-active':''}}">
+                        <a href="{{route('accounts.index')}}"><i class="fas fa-calculator"></i><span>Accounts</span></a>
+                    </li>
+                </ul>
+            </li>
+
         </ul>
     </div>
     <!-- end left-sidenav-->
