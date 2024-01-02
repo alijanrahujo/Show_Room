@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Sale;
+use App\Models\Dealer;
+use App\Models\Customer;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
@@ -18,4 +22,9 @@ class Payment extends Model
         'user_id',
         'status',
     ];
+
+    public function paymentable()
+    {
+        return $this->morphTo();
+    }
 }

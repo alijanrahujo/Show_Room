@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Ledger extends Model
 {
     use HasFactory;
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class,'paymentable');
+    }
 }

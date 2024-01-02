@@ -16,4 +16,9 @@ class Customer extends Model
         'cnic',
         'status',
     ];
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class,'paymentable');
+    }
 }

@@ -16,4 +16,9 @@ class Dealer extends Model
         'address',
         'status',
     ];
+
+    public function payments()
+    {
+        return $this->morphMany(Payment::class,'paymentable');
+    }
 }
