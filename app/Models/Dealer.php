@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Dealer extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         'company_name',
         'dealer_name',
         'phone',
@@ -19,6 +19,11 @@ class Dealer extends Model
 
     public function payments()
     {
-        return $this->morphMany(Payment::class,'paymentable');
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+
+    public function purchaseable()
+    {
+        return $this->morphMany(Purchase::class, 'purchaseable');
     }
 }

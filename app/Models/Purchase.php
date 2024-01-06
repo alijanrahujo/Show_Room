@@ -20,4 +20,9 @@ class Purchase extends Model
     {
         return $this->morphMany(Payment::class, 'paymentable');
     }
+
+    public function purchaseable()
+    {
+        return $this->morphTo();
+    }
 }

@@ -13,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
+            $table->morphs('purchaseable');
             $table->string('title');
             $table->string('engine');
             $table->string('chassis');
             $table->string('model');
             $table->string('color');
+            $table->integer('excluding_tax')->nullable();
+            $table->integer('rate_tax')->nullable();
+            $table->integer('paybel_tax')->nullable();
+            $table->integer('including_tax')->nullable();
             $table->integer('status')->default(0);
             $table->timestamps();
         });

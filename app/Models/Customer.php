@@ -19,6 +19,10 @@ class Customer extends Model
 
     public function payments()
     {
-        return $this->morphMany(Payment::class,'paymentable');
+        return $this->morphMany(Payment::class, 'paymentable');
+    }
+    public function purchaseable()
+    {
+        return $this->morphMany(Purchase::class, 'purchaseable');
     }
 }
