@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','Accounts')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
-                        <li class="breadcrumb-item active">Edit Purchase</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Accounts</a></li>
+                        <li class="breadcrumb-item active">Edit Account</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Add Designation</h4> -->
@@ -32,20 +32,19 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($purchase, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['purchases.update', $purchase->id]]) !!}
+                    {!! Form::model($account, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['accounts.update', $account->id]]) !!}
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('title', 'Title *') !!}
-                                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                {!! Form::label('holder', 'Account Holder*') !!}
+                                {!! Form::text('account_holder',null, ['class' => 'form-control', 'id' => 'holder', 'placeholder' => 'Account Holder']) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('eng', 'Engine Number *') !!}
-                                {!! Form::text('engine', null, ['class' => 'form-control', 'id' => 'eng', 'placeholder' => 'Engine Number']) !!}
+                                {!! Form::label('account', 'Account Number *') !!}
+                                {!! Form::text('account_number',null, ['class' => 'form-control', 'id' => 'account', 'placeholder' => 'Account Number']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -54,15 +53,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('chassis', 'Chassis Number *') !!}
-                                {!! Form::text('chassis', null, ['class' => 'form-control', 'id' => 'chassis', 'placeholder' => 'Chassis Number']) !!}
+                                {!! Form::label('bank', 'Bank *') !!}
+                                {!! Form::text('bank',null, ['class' => 'form-control', 'id' => 'bank', 'placeholder' => 'Bank']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('model', 'Model *') !!}
-                                {!! Form::text('model', null, ['class' => 'form-control', 'id' => 'model', 'placeholder' => 'Model']) !!}
+                                {!! Form::label('branch-name', 'branch-name') !!}
+                                {!! Form::text('branch_name', null, ['class' => 'form-control', 'id' => 'branch-name', 'placeholder' => 'Branch Name']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -71,8 +70,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('color', 'Color *') !!}
-                                {!! Form::text('color', null, ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'Color']) !!}
+                                {!! Form::label('branch-code', 'Branch Code *') !!}
+                                {!! Form::text('branch_code',null, ['class' => 'form-control', 'id' => 'branch-code', 'placeholder' => 'Branch Code']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -83,24 +82,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('total', 'Purchase Amount *') !!}
-                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('paid', $purchase->payments->recived, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="row">
                         <div class="col-6 mt-4">

@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','Ledgers')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
-                        <li class="breadcrumb-item active">Edit Purchase</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Ledgers</a></li>
+                        <li class="breadcrumb-item active">Add Ledger</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Add Designation</h4> -->
@@ -32,20 +32,19 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($purchase, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['purchases.update', $purchase->id]]) !!}
+                    {!! Form::open(['route' => 'ledgers.store', 'method' => 'post', 'class' => 'parsley-examples', 'novalidate' => '', 'enctype' => 'multipart/form-data']) !!}
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('title', 'Title *') !!}
-                                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                {!! Form::label('account', 'Account *') !!}
+                                {!! Form::select('account_id',$accounts, null, array('placeholder' => 'Select','class' => 'form-control','id'=>'account')) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('eng', 'Engine Number *') !!}
-                                {!! Form::text('engine', null, ['class' => 'form-control', 'id' => 'eng', 'placeholder' => 'Engine Number']) !!}
+                                {!! Form::label('date', 'Date *') !!}
+                                {!! Form::date('date',\Carbon\Carbon::now(), ['class' => 'form-control', 'id' => 'date', 'placeholder' => 'Date']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -54,15 +53,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('chassis', 'Chassis Number *') !!}
-                                {!! Form::text('chassis', null, ['class' => 'form-control', 'id' => 'chassis', 'placeholder' => 'Chassis Number']) !!}
+                                {!! Form::label('due', 'Due *') !!}
+                                <input type="number" name="due" id="due" class="form-control" min="10000" placeholder="Due Amount" readonly>
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('model', 'Model *') !!}
-                                {!! Form::text('model', null, ['class' => 'form-control', 'id' => 'model', 'placeholder' => 'Model']) !!}
+                                {!! Form::label('Credit', 'Credit *') !!}
+                                {!! Form::number('credit', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'Credit', 'placeholder' => 'Credit Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -71,8 +70,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('color', 'Color *') !!}
-                                {!! Form::text('color', null, ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'Color']) !!}
+                                {!! Form::label('particular', 'Particular') !!}
+                                {!! Form::textarea('particular', null, ['class' => 'form-control', 'id' => 'particular', 'placeholder' => 'Particular']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -85,30 +84,34 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('total', 'Purchase Amount *') !!}
-                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('paid', $purchase->payments->recived, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
                         <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>
 
+
                     {!! Form::close() !!}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            var accountSelect = document.getElementById('account');
+                            var dueInput = document.getElementById('due');
+
+                            accountSelect.addEventListener('change', function() {
+                                var selectedAccount = accountSelect.value;
+
+                                // Use AJAX to fetch the balance from the server
+                                fetch(`/get-balance/${selectedAccount}`)
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        // Update the 'due' input field with the fetched balance
+                                        dueInput.value = data.balance;
+                                    })
+                                    .catch(error => {
+                                        console.error('Error fetching balance:', error);
+                                    });
+                            });
+                        });
+                    </script>
 
                 </div>
             </div>
@@ -124,6 +127,8 @@
 <link href="{{asset('assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 @endsection
 @section('script')
+
+
 <!-- Required datatable js -->
 <script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>

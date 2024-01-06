@@ -32,18 +32,18 @@ class AccountController extends Controller
     {
         // return $request;
         $this->validate($request, [
-            'customer' => 'required',
-            'father' => 'required',
-            'phone' => 'required',
-            'cnic' => 'required',
+            'holder' => 'required',
+            'account' => 'required',
+            'bank' => 'required',
+            'name' => 'required',
+            'code' => 'required',
         ]);
         Account::create([
-            'customer_name' => $request->customer,
-            'father_name' => $request->father,
-            'phone' => $request->phone,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
-            'status' => $request->status,
+            'account_holder' => $request->holder,
+            'account_number' => $request->account,
+            'bank' => $request->bank,
+            'branch_name' => $request->name,
+            'branch_code' => $request->code,
         ]);
         return redirect()->route('accounts.index')->with('success', 'Account  created successfully');
     }
@@ -54,7 +54,7 @@ class AccountController extends Controller
     public function show($id)
     {
         $account = Account::find($id);
-        return view('accounts.show', compact('acco$account'));
+        return view('accounts.show', compact('account'));
     }
 
     /**
@@ -63,7 +63,7 @@ class AccountController extends Controller
     public function edit($id)
     {
         $account = Account::find($id);
-        return view('accounts.edit', compact('acco$account'));
+        return view('accounts.edit', compact('account'));
     }
 
     /**
@@ -72,11 +72,11 @@ class AccountController extends Controller
     public function update(Request $request, $id)
     {
         Account::find($id)->update([
-            'company_name' => $request->company_name,
-            'dealer_name' => $request->dealer_name,
-            'phone' => $request->phone,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
+            'account_holder' => $request->account_holder,
+            'account_number' => $request->account_number,
+            'bank' => $request->bank,
+            'branch_name' => $request->branch_name,
+            'branch_code' => $request->branch_code,
             'status' => $request->status,
         ]);
         return redirect()->route('accounts.index')->with('success', 'Account updated successfully');
@@ -87,7 +87,6 @@ class AccountController extends Controller
      */
     public function destroy($id)
     {
-        // return $id;
         Account::find($id)->delete();
         return redirect()->route('accounts.index')->with('success', 'Account deleted successfully');
     }

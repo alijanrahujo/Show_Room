@@ -21,6 +21,8 @@
     <link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/metisMenu.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('assets/css/app.min.css')}}" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     @yield('style')
 
 </head>
@@ -181,7 +183,7 @@
     <div class="left-sidenav">
         <ul class="metismenu left-sidenav-menu">
             <li>
-                <a href="javascript: void(0);"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+                <a href="{{Route('dashboard')}}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
             </li>
 
             <li>
@@ -232,11 +234,14 @@
             <li>
                 <a href="javascript: void(0);"><i class="fas fa-file-alt"></i><span>Invoices</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{(Route::currentRouteName() =='saleinvoices.index')?'mm-active':''}}">
-                        <a href="{{route('saleinvoices.index')}}"><i class="fas fa-balance-scale-right"></i><span>Sale Invoice </span></a>
+                    <li class="{{(Route::currentRouteName() =='purchaseinovice.index')?'mm-active':''}}">
+                        <a href="{{route('purchaseinvoice.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Purchase Invoice</span></a>
                     </li>
-                    <li class="{{(Route::currentRouteName() =='sales.index')?'mm-active':''}}">
-                        <a href="{{route('sales.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Sales</span></a>
+                    <li class="{{(Route::currentRouteName() =='saleinvoice.index')?'mm-active':''}}">
+                        <a href="{{route('saleinvoice.index')}}"><i class="fas fa-balance-scale-right"></i><span>Sale Invoice </span></a>
+                    </li>
+                    <li class="{{(Route::currentRouteName() =='dueinvoice.index')?'mm-active':''}}">
+                        <a href="{{route('dueinvoice.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Due Invoice</span></a>
                     </li>
                     <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
                         <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
@@ -247,8 +252,8 @@
             <li>
                 <a href="javascript: void(0);"><i class="fas fa-file-invoice-dollar"></i></i><span>Expenissions</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{(Route::currentRouteName() =='saleinvoices.index')?'mm-active':''}}">
-                        <a href="{{route('saleinvoices.index')}}"><i class="fas fa-clipboard"></i><span>Daily Expenission </span></a>
+                    <li class="{{(Route::currentRouteName() =='dailyexp.index')?'mm-active':''}}">
+                        <a href="{{route('dailyexp.index')}}"><i class="fas fa-clipboard"></i><span>Daily Expenission </span></a>
                     </li>
                     <li class="{{(Route::currentRouteName() =='ledgers.index')?'mm-active':''}}">
                         <a href="{{route('ledgers.index')}}"><i class="fas fa-book"></i><span>Ledger</span></a>

@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="title-text mt-0">Employees</h4>
+                            <h4 class="title-text mt-0">Users</h4>
                             <h3 class="font-weight-semibold mb-1">766</h3>
                             {{-- <p class="mb-0 text-muted text-truncate"><span class="text-success"><i class="mdi mdi-trending-up"></i>8.5%</span>Up From Yesterday</p> --}}
                         </div><!--end col-->
@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="title-text mt-0">Pendding Leaves</h4>
+                            <h4 class="title-text mt-0">Purchased Bike</h4>
                             <h3 class="font-weight-semibold mb-1">665</h3>
                             {{-- <p class="mb-0 text-muted text-truncate"><span class="text-success"><i class="mdi mdi-trending-up"></i>1.5%</span> Up From Last Week</p> --}}
                         </div><!--end col-->
@@ -59,7 +59,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="title-text mt-0">Rejected Leaves</h4>
+                            <h4 class="title-text mt-0">Sale Bike</h4>
                             <h3 class="font-weight-semibold mb-1">654</h3>
                             {{-- <p class="mb-0 text-muted text-truncate"><span class="text-danger"><i class="mdi mdi-trending-down"></i>3%</span> Down From Last Month</p> --}}
                         </div><!--end col-->
@@ -77,7 +77,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="title-text mt-0">Approved Leaves</h4>
+                            <h4 class="title-text mt-0">Payments</h4>
                             <h3 class="font-weight-semibold mb-1">644</h3>
                             {{-- <p class="mb-0 text-muted text-truncate"><span class="text-success"><i class="mdi mdi-trending-up"></i>10.5%</span> Up From Yesterday</p> --}}
                         </div><!--end col-->

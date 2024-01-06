@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Purchase;
 use App\Models\Sale;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,21 @@ class Salescontroller extends Controller
      */
     public function create()
     {
-        return view('sales.create');
+        $customers = Customer::pluck('customer_name', 'id');
+        $purchases = Purchase::pluck('title', 'id');
+        return view('sales.create', compact('customers', 'purchases'));
+    }
+    public function getPurchaseDetails($id)
+    {
+        return $id;
+        // Fetch purchase details based on the provided ID
+        $purchase = Purchase::find($id);
+
+        // You can customize this response based on your needs
+        return response()->json([
+            'total' => $purchase->total,
+            // Add more fields as needed
+        ]);
     }
 
     /**

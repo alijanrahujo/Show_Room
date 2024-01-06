@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','sales')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
-                        <li class="breadcrumb-item active">Purchase list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">sales</a></li>
+                        <li class="breadcrumb-item active">sale list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
@@ -27,7 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('purchases.create')}}" class="btn btn-primary float-right">Purchase Bike</a>
+                            <a href="{{Route('sales.create')}}" class="btn btn-primary float-right">sale Bike</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -49,25 +49,25 @@
 
 
                             <tbody>
-                                @foreach($purchases as $purchase)
+                                @foreach($sales as $sale)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$purchase->title}} </td>
-                                    <td> {{$purchase->engine}} </td>
-                                    <td> {{$purchase->chassis}} </td>
-                                    <td> {{$purchase->color}} </td>
-                                    <td> {{$purchase->model}} </td>
-                                    <td> {{$purchase->payments()->sum('total')}} </td>
-                                    <td> {{$purchase->payments()->sum('recived')}} </td>
-                                    <td> {{$purchase->status}} </td>
+                                    <td> {{$sale->title}} </td>
+                                    <td> {{$sale->engine}} </td>
+                                    <td> {{$sale->chassis}} </td>
+                                    <td> {{$sale->color}} </td>
+                                    <td> {{$sale->model}} </td>
+                                    <td> {{$sale->payments()->sum('total')}} </td>
+                                    <td> {{$sale->payments()->sum('recived')}} </td>
+                                    <td> {{$sale->status}} </td>
                                     <td>
-                                        <a href="{{Route('purchases.show',$purchase->id)}}" class="btn btn-sm btn-primary">
+                                        <a href="{{Route('sales.show',$sale->id)}}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
-                                        <a href="{{Route('purchases.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('sales.edit',$sale->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['purchases.destroy', $purchase->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['sales.destroy', $sale->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

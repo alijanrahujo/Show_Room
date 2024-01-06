@@ -32,20 +32,19 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    {!! Form::model($purchase, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['purchases.update', $purchase->id]]) !!}
+                    {!! Form::model($ledger, ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['ledgers.update', $ledger->id]]) !!}
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('title', 'Title *') !!}
-                                {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                {!! Form::label('account', 'Account *') !!}
+                                {!! Form::select('account',$accounts, null, array('placeholder' => 'Select','class' => 'form-control','id'=>'account')) !!}
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('eng', 'Engine Number *') !!}
-                                {!! Form::text('engine', null, ['class' => 'form-control', 'id' => 'eng', 'placeholder' => 'Engine Number']) !!}
+                                {!! Form::label('date', 'Date *') !!}
+                                {!! Form::date('date',\Carbon\Carbon::now(), ['class' => 'form-control', 'id' => 'date', 'placeholder' => 'Date']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -54,15 +53,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('chassis', 'Chassis Number *') !!}
-                                {!! Form::text('chassis', null, ['class' => 'form-control', 'id' => 'chassis', 'placeholder' => 'Chassis Number']) !!}
+                                {!! Form::label('due', 'Due *') !!}
+                                {!! Form::number('due', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'due', 'placeholder' => 'Due Amount','readonly']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('model', 'Model *') !!}
-                                {!! Form::text('model', null, ['class' => 'form-control', 'id' => 'model', 'placeholder' => 'Model']) !!}
+                                {!! Form::label('Credit', 'Credit *') !!}
+                                {!! Form::number('credit', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'Credit', 'placeholder' => 'Credit Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -71,8 +70,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('color', 'Color *') !!}
-                                {!! Form::text('color', null, ['class' => 'form-control', 'id' => 'color', 'placeholder' => 'Color']) !!}
+                                {!! Form::label('particular', 'Particular') !!}
+                                {!! Form::textarea('particular', null, ['class' => 'form-control', 'id' => 'particular', 'placeholder' => 'Particular']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -83,24 +82,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('total', 'Purchase Amount *') !!}
-                                {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('paid', $purchase->payments->recived, ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
 
                     <div class="row">
                         <div class="col-6 mt-4">

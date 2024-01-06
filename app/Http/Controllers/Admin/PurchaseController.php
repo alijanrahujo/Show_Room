@@ -40,18 +40,22 @@ class PurchaseController extends Controller
             'color' => 'required',
             // 'status' => 'required',
         ]);
-        Purchase::create([
+        $purchase = Purchase::create([
             'title' => $request->title,
             'engine' => $request->engine,
             'chassis' => $request->chassis,
             'model' => $request->model,
             'color' => $request->color,
         ]);
-        $id = Purchase::first()->orderBy('id', 'DESC')->get();
 
-        Payment::create([
+        $pending = $request->total - $request->paid;
+        $purchase->payments()->create([
             'type' => 'purchase',
-            'type' => $id,
+            'type_id' => $purchase->id,
+            'total' => $request->total,
+            'recived' => $request->paid,
+            'status' => 0,
+            'pending' => $pending,
         ]);
 
         return redirect()->route('purchases.index')->with('success', 'Purchase created successfully');
@@ -96,7 +100,7 @@ class PurchaseController extends Controller
             'type_id' => $id,
             'total' => $request->total,
             'recived' => $request->paid,
-            'pending' => $request->$pending,
+            'pending' => $pending,
         ]);
         return redirect()->route('purchases.index')->with('success', 'Purchase updated successfully');
     }

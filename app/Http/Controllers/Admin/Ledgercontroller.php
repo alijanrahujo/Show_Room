@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\Ledger;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,23 @@ class Ledgercontroller extends Controller
      */
     public function create()
     {
-        return view('ledgers.create');
+        $accounts = Account::pluck('account_holder', 'id');
+        // $ledgerBalances = $this->getLedgerBalances();
+        return view('ledgers.create', compact('accounts'));
+    }
+    public function getBalance(Request $request, $accountId)
+    {
+        try {
+            $balance = Ledger::where('account_id', $accountId)->pluck('balance');
+
+            if ($balance === null) {
+                throw new \Exception('Balance not found for the given account ID');
+            }
+
+            return response()->json(['balance' => $balance]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -30,19 +47,21 @@ class Ledgercontroller extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        return $request;
         $this->validate($request, [
-            'customer' => 'required',
-            'father' => 'required',
-            'phone' => 'required',
-            'cnic' => 'required',
+            'account_id' => 'required',
+            'date' => 'required',
+            'particular' => 'required',
+            'credit' => 'required',
         ]);
+        $balance = $request->due - $request->credit;
         Ledger::create([
-            'customer_name' => $request->customer,
-            'father_name' => $request->father,
-            'phone' => $request->phone,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
+            'account_id' => $request->account_id,
+            'date' => $request->date,
+            'due' => $request->due,
+            'credit' => $request->credit,
+            'balance' => $balance,
+            'particulars' => $request->particular,
             'status' => $request->status,
         ]);
         return redirect()->route('ledgers.index')->with('success', 'Ledger created successfully');

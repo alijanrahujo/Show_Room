@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','Accounts')
 
 @section('content')
 <div class="container-fluid">
@@ -10,11 +10,11 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
-                        <li class="breadcrumb-item active">View Purchase</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Accounts</a></li>
+                        <li class="breadcrumb-item active">Account Detail</li>
                     </ol>
                 </div>
-                <h4 class="page-title">View</h4>
+                <h4 class="page-title">Account Detail</h4>
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -33,40 +33,28 @@
                                             <div class="file-box-content">
                                                 <table class="table">
                                                     <tr class="h5">
-                                                        <th>Title</th>
-                                                        <td>{{($purchase->title)?$purchase->title:'Not Avaialable'}}</td>
+                                                        <th>Accoount Holder</th>
+                                                        <td>{{($account->account_holder)?$account->account_holder:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Engine</th>
-                                                        <td>{{($purchase->engine)?$purchase->engine:'Not Avaialable'}}</td>
+                                                        <th>Account Number</th>
+                                                        <td>{{($account->account_number)?$account->account_number:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Chassis </th>
-                                                        <td>{{($purchase->chassis)?$purchase->chassis:'Not Avaialable'}}</td>
+                                                        <th>Bank </th>
+                                                        <td>{{($account->bank)?$account->bank:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Color </th>
-                                                        <td>{{($purchase->color)?$purchase->color:'Not Avaialable'}}</td>
+                                                        <th>Branch Name </th>
+                                                        <td>{{($account->branch_name)?$account->branch_name:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
-                                                        <th>Model</th>
-                                                        <td>{{($purchase->model)?$purchase->model:'Not Avaialable'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Total Amount</th>
-                                                        <td>{{($purchase->payments()->sum('total'))?$purchase->payments()->sum('total'):'0'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Paid Amount</th>
-                                                        <td>{{($purchase->payments()->sum('recived'))?$purchase->payments()->sum('recived'):'0'}}</td>
-                                                    </tr>
-                                                    <tr class="h5">
-                                                        <th>Remaining Amount </th>
-                                                        <td>{{($purchase->payments()->sum('pending'))?$purchase->payments()->sum('pending'):'0'}}</td>
+                                                        <th>Branch Code</th>
+                                                        <td>{{($account->branch_code)?$account->branch_code:'Not Avaialable'}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Status </th>
-                                                        <td>{{($purchase->status)?$purchase->status:'......'}}</td>
+                                                        <td>{{($account->status)?$account->status:'......'}}</td>
                                                     </tr>
                                                 </table>
                                             </div>

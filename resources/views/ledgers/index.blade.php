@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','Ledgers')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
-                        <li class="breadcrumb-item active">Purchase list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Ledgers</a></li>
+                        <li class="breadcrumb-item active">Ledger list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
@@ -27,7 +27,7 @@
 
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('purchases.create')}}" class="btn btn-primary float-right">Purchase Bike</a>
+                            <a href="{{Route('ledgers.create')}}" class="btn btn-primary float-right">Add Ledger</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -35,13 +35,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Enging</th>
-                                    <th>Chaches</th>
-                                    <th>Color</th>
-                                    <th>Model</th>
-                                    <th>Total Amount</th>
-                                    <th>Paid Amount</th>
+                                    <th>Date</th>
+                                    <th>Account Holder</th>
+                                    <th>Particular</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -49,25 +47,23 @@
 
 
                             <tbody>
-                                @foreach($purchases as $purchase)
+                                @foreach($ledgers as $leadger)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$purchase->title}} </td>
-                                    <td> {{$purchase->engine}} </td>
-                                    <td> {{$purchase->chassis}} </td>
-                                    <td> {{$purchase->color}} </td>
-                                    <td> {{$purchase->model}} </td>
-                                    <td> {{$purchase->payments()->sum('total')}} </td>
-                                    <td> {{$purchase->payments()->sum('recived')}} </td>
-                                    <td> {{$purchase->status}} </td>
+                                    <td> {{$leadger->date}} </td>
+                                    <td> {{$leadger->account_holder}} </td>
+                                    <td> {{$leadger->particulars}} </td>
+                                    <td> {{$leadger->debit}} </td>
+                                    <td> {{$leadger->credit}} </td>
+                                    <td> {{$leadger->status}} </td>
                                     <td>
-                                        <a href="{{Route('purchases.show',$purchase->id)}}" class="btn btn-sm btn-primary">
+                                        <a href="{{Route('ledgers.show',$leadger->id)}}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
-                                        <a href="{{Route('purchases.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('ledgers.edit',$leadger->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['purchases.destroy', $purchase->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['ledgers.destroy', $leadger->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>
