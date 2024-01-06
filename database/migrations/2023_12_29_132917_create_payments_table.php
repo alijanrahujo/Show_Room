@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->integer('type_id');
+            $table->date('date')->nullable();
             $table->integer('total');
             $table->integer('recived')->nullable();
             $table->integer('pending')->nullable();

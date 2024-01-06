@@ -17,7 +17,7 @@ class Payment extends Model
         'type_id',
         'total',
         'recived',
-        'pendig',
+        'pending',
         'user_type',
         'user_id',
         'status',
