@@ -37,6 +37,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                {!! Form::label('customer', 'customer *') !!}
+                                {!! Form::select('customer',$customers,null, array('placeholder' => 'Select','class' => 'form-control','id'=>'customer')) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('dealer', 'dealer *') !!}
+                                {!! Form::select('dealer',$dealers,null, array('placeholder' => 'Select','class' => 'form-control','id'=>'dealer')) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 {!! Form::label('title', 'Title *') !!}
                                 {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>

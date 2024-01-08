@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Models\Customer;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Dealer;
 
 class PurchaseController extends Controller
 {
@@ -23,7 +25,10 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        return view("purchases.create");
+
+        $customers = Customer::pluck('customer_name', 'id');
+        $dealers = Dealer::pluck('dealer_name', 'id');
+        return view('purchases.create', compact('dealers', 'customers'));
     }
 
     /**
@@ -40,18 +45,29 @@ class PurchaseController extends Controller
             'color' => 'required',
             // 'status' => 'required',
         ]);
-        $purchase = Purchase::create([
-            'title' => $request->title,
-            'engine' => $request->engine,
-            'chassis' => $request->chassis,
-            'model' => $request->model,
-            'color' => $request->color,
-        ]);
+
+        if ($request->customer > 0) {
+            $data = Customer::find($request->customer);
+            $data->purchaseable()->create([
+                'title' => $request->title,
+                'engine' => $request->engine,
+                'chassis' => $request->chassis,
+                'model' => $request->model,
+                'color' => $request->color,
+            ]);
+        } else {
+            $data = Dealer::find($request->dealer);
+            $data->purchaseable()->create([
+                'title' => $request->title,
+                'engine' => $request->engine,
+                'chassis' => $request->chassis,
+                'model' => $request->model,
+                'color' => $request->color,
+            ]);
+        }
 
         $pending = $request->total - $request->paid;
-        $purchase->payments()->create([
-            'type' => 'purchase',
-            'type_id' => $purchase->id,
+        $data->payments()->create([
             'total' => $request->total,
             'recived' => $request->paid,
             'status' => 0,
@@ -76,7 +92,9 @@ class PurchaseController extends Controller
     public function edit($id)
     {
         $purchase = Purchase::find($id);
-        return view('purchases.edit', compact('purchase'));
+        $customers = Customer::pluck('customer_name', 'id');
+        $dealers = Dealer::pluck('dealer_name', 'id');
+        return view('purchases.edit', compact('purchase', 'dealers', 'customers'));
     }
 
     /**
