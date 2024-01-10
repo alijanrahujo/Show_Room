@@ -24,7 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     @yield('style')
-
+    @livewireStyles
 </head>
 
 <body>
@@ -308,6 +308,7 @@
     <!-- App js -->
     <script src="{{asset('assets/js/app.js')}}"></script>
     @yield('script')
+    @livewireScripts
 </body>
 
 </html>
