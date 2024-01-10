@@ -81,11 +81,15 @@
 
     <table class="order-details">
         <thead>
-            <tr>
+            <tr valign="top">
                 <th width="10%" colspan="2">
-                    <h2 class="text-start">Hunda</h2>
+                    <h2 class="text-start">
+                        <img src="{{asset('assets/images/honda-logo2.png')}}" alt="">
+                    </h2>
                 </th>
                 <th width="90%" colspan="2" class="text-end company-data">
+                    <img src="{{asset('assets/images/3s-logo.jpg')}}">
+                    <br>
                     <span>Invoice Id: #6</span> <br>
                     <span>Date: 24 / 09 / 2022</span> <br>
                     <span>Zip code : 560077</span> <br>
