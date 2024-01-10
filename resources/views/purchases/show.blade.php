@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item active">View Purchase</li>
                     </ol>
                 </div>
-                <h4 class="page-title">View</h4>
+                <h4 class="page-title">Purcahse Detail</h4>
             </div><!--end page-title-box-->
         </div><!--end col-->
     </div>
@@ -32,6 +32,10 @@
                                             <h4 class="mt-0 header-title mb-3"></h4>
                                             <div class="file-box-content">
                                                 <table class="table">
+                                                    <tr class="h5">
+                                                        <th>Purchased From</th>
+                                                        <td>{{($purchase->purchaseable->customer_name)?$purchase->purchaseable->customer_name:$purchase->purchaseable->company_name}}</td>
+                                                    </tr>
                                                     <tr class="h5">
                                                         <th>Title</th>
                                                         <td>{{($purchase->title)?$purchase->title:'Not Avaialable'}}</td>

@@ -37,6 +37,21 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                {!! Form::label('customer', 'customer *') !!}
+                                {!! Form::select('customer',$customers,($purchase->purchaseable->customer_name)?$purchase->purchaseable->id:0, array('placeholder' => 'Select','class' => 'form-control','id'=>'customer')) !!}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('dealer', 'dealer *') !!}
+                                {!! Form::select('dealer',$dealers,($purchase->purchaseable->company_name)?$purchase->purchaseable->id:0, array('placeholder' => 'Select','class' => 'form-control','id'=>'dealer')) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 {!! Form::label('title', 'Title *') !!}
                                 {!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Example CD 70 CD 125']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
@@ -88,7 +103,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('total', 'Purchase Amount *') !!}
-                                {!! Form::number('total', $purchase->payments->sum('total'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount','readonly']) !!}
+                                {!! Form::number('total', $purchase->payments->sum('total'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -103,6 +118,11 @@
 
 
                     <div class="row">
+                        <div class="col-md-6">
+                            {!! Form::label('Date', 'Date *') !!}
+                            {!! Form::date('date', \Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'min' => \Carbon\Carbon::now()->format('Y-m-d'), 'id' => 'Date', 'placeholder' => 'Date Amount']) !!}
+
+                        </div>
                         <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>

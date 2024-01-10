@@ -118,6 +118,11 @@
 
 
                     <div class="row">
+                        <div class="col-md-6">
+                            {!! Form::label('Date', 'Date *') !!}
+                            {!! Form::date('date', \Carbon\Carbon::now()->format('Y-m-d'), ['class' => 'form-control', 'min' => \Carbon\Carbon::now()->format('Y-m-d'), 'id' => 'Date', 'placeholder' => 'Date Amount']) !!}
+
+                        </div>
                         <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
