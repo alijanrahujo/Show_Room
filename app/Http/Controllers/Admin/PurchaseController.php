@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\Dealer;
 use App\Models\Payment;
 use App\Models\Customer;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Dealer;
 
 class PurchaseController extends Controller
 {
@@ -27,7 +28,7 @@ class PurchaseController extends Controller
     {
 
         $customers = Customer::pluck('customer_name', 'id');
-        $dealers = Dealer::pluck('dealer_name', 'id');
+        $dealers = Dealer::pluck('company_name', 'id');
         return view('purchases.create', compact('dealers', 'customers'));
     }
 
@@ -67,7 +68,9 @@ class PurchaseController extends Controller
         }
 
         $pending = $request->total - $request->paid;
-        $data->payments()->create([
+        $purchase = Purchase::orderby('id', 'desc')->first();
+        $purchase->payments()->create([
+            'date' => $request->date,
             'total' => $request->total,
             'recived' => $request->paid,
             'status' => 0,
@@ -91,9 +94,9 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $purchase = Purchase::find($id);
+        $purchase = Purchase::with('purchaseable')->where('id', $id)->first();
         $customers = Customer::pluck('customer_name', 'id');
-        $dealers = Dealer::pluck('dealer_name', 'id');
+        $dealers = Dealer::pluck('company_name', 'id');
         return view('purchases.edit', compact('purchase', 'dealers', 'customers'));
     }
 
@@ -114,8 +117,7 @@ class PurchaseController extends Controller
 
         $pending = $request->total - $request->paid;
         Payment::create([
-            'type' => 'purchase',
-            'type_id' => $id,
+            'date' => $request->date,
             'total' => $request->total,
             'recived' => $request->paid,
             'pending' => $pending,
