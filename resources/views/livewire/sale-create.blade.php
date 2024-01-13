@@ -23,8 +23,8 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('purchase', 'purchase *') !!}
-                            {!! Form::select('purchase',$purchases,null, array('wire:model.live'=>'purchase','placeholder' => 'Select','class' => 'form-control','id'=>'customer')) !!}
+                            {!! Form::label('bike', 'bike *') !!}
+                            {!! Form::select('bike',$purchases,null, array('wire:model.live'=>'purchase','placeholder' => 'Select','class' => 'form-control','id'=>'customer')) !!}
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('purchase_amount', 'Purchase Amount *') !!}
-                            {!! Form::number('purchase_amount', null, ['wire:model'=>'purchase_amount','class' => 'form-control', 'min'=>'10000', 'id' => 'purchase_amount', 'placeholder' => 'Purchase Amount']) !!}
+                            {!! Form::number('purchase_amount', null, ['wire:model'=>'purchase_amount','class' => 'form-control', 'min'=>'10000', 'id' => 'purchase_amount','readonly', 'placeholder' => 'Purchase Amount']) !!}
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
@@ -89,8 +89,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            {!! Form::label('total', 'Sale Amount *') !!}
-                            {!! Form::number('total', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'total', 'placeholder' => 'Total Amount']) !!}
+                            {!! Form::label('sell', 'Sale Amount *') !!}
+                            {!! Form::number('sell', null, ['class' => 'form-control', 'min'=>'10000', 'id' => 'sell', 'placeholder' => 'sell Amount']) !!}
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>

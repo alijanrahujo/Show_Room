@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\Sale;
+use App\Models\SalePayment;
 use Illuminate\Http\Request;
 
 class Salescontroller extends Controller
@@ -15,7 +16,7 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        $sales = Sale::orderBy('id', 'DESC')->get();
+        $sales = Sale::with('customer', 'payment')->orderBy('id', 'DESC')->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -49,17 +50,28 @@ class Salescontroller extends Controller
         // return $request;
         $this->validate($request, [
             'customer' => 'required',
-            'father' => 'required',
-            'phone' => 'required',
-            'cnic' => 'required',
+            'bike' => 'required',
+            'sell' => 'required',
+            'paid' => 'required',
         ]);
-        Sale::create([
-            'customer_name' => $request->customer,
-            'father_name' => $request->father,
-            'phone' => $request->phone,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
-            'status' => $request->status,
+        $sale = Sale::create([
+            'customer_id' => $request->customer,
+            'title' => $request->title,
+            'engine' => $request->engine,
+            'chassis' => $request->chassis,
+            'color' => $request->color,
+            'model' => $request->model,
+        ]);
+        // return $sale->id;
+        SalePayment::create([
+            'sale_id' => $sale->id,
+            'purchase_id' => $request->bike,
+            'purchase_amount' => $request->purchase_amount,
+            'sale_amount' => $request->sell,
+            'recived' => $request->paid,
+            'pending' => $request->sell - $request->paid,
+            'profit' => $request->sell - $request->purchase_amount,
+            //'status' => $request->status,
         ]);
         return redirect()->route('sales.index')->with('success', 'Sale  created successfully');
     }
@@ -69,8 +81,9 @@ class Salescontroller extends Controller
      */
     public function show($id)
     {
-        $sale = Sale::find($id);
-        return view('sales.show', compact('sale'));
+        $sale = Sale::find($id)->with('customer', 'payment')->first();
+        $payments = SalePayment::where('sale_id', $sale->id)->get();
+        return view('sales.show', compact('sale', 'payments'));
     }
 
     /**
