@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Models\Purchase;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -13,7 +14,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::orderBy('id', 'DESC')->get();
+        $payments = Payment::with('paymentable')->where('paymentable_type','App\Models\Purchase')->orderBy('id', 'DESC')->get();
         return view('payments.index', compact('payments'));
     }
 
@@ -53,7 +54,7 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $payment = Payment::find($id);
+        $payment = Payment::with('paymentable')->find($id);
         return view('payments.show', compact('payment'));
     }
 
@@ -87,7 +88,6 @@ class PaymentController extends Controller
      */
     public function destroy($id)
     {
-        // return $id;
         Payment::find($id)->delete();
         return redirect()->route('payments.index')->with('success', 'Payment deleted successfully');
     }

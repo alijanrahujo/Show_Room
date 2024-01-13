@@ -225,9 +225,7 @@
                     <li class="{{(Route::currentRouteName() =='sales.index')?'mm-active':''}}">
                         <a href="{{route('sales.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Sales</span></a>
                     </li>
-                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
-                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
-                    </li>
+
                 </ul>
             </li>
 
@@ -243,9 +241,7 @@
                     <li class="{{(Route::currentRouteName() =='dueinvoice.index')?'mm-active':''}}">
                         <a href="{{route('dueinvoice.index')}}"><i class="fas fa-balance-scale-left"></i></i><span>Due Invoice</span></a>
                     </li>
-                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
-                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
-                    </li>
+
                 </ul>
             </li>
 
