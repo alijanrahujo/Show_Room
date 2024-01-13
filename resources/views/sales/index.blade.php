@@ -35,13 +35,9 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Customer</th>
                                     <th>Title</th>
-                                    <th>Enging</th>
-                                    <th>Chaches</th>
-                                    <th>Color</th>
                                     <th>Model</th>
-                                    <th>Total Amount</th>
-                                    <th>Paid Amount</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,13 +48,9 @@
                                 @foreach($sales as $sale)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
+                                    <td> {{$sale->customer->customer_name}} </td>
                                     <td> {{$sale->title}} </td>
-                                    <td> {{$sale->engine}} </td>
-                                    <td> {{$sale->chassis}} </td>
-                                    <td> {{$sale->color}} </td>
                                     <td> {{$sale->model}} </td>
-                                    <td> {{$sale->payments()->sum('total')}} </td>
-                                    <td> {{$sale->payments()->sum('recived')}} </td>
                                     <td> {{$sale->status}} </td>
                                     <td>
                                         <a href="{{Route('sales.show',$sale->id)}}" class="btn btn-sm btn-primary">
