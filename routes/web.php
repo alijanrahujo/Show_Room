@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SaleInvoicecontroller;
 use App\Http\Controllers\Admin\Salescontroller;
 use App\Http\Controllers\Admin\UserController;
-
+use App\Http\Controllers\Admin\VehicleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +52,7 @@ Route::resource('purchaseinvoice', SaleInvoicecontroller::class);
 Route::resource('dueinvoice', SaleInvoicecontroller::class);
 Route::resource('dailyexp', Expenissioncontroller::class);
 Route::resource('ledgers', Ledgercontroller::class);
+Route::resource('vehicles', VehicleController::class);
 Route::get('/get-balance/{accountId}', [LedgerController::class, 'getBalance']);
-Route::resource('accounts', AccountController::class);
 Route::get('/getPurchaseDetails/{id}', [SalesController::class, 'getPurchaseDetails'])->name('getPurchaseDetails');
+Route::resource('accounts', AccountController::class);
