@@ -45,7 +45,7 @@ class Customercontroller extends Controller
             'address' => $request->address,
             'status' => $request->status,
         ]);
-        return redirect()->route('customers.index')->with('success', 'Dealer  created successfully');
+        return redirect()->route('sales.create')->with('success', 'Dealer  created successfully');
     }
 
     /**

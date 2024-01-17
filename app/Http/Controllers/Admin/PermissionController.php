@@ -30,8 +30,14 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['permission' => 'required']);
-        Permission::create(['name' => $request->permission]);
+        // return $request;
+        $this->validate($request, [
+            'permissions' => 'required|array',
+            'permissions.*' => 'string|distinct',
+        ]);
+        foreach ($request->permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
         return redirect()->route('permissions.index')->with('success', 'Permission created successfully');
     }
 

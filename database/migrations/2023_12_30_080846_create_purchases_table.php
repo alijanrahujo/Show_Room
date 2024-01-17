@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('chassis');
             $table->string('model');
             $table->string('color');
+            $table->foreignId('vehicle_id')->constrained('vehicle_types')->cascadeOnDelete();
             $table->integer('excluding_tax')->nullable();
             $table->integer('rate_tax')->nullable();
             $table->integer('paybel_tax')->nullable();

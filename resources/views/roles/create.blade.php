@@ -46,11 +46,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('permissions', 'Permissions *') !!}
-                                <br/>
+                                <br />
                                 @foreach($permissions as $permission)
-                                    <label>{{ Form::checkbox('permission[]', $permission->name, false, array('class' => 'name')) }}
+                                <label>{{ Form::checkbox('permission[]', $permission->name, false, array('class' => 'name')) }}
                                     {{ $permission->name }}</label>
-                                <br/>
+                                <br />
                                 @endforeach
                             </div>
                         </div>

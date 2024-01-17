@@ -202,13 +202,13 @@
             </li>
 
             <li>
-                <a href="javascript: void(0);"><i class="fas fa-users"></i><span>Dealer & Customer</span><span class="menu-arrow"></span></a>
+                <a href="javascript: void(0);"><i class="fas fa-users"></i><span>Dealer</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li class="{{(Route::currentRouteName() =='dealers.index')?'mm-active':''}}">
                         <a href="{{route('dealers.index')}}"><i class="fa fa-user"></i><span>Dealer</span></a>
                     </li>
-                    <li class="{{(Route::currentRouteName() =='customers.index')?'mm-active':''}}">
-                        <a href="{{route('customers.index')}}"><i class="fa fa-user"></i><span>Customer</span></a>
+                    <li class="{{(Route::currentRouteName() =='dealers.index')?'mm-active':''}}">
+                        <a href="{{route('dealers.index')}}"><i class="fa fa-user"></i><span>Vehicle Type</span></a>
                     </li>
                     <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
                         <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
@@ -219,6 +219,9 @@
             <li>
                 <a href="javascript: void(0);"><i class="fas fa-bicycle" aria-hidden="true"></i><span>Purchase & Sale</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
+                    <li class="{{(Route::currentRouteName() =='customers.index')?'mm-active':''}}">
+                        <a href="{{route('customers.index')}}"><i class="fa fa-user"></i><span>Customer</span></a>
+                    </li>
                     <li class="{{(Route::currentRouteName() =='purchases.index')?'mm-active':''}}">
                         <a href="{{route('purchases.index')}}"><i class="fas fa-balance-scale-right"></i><span>Purchase</span></a>
                     </li>
@@ -229,7 +232,7 @@
                 </ul>
             </li>
 
-            <li>
+            <!-- <li>
                 <a href="javascript: void(0);"><i class="fas fa-file-alt"></i><span>Invoices</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li class="{{(Route::currentRouteName() =='purchaseinovice.index')?'mm-active':''}}">
@@ -243,9 +246,9 @@
                     </li>
 
                 </ul>
-            </li>
+            </li> -->
 
-            <li>
+            <!-- <li>
                 <a href="javascript: void(0);"><i class="fas fa-file-invoice-dollar"></i></i><span>Expenissions</span><span class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
                     <li class="{{(Route::currentRouteName() =='dailyexp.index')?'mm-active':''}}">
@@ -258,7 +261,7 @@
                         <a href="{{route('accounts.index')}}"><i class="fas fa-calculator"></i><span>Accounts</span></a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
 
         </ul>
     </div>

@@ -85,7 +85,7 @@
                                                                 <td>{{$sale->payment->profit ?? 0}}</td>
                                                             </tr>
                                                             <tr class="h5">
-                                                                <th>Status </th>
+                                                                <th>Status</th>
                                                                 <td>{{($sale->status)?$sale->status:'due'}}</td>
                                                             </tr>
                                                         </table>
