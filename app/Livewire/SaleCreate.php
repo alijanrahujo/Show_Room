@@ -14,6 +14,8 @@ class SaleCreate extends Component
     public $purchase;
     public $purchased;
 
+    public $cnic, $phone, $customer, $father, $address;
+
     public $title, $engine, $chassis, $model, $color, $purchase_amount;
 
     public function mount()
@@ -28,6 +30,27 @@ class SaleCreate extends Component
         return view('livewire.sale-create');
     }
 
+    public function updatecnic()
+    {
+        $customer = Customer::where('cnic',$this->cnic)->first();
+        $this->phone = $customer->phone ?? '';
+        $this->customer = $customer->customer_name ?? '';
+        $this->father = $customer->father_name ?? '';
+        $this->address = $customer->address ?? '';
+    }
+
+    public function updatephone()
+    {
+        $customer = Customer::where('phone',$this->phone)->first();
+        if(!$this->customer)
+        {
+            $this->cnic = $customer->cnic ?? '';
+            $this->customer = $customer->customer_name ?? '';
+            $this->father = $customer->father_name ?? '';
+            $this->address = $customer->address ?? '';
+        }
+    }
+
     public function updatedPurchase($id)
     {
         $purchased = Purchase::find($id);
@@ -38,4 +61,5 @@ class SaleCreate extends Component
         $this->color = $purchased->color ?? '';
         $this->purchase_amount = $purchased->payments->sum('total') ?? '';
     }
+
 }

@@ -14,6 +14,7 @@ class Purchase extends Model
         'chassis',
         'model',
         'color',
+        'vehicle_id',
     ];
 
     public function payments()

@@ -64,6 +64,7 @@ class PurchaseController extends Controller
                 'chassis' => $request->chassis,
                 'model' => $request->model,
                 'color' => $request->color,
+                'vehicle_id' => 1,
             ]);
         }
 
