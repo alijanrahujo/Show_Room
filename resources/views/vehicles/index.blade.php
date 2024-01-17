@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Designation')
+@section('title','Vehicles')
 
 @section('content')
 <div class="container-fluid">
@@ -10,8 +10,8 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Users</a></li>
-                        <li class="breadcrumb-item active">Users list</li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Vehicless</a></li>
+                        <li class="breadcrumb-item active">Vehicles list</li>
                     </ol>
                 </div>
                 <!-- <h4 class="page-title">Employee list</h4> -->
@@ -19,13 +19,15 @@
         </div><!--end col-->
     </div>
     <!-- end page title end breadcrumb -->
+
     <div class="row mt-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
+
                     <h4 class="mt-0 header-title clearfix">
                         <div>
-                            <a href="{{Route('users.create')}}" class="btn btn-primary float-right">Add User</a>
+                            <a href="{{Route('vehicles.create')}}" class="btn btn-primary float-right">Add Vehicle Type</a>
                         </div>
                     </h4>
                     <div class="table-responsive">
@@ -34,36 +36,29 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
+
+
                             <tbody>
-                                @foreach($users as $user)
+                                @foreach($vehicles as $vehicle)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$user->name}} </td>
-                                    <td> {{$user->email}} </td>
-                                    <td> @foreach($user->roles as $role)
-                                        <span class="badge badge-success">{{$role->name}}</span>
-                                        @endforeach
-                                    </td>
-                                    <td> {{$user->status}} </td>
+                                    <td> {{$vehicle->vehicle_type}} </td>
+                                    <td> {{$vehicle->status}} </td>
                                     <td>
-                                        <a href="{{Route('users.show',$user->id)}}" class="btn btn-sm btn-primary">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="{{Route('users.edit',$user->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('vehicles.edit',$vehicle->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['vehicles.destroy', $vehicle->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>
                                 </tr>
                                 @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -71,6 +66,7 @@
             </div>
         </div> <!-- end col -->
     </div> <!-- end row -->
+
 </div><!-- container -->
 @endsection
 @section('style')
