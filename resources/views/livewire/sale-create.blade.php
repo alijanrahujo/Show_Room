@@ -182,22 +182,54 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             {!! Form::label('Vehicle Type', 'Vehicle Type *') !!}
-                            {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
+                            {!! Form::select('vehicle_id',$vehicles, null, array('wire:model.live'=>'vehicle_id','placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             {!! Form::label('Vehicle', 'Vehicle *') !!}
-                            {!! Form::select('status',['1'=>'Active','0'=>'Deactive'], null, array('placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
+                            {!! Form::select('purchase_id',$purchases, null, array('wire:model'=>'purchase_id','placeholder' => 'Select','class' => 'form-control','id'=>'status')) !!}
                             <small id="emailHelp" class="form-text text-muted"></small>
                         </div>
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
                             <br/>
-                        {!! Form::button('add', ['class' => 'btn btn-primary mt-2 btn-block']) !!}
+                        {!! Form::button('add', ['wire:click'=>'addrecord','class' => 'btn btn-primary mt-2 btn-block']) !!}
                         </div>
                     </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Enging</th>
+                                <th>Chaches</th>
+                                <th>Color</th>
+                                <th>Model</th>
+                                <th>Purchased Amount</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            @foreach($purchased as $value)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td> {{$value->title}} </td>
+                                <td> {{$value->engine}} </td>
+                                <td> {{$value->chassis}} </td>
+                                <td> {{$value->color}} </td>
+                                <td> {{$value->model}} </td>
+                                <td> {{$value->payments()->sum('total')}} </td>
+                            </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="row">

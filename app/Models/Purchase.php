@@ -17,6 +17,11 @@ class Purchase extends Model
         'vehicle_id',
     ];
 
+    public function getFullTitleAttribute()
+    {
+        return $this->title . ' (' . $this->model . ' - ' . $this->color . ')';
+    }
+
     public function payments()
     {
         return $this->morphMany(Payment::class, 'paymentable');

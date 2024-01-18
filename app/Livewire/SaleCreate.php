@@ -5,24 +5,27 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Purchase;
+use App\Models\VehicleType;
 
 class SaleCreate extends Component
 {
     public $customers;
     public $purchases;
+    public $vehicles;
 
     public $purchase;
     public $purchased;
 
     public $cnic, $phone, $customer, $father, $address;
 
-    public $title, $engine, $chassis, $model, $color, $purchase_amount;
+    public $purchase_id, $vehicle_id, $title, $engine, $chassis, $model, $color, $purchase_amount;
 
     public function mount()
     {
         $this->customers = Customer::pluck('customer_name', 'id');
-        $this->purchases = Purchase::pluck('title', 'id');
+        $this->vehicles = VehicleType::pluck('vehicle_type', 'id');
         $this->purchase = 0;
+        $this->purchases = collect();
         $this->purchased = collect();
     }
     public function render()
@@ -49,6 +52,17 @@ class SaleCreate extends Component
             $this->father = $customer->father_name ?? '';
             $this->address = $customer->address ?? '';
         }
+    }
+
+    public function updatedVehicleId($id)
+    {
+        $this->purchases = Purchase::where(['vehicle_id' => $id, 'status' => 1])->get()->pluck('FullTitle', 'id');
+    }
+
+    public function addrecord()
+    {
+        $this->purchased[] = Purchase::where(['id' => $this->purchase_id])->first();
+        $this->purchase_id = null;
     }
 
     public function updatedPurchase($id)
