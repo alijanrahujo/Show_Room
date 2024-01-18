@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('recived')->nullable();
             $table->integer('pending')->nullable();
             $table->morphs('paymentable');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

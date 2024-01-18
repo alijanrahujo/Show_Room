@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("branch_name")->nullable();
             $table->string("branch_code")->nullable();
             $table->string("account_number")->nullable();
-            $table->integer("status")->default(0);
+            $table->integer("status")->default(1);
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('rate_tax')->nullable();
             $table->integer('paybel_tax')->nullable();
             $table->integer('including_tax')->nullable();
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

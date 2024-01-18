@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer("debit")->nullable();
             $table->integer("credit")->nullable();
             $table->integer("balance")->nullable();
-            $table->integer("status")->default(0);
+            $table->integer("status")->default(1);
             $table->timestamps();
         });
     }

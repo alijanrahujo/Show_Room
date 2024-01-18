@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('registration_price')->nullable();
             $table->integer('customer_id');
             $table->integer('purchase_id');
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

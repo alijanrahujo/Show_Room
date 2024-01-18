@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('recived');
             $table->integer('pending');
             $table->integer('profit');
-            $table->integer('status')->default(0);
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }
