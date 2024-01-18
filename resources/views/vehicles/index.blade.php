@@ -10,7 +10,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Vehicless</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Vehicles</a></li>
                         <li class="breadcrumb-item active">Vehicles list</li>
                     </ol>
                 </div>
@@ -35,13 +35,11 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Vehicle Type</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
-
                             <tbody>
                                 @foreach($vehicles as $vehicle)
                                 <tr>
