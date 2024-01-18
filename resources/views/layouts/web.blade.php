@@ -210,8 +210,8 @@
                     <li class="{{(Route::currentRouteName() =='vehicles.index')?'mm-active':''}}">
                         <a href="{{route('vehicles.index')}}"><i class="fa fa-bicycle" aria-hidden="true"></i></i><span>Vehicle Type</span></a>
                     </li>
-                    <li class="{{(Route::currentRouteName() =='payments.index')?'mm-active':''}}">
-                        <a href="{{route('payments.index')}}"><i class="fas fa-wallet"></i><span>Payments</span></a>
+                    <li class="{{(Route::currentRouteName() =='dealer-purchase.index')?'mm-active':''}}">
+                        <a href="{{route('dealer-purchase.index')}}"><i class="fas fa-wallet"></i><span>Purchase</span></a>
                     </li>
                 </ul>
             </li>
