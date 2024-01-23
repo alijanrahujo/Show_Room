@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('purchases', function (Blueprint $table) {
             $table->id();
             $table->morphs('purchaseable');
+            $table->date('date');
             $table->string('title');
             $table->string('engine');
             $table->string('chassis');
             $table->string('model');
             $table->string('color');
+            $table->string('total_amount');
             $table->foreignId('vehicle_id')->constrained('vehicle_types')->cascadeOnDelete();
             $table->integer('excluding_tax')->nullable();
             $table->integer('rate_tax')->nullable();
