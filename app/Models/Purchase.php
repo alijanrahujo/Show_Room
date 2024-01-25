@@ -9,12 +9,13 @@ class Purchase extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'engine',
-        'chassis',
-        'model',
-        'color',
-        'vehicle_id',
+        'date',
+        'total_amount',
+        'excluding_tax',
+        'rate_tax',
+        'paybel_tax',
+        'including_tax',
+        'status'
     ];
 
     public function getFullTitleAttribute()
