@@ -32,4 +32,9 @@ class Purchase extends Model
     {
         return $this->morphTo();
     }
+
+    public function purchaseDetail()
+    {
+        return $this->hasMany(PurchaseDetail::class, 'purchase_id', 'id');
+    }
 }

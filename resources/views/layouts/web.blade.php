@@ -36,10 +36,10 @@
         <div class="topbar-left">
             <a href="{{route('dashboard')}}" class="logo">
                 <span>
-                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="height: 70px;" alt="logo-small" class="logo-sm">
+                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="width: 190px; height: auto;" alt="logo-small" class="logo-sm">
                 </span>
                 <span>
-                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="height: 70px;" alt="logo-large" class="logo-lg logo-light">
+                    <img src="{{asset('assets/images/honda-logo2.png')}}" style="width: 190px; height: auto;" alt="logo-large" class="logo-lg logo-light">
                     <!-- <img src="{{asset('assets/images/logo-dark.png')}}" alt="logo-large" class="logo-lg"> -->
                 </span>
             </a>

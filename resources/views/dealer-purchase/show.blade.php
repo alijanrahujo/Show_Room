@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Purchases')
+@section('title','Dealer Purchases')
 
 @section('content')
 <div class="container-fluid">
@@ -10,7 +10,7 @@
                 <div class="float-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="javascript:void(0);">Purchases</a></li>
+                        <li class="breadcrumb-item"><a href="javascript:void(0);">Dealer Purchases</a></li>
                         <li class="breadcrumb-item active">Purchase Detail</li>
                     </ol>
                 </div>
@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
                                 <li class="nav-item"><a class="nav-link active" id="general_detail_tab" data-toggle="pill" href="#general_detail">Purchase Detail</a></li>
-                                <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill" href="#activity_detail">{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}}</a></li>
+                                <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill" href="#activity_detail">Dealer</a></li>
                                 <li class="nav-item"><a class="nav-link" id="portfolio_detail_tab" data-toggle="pill" href="#portfolio_detail">Payment Detail</a></li>
                             </ul>
                         </div>
@@ -50,43 +50,46 @@
                                                 <div class="tab-pane fade show active" id="files-pdf">
                                                     <h4 class="mt-0 header-title mb-3"></h4>
                                                     <div class="file-box-content">
-                                                        <table class="table table-striped-columns">
-                                                            <tr class="h5">
-                                                                <th>Title</th>
-                                                                <td>{{$purchase->title??'Not Available'}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Engine</th>
-                                                                <td>{{$purchase->engine??'Not Available'}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Chassis </th>
-                                                                <td>{{$purchase->chassis??'Not Available'}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Color </th>
-                                                                <td>{{$purchase->color??'Not Available'}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Model</th>
-                                                                <td>{{$purchase->model??'Not Available'}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Purchase Amount</th>
-                                                                <td>{{$purchase->payment->purchase_amount ?? 0}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Sale Amount</th>
-                                                                <td>{{$purchase->payment->sale_amount ?? 0}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Profit Amount </th>
-                                                                <td>{{$purchase->payment->profit ?? 0}}</td>
-                                                            </tr>
-                                                            <tr class="h5">
-                                                                <th>Status</th>
-                                                                <td>{{($purchase->status)?$purchase->status:'due'}}</td>
-                                                            </tr>
+                                                        <table class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Title</th>
+                                                                    <th>Enging</th>
+                                                                    <th>Chaches</th>
+                                                                    <th>Color</th>
+                                                                    <th>Model</th>
+                                                                    <th>Purchase Amount</th>
+                                                                    <th>Status</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($purchases->purchaseDetail as $purchase)
+                                                                <tr>
+                                                                    <td>{{$loop->iteration}}</td>
+                                                                    <td> {{$purchase->title}} </td>
+                                                                    <td> {{$purchase->engine}} </td>
+                                                                    <td> {{$purchase->chassis}} </td>
+                                                                    <td> {{$purchase->color}} </td>
+                                                                    <td> {{$purchase->model}} </td>
+                                                                    <td> {{$purchase->purchase_amount}} </td>
+                                                                    <td> <span class="badge badge-{{($purchases->status==2)?'success':'danger'}} ">{{status($purchases->status)}}</span> </td>
+                                                                    <td>
+                                                                        <a href="{{Route('dealer-purchase.show',$purchase->id)}}" class="btn btn-sm btn-primary">
+                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                        </a>
+                                                                        <a href="{{Route('dealer-purchase.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
+                                                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                                                        </a>
+                                                                        {!! Form::open(['method' => 'DELETE','route' => ['dealer-purchase.destroy', $purchase->id],'style'=>'display:inline']) !!}
+                                                                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
+                                                                        {!! Form::close() !!}
+                                                                    </td>
+                                                                </tr>
+                                                                @endforeach
+
+                                                            </tbody>
                                                         </table>
                                                     </div>
                                                 </div><!--end tab-pane-->
@@ -113,20 +116,20 @@
                                                     <div class="file-box-content">
                                                         <table class="table table-striped-columns">
                                                             <tr class="h5">
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Name</th>
-                                                                <td>{{$purchase->customer->customer_name??'Not Available'}}</td>
+                                                                <th>Dealer Name</th>
+                                                                <td>{{$purchases->purchaseable->company_name??'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Phone</th>
-                                                                <td>{{$purchase->customer->phone??'Not Available'}}</td>
+                                                                <th>Dealer Phone</th>
+                                                                <td>{{$purchases->purchaseable->phone??'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Cnic</th>
-                                                                <td>{{$purchase->customer->cnic??'Not Available'}}</td>
+                                                                <th>Dealer Cnic</th>
+                                                                <td>{{$purchases->purchaseable->cnic??'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Address</th>
-                                                                <td>{{$purchase->customer->address??'Not Available'}}</td>
+                                                                <td>{{$purchases->purchaseable->address??'Not Available'}}</td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -149,8 +152,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Purchase Amount</th>
-                                                <th>Sale Amount</th>
-                                                <th>Profit Amount</th>
+                                                <th>Qty</th>
+                                                <th>Total</th>
                                                 <th>Paid Amount</th>
                                                 <th>Pending Amount</th>
                                                 <th>Status</th>
@@ -159,12 +162,20 @@
                                         <tbody>
                                             @foreach($payments as $payment)
                                             <tr>
-                                                <td>{{$payment->purchase_amount}}</td>
-                                                <td>{{$payment->sale_amount}}</td>
-                                                <td>{{$payment->profit}}</td>
-                                                <td>{{$payment->recived}}</td>
-                                                <td>{{$payment->pending}}</td>
-                                                <td>{{$payment->status}}</td>
+                                                <td>{{($purchase->purchase_amount)?$purchase->purchase_amount:0}}</td>
+                                                <td> {{$payment->purchaseDetail()->count()}}</td>
+                                                <td>{{($payment->total_amount)?$payment->total_amount:0}}</td>
+                                                <td>{{$payment->payments()->sum('recived')}}</td>
+                                                <td>{{$payment->total_amount-$payment->payments()->sum('recived')}}</td>
+                                                <td>
+                                                    <?php
+                                                    $total = $payment->total_amount - $payment->payments()->sum('recived');
+                                                    ?>
+                                                    <span class="text-lg badge badge-{{($total==0)?'success':'danger'}} ">
+                                                        {{($total)?'Unpaid':'Paid'}}
+                                                    </span>
+                                                </td>
+                                                <td>
                                             </tr>
                                             @endforeach
                                         </tbody>

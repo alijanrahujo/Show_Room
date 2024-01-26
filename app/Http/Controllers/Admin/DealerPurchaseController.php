@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Dealer;
+use App\Models\Payment;
 use App\Models\Customer;
 use App\Models\Purchase;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\Payment;
 use App\Models\VehicleType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\PurchaseDetail;
 
 class DealerPurchaseController extends Controller
 {
@@ -17,7 +19,8 @@ class DealerPurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::orderBy('id', 'DESC')->get();
+        $purchases = Purchase::get();
+
         return view('dealer-purchase.index', compact('purchases'));
     }
 
@@ -86,9 +89,9 @@ class DealerPurchaseController extends Controller
      */
     public function show($id)
     {
-        $purchase = Purchase::find($id);
-        $payments = $purchase->with('payments')->get();
-        return view('dealer-purchase.show', compact('purchase', 'payments'));
+        $purchases = Purchase::with('purchaseDetail')->where('id', $id)->first();
+        $payments = $purchases->with('payments', 'purchaseDetail')->where('id', $id)->get();
+        return view('dealer-purchase.show', compact('purchases', 'payments'));
     }
 
     /**

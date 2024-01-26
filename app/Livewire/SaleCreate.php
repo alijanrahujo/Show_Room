@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use App\Models\VehicleType;
 
 class SaleCreate extends Component
@@ -35,7 +36,7 @@ class SaleCreate extends Component
 
     public function updatecnic()
     {
-        $customer = Customer::where('cnic',$this->cnic)->first();
+        $customer = Customer::where('cnic', $this->cnic)->first();
         $this->phone = $customer->phone ?? '';
         $this->customer = $customer->customer_name ?? '';
         $this->father = $customer->father_name ?? '';
@@ -44,9 +45,8 @@ class SaleCreate extends Component
 
     public function updatephone()
     {
-        $customer = Customer::where('phone',$this->phone)->first();
-        if(!$this->customer)
-        {
+        $customer = Customer::where('phone', $this->phone)->first();
+        if (!$this->customer) {
             $this->cnic = $customer->cnic ?? '';
             $this->customer = $customer->customer_name ?? '';
             $this->father = $customer->father_name ?? '';
@@ -56,24 +56,24 @@ class SaleCreate extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = Purchase::where(['vehicle_id' => $id, 'status' => 1])->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id])->get()->pluck('FullTitle', 'id');
     }
 
     public function addrecord()
     {
-        $this->purchased[] = Purchase::where(['id' => $this->purchase_id])->first();
+        $this->purchased[] = PurchaseDetail::where(['id' => $this->purchase_id])->first();
+        // dd($this->purchased);
         $this->purchase_id = null;
     }
 
     public function updatedPurchase($id)
     {
-        $purchased = Purchase::find($id);
+        $purchased = PurchaseDetail::find($id);
         $this->title = $purchased->title ?? '';
         $this->engine = $purchased->engine ?? '';
         $this->chassis = $purchased->chassis ?? '';
         $this->model = $purchased->model ?? '';
         $this->color = $purchased->color ?? '';
-        $this->purchase_amount = $purchased->payments->sum('total') ?? '';
+        // $this->purchase_amount = $purchased->payments->sum('total') ?? '';
     }
-
 }

@@ -19,4 +19,9 @@ class PurchaseDetail extends Model
         'purchase_id',
         'vehicle_id',
     ];
+
+    public function getFullTitleAttribute()
+    {
+        return $this->title . ' (' . $this->model . ' - ' . $this->color . ')';
+    }
 }

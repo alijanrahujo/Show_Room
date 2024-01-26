@@ -35,13 +35,10 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Title</th>
-                                    <th>Enging</th>
-                                    <th>Chaches</th>
-                                    <th>Color</th>
-                                    <th>Model</th>
+                                    <th>Date</th>
+                                    <th>Dealer</th>
+                                    <th>Bike Qty</th>
                                     <th>Total Amount</th>
-                                    <th>Paid Amount</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -52,22 +49,19 @@
                                 @foreach($purchases as $purchase)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td> {{$purchase->title}} </td>
-                                    <td> {{$purchase->engine}} </td>
-                                    <td> {{$purchase->chassis}} </td>
-                                    <td> {{$purchase->color}} </td>
-                                    <td> {{$purchase->model}} </td>
-                                    <td> {{$purchase->payments()->sum('total')}} </td>
-                                    <td> {{$purchase->payments()->sum('recived')}} </td>
-                                    <td> {{$purchase->status}} </td>
+                                    <td> {{$purchase->date}} </td>
+                                    <td> {{$purchase->purchaseable->company_name}} </td>
+                                    <td> {{$purchase->purchaseDetail()->count()}} </td>
+                                    <td> {{$purchase->total_amount}} </td>
+                                    <td> </td>
                                     <td>
-                                        <a href="{{Route('purchases.show',$purchase->id)}}" class="btn btn-sm btn-primary">
+                                        <a href="{{Route('dealer-purchase.show',$purchase->id)}}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
-                                        <a href="{{Route('purchases.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
+                                        <a href="{{Route('dealer-purchase.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                         </a>
-                                        {!! Form::open(['method' => 'DELETE','route' => ['purchases.destroy', $purchase->id],'style'=>'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE','route' => ['dealer-purchase.destroy', $purchase->id],'style'=>'display:inline']) !!}
                                         {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
                                         {!! Form::close() !!}
                                     </td>

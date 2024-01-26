@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\Purchase;
+use App\Models\PurchaseDetail;
 use App\Models\Sale;
 use App\Models\SalePayment;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class Salescontroller extends Controller
     public function create()
     {
         $customers = Customer::pluck('customer_name', 'id');
-        $purchases = Purchase::pluck('title', 'id');
+        $purchases = PurchaseDetail::pluck('title', 'id');
         return view('sales.create', compact('customers', 'purchases'));
     }
     public function getPurchaseDetails($id)
@@ -47,7 +48,7 @@ class Salescontroller extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        return $request;
         $this->validate($request, [
             'customer' => 'required',
             'bike' => 'required',
