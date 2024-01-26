@@ -28,7 +28,8 @@ use App\Http\Controllers\Admin\VehicleController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return redirect('login');
 });
 
 Route::middleware([
