@@ -83,9 +83,9 @@ class Salescontroller extends Controller
      */
     public function show($id)
     {
-        $sales = Sale::find($id)->with('saleDetail')->where('id', $id)->first();
-        $payments = SalePayment::with('payments', 'saleDetail')->where('id', $id)->get();
-        return view('sales.show', compact('sales', 'payments'));
+        $sales = Sale::find($id)->with('saleDetail','payments')->where('id', $id)->first();
+        // $payments = SalePayment::with('payments', 'saleDetail')->where('id', $id)->get();
+        return view('sales.show', compact('sales'));
     }
 
     /**

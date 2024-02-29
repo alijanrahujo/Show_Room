@@ -26,12 +26,18 @@
                         <div class="card">
                             <div class="card-body">
                                 <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
-                                    <li class="nav-item"><a class="nav-link active" id="general_detail_tab"
-                                            data-toggle="pill" href="#general_detail">Sale Detail</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill"
-                                            href="#activity_detail">Customer Detail</a></li>
-                                    <li class="nav-item"><a class="nav-link" id="portfolio_detail_tab" data-toggle="pill"
-                                            href="#portfolio_detail">Payment Detail</a></li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="general_detail_tab" data-toggle="pill"
+                                            href="#general_detail">Sale Detail</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="activity_detail_tab" data-toggle="pill"
+                                            href="#activity_detail">Customer Detail</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="portfolio_detail_tab" data-toggle="pill"
+                                            href="#portfolio_detail">Payment Detail</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -65,7 +71,7 @@
                                                                         <th>Chaches</th>
                                                                         <th>Color</th>
                                                                         <th>Model</th>
-                                                                        <th>Purchase Amount</th>
+                                                                        <th>Sale Amount</th>
                                                                         <th>Status</th>
                                                                         <th>Action</th>
                                                                     </tr>
@@ -79,7 +85,7 @@
                                                                             <td> {{ $sale->chassis }} </td>
                                                                             <td> {{ $sale->color }} </td>
                                                                             <td> {{ $sale->model }} </td>
-                                                                            <td> {{ $sale->purchase_amount }} </td>
+                                                                            <td> {{ $sale->amount }} </td>
                                                                             <td>
                                                                                 <span
                                                                                     class="badge badge-{{ $sales->status == 2 ? 'success' : 'danger' }} ">{{ status($sales->status) }}</span>
@@ -170,26 +176,130 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div>
-                                            <a href="{{ Route('payments.create') }}"
-                                                class="mb-3 btn btn-primary float-right">Add</a>
+                                            {{-- <a href="{{ Route('payments.create') }}"
+                                                class="mb-3 btn btn-primary float-right">Add</a> --}}
+                                        </div>
+                                        <button type="button" class="mb-3 float-right btn btn-primary" data-toggle="modal"
+                                            data-target="#exampleModal" data-whatever="@mdo">Add</button>
+                                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Add Payment</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        {!! Form::open([
+                                                            'route' => 'payments.store',
+                                                            'method' => 'post',
+                                                            'class' => 'parsley-examples',
+                                                            'novalidate' => '',
+                                                            'enctype' => 'multipart/form-data',
+                                                        ]) !!}
+                                                        <div class="row" id="dynamic-fields">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    {!! Form::label('pending', 'Pending*') !!}
+                                                                    {!! Form::text('pending', $sales->amount - $sales->payments()->sum('received'), [
+                                                                        'class' => 'form-control',
+                                                                        'readonly' => 'readonly',
+                                                                        'placeholder' => 'Enter pending',
+                                                                    ]) !!}
+                                                                    <small id="emailHelp"
+                                                                        class="form-text text-muted"></small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    {!! Form::label('paid', 'Paying Amount*') !!}
+                                                                    {!! Form::text('paid', null, ['class' => 'form-control', 'placeholder' => 'Enter paid']) !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    {!! Form::label('date', 'Date *') !!}
+                                                                    {!! Form::date('date', null, ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    {!! Form::label('descrpriton', 'descrpriton*') !!}
+                                                                    {!! Form::textarea('description', null, [
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'description',
+                                                                    ]) !!}
+                                                                    <small id="emailHelp"
+                                                                        class="form-text text-muted"></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <img id="captured_image" src="" alt="Captured Image">
+                                                                <input type="hidden" name="image" class="image-tag">
+                                                                <br>
+                                                                <button type="button" class="btn btn-success my-4" data-toggle="modal" data-target="#imageModal">
+                                                                    Take Picture
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <input type="hidden" name="sale_id"
+                                                                        value="{{ $sales->id }}">
+                                                                    {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {!! Form::close() !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-md" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 text-center">
+                                                                <div class="m-auto" id="my_camera"></div>
+                                                                <br />
+                                                                <input type=button value="Take Snapshot" onClick="take_snapshot()"
+                                                                    class="btn btn-primary">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <table class="table table-striped-columns">
                                             <thead>
                                                 <tr>
-                                                    <th>Purchase Amount</th>
-                                                    <th>Sale Amount</th>
-                                                    <th>Profit Amount</th>
+                                                    <th>Total Amount</th>
                                                     <th>Paid Amount</th>
                                                     <th>Pending Amount</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($payments as $payment)
+                                                @foreach ($sales->payments as $payment)
                                                     <tr>
-                                                        <td>{{ $payment->purchase_amount }}</td>
-                                                        <td>{{ $payment->sale_amount }}</td>
-                                                        <td>{{ $payment->profit }}</td>
+                                                        <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
                                                         <td>{{ $payment->status }}</td>
@@ -210,10 +320,45 @@
 @endsection
 @section('style')
     <!-- DataTables -->
-    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
+
+    <style>
+        #captured_image
+        {
+            width: 100%;
+        }
+        .modal-body {
+            max-height: calc(100vh - 200px); /* Adjust height as needed */
+            overflow-y: auto;
+        }
+
+        /* Hide the default scrollbar */
+        .modal-body::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Style the custom scrollbar */
+        .modal-body {
+            scrollbar-width: thin; /* "auto" or "thin" for Firefox */
+            scrollbar-color: #888888 #f0f0f0; /* thumb color and track color */
+        }
+
+        /* Style the thumb of the custom scrollbar */
+        .modal-body::-webkit-scrollbar-thumb {
+            background-color: #888888; /* color of the scrollbar thumb */
+        }
+
+        /* Style the track of the custom scrollbar */
+        .modal-body::-webkit-scrollbar-track {
+            background-color: #f0f0f0; /* color of the scrollbar track */
+        }
+
+    </style>
 @endsection
 @section('script')
     <!-- Required datatable js -->
@@ -232,4 +377,23 @@
     <script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/pages/jquery.datatable.init.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script language="JavaScript">
+        Webcam.set({
+            width: 470,
+            height: 350,
+            image_format: 'jpeg',
+            jpeg_quality: 1000
+        });
+
+        Webcam.attach('#my_camera');
+
+        function take_snapshot() {
+            Webcam.snap(function(data_uri) {
+                $(".image-tag").val(data_uri);
+                $("#captured_image").attr('src', data_uri);
+                $('#imageModal').modal('hide');
+            });
+        }
+    </script>
 @endsection

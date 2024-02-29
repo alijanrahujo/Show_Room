@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item active">{{ $table }} Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -41,23 +41,40 @@
                                         <th>Chassis No</th>
                                         <th>Model</th>
                                         <th>Color</th>
-                                        <th>Horse Power</th>
+                                        <?php
+                                        if (!isset($data[0]['horse_power'])) {
+                                            ?>
+                                        <?php
+                                        }
+                                        else {
+                                            ?><th>Horse POwer</th>
+                                        <?php
+                                        }
+                                        ?>
                                         <th>Type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($purchases as $purchase)
+                                    @foreach ($data as $val)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $purchase->engine }}</td>
-                                            <td>{{ $purchase->chassis }}</td>
-                                            <td>{{ $purchase->model }}</td>
-                                            <td>{{ $purchase->color }}</td>
-                                            <td>{{ $purchase->horse_power }}</td>
-                                            <td>{{ $purchase->type }}</td>
+                                            <td>{{ $val->engine }}</td>
+                                            <td>{{ $val->chassis }}</td>
+                                            <td>{{ $val->model }}</td>
+                                            <td>{{ $val->color }}</td>
+                                            <?php
+                                        if (!isset($data[0]['horse_power'])) {
+                                            ?><?php
+                                        }
+                                        else {
+                                            ?>
+                                            <td>{{ $val->horse_power }}</td>
+                                            <?php
+                                    }
+                                        ?>
+                                            <td>{{ $val->type }}</td>
                                         </tr>
                                     @endforeach
-
                                 </tbody>
                             </table>
                         </div>

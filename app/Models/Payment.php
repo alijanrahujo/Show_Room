@@ -17,6 +17,8 @@ class Payment extends Model
         'total',
         'received',
         'pending',
+        'description',
+        'image',
         'status',
     ];
 

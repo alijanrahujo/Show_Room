@@ -192,6 +192,6 @@ class SaleCreate extends Component
             PurchaseDetail::where(['purchase_id' => $val['purchase_id'], 'chassis' => $val['chassis']])->update(['status' => 3]);
         }
         DB::commit();
-        return redirect('sales');
+        return redirect()->route('sales.show',$sale->id);
     }
 }

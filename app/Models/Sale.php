@@ -23,7 +23,6 @@ class Sale extends Model
     {
         return $this->morphMany(Payment::class, 'paymentable');
     }
-
     public function customer()
     {
         return $this->hasOne(Customer::class, 'id', 'customer_id');

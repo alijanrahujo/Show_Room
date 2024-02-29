@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\PurchaseDetail;
 use App\Models\Report;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -36,7 +37,7 @@ class ReportController extends Controller
 
     function SaleNew()
     {
-        return "Sale New";
+        return view('reports.sale');
     }
 
     function show(Request $request)
@@ -44,13 +45,24 @@ class ReportController extends Controller
         $this->validate($request, [
             'type' => 'required'
         ]);
-
-        if ($request->type == 'new') {
-            $purchases = PurchaseDetail::where('type', 'New')->get();
-            return view('reports.view', compact('purchases'));
+        $table = $request->table;
+        if ($table == "purchase") {
+            if ($request->type == 'new') {
+                $data = PurchaseDetail::where('type', 'New')->get();
+                return view('reports.view', compact('table', 'data'));
+            } else {
+                $data = PurchaseDetail::where('type', 'Use')->get();
+                return view('reports.view', compact('table', 'data'));
+            }
         } else {
-            $purchases = PurchaseDetail::where('type', 'Use')->get();
-            return view('reports.view', compact('purchases'));
+            // return $request->type;
+            if ($request->type == 'new') {
+                $data = SaleDetail::where('type', 'New')->get();
+                return view('reports.view', compact('table', 'data'));
+            } else {
+                $data = SaleDetail::where('type', 'Use')->get();
+                return view('reports.view', compact('table', 'data'));
+            }
         }
     }
 }

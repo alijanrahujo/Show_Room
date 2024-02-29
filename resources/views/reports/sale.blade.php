@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item active">Sale Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -34,8 +34,8 @@
                         <div class="row" id="dynamic-fields">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('type', 'Purchase Type') !!}
-                                    {!! Form::select('type', ['new' => 'Purchase New', 'use' => 'Purchase Used'], null, [
+                                    {!! Form::label('type', 'Sale Type') !!}
+                                    {!! Form::select('type', ['new' => 'Sale New', 'use' => 'Sale Used'], null, [
                                         'placeholder' => 'Select',
                                         'class' => 'form-control',
                                         'id' => 'status',
@@ -49,7 +49,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="hidden" name="table" value="purchase">
+                                    <input type="hidden" name="table" value="sale">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>

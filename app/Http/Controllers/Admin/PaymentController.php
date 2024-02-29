@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use App\Models\Purchase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Models\Sale;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -31,22 +34,41 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
         $this->validate($request, [
-            'customer' => 'required',
-            'father' => 'required',
-            'phone' => 'required',
-            'cnic' => 'required',
+            'pending' => 'required',
+            'paid' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+            'sale_id' => 'required',
         ]);
-        Payment::create([
-            'customer_name' => $request->customer,
-            'father_name' => $request->father,
-            'phone' => $request->phone,
-            'cnic' => $request->cnic,
-            'address' => $request->address,
-            'status' => $request->status,
+
+        DB::beginTransaction();
+
+        $img = $request->image;
+        $folderPath = "public/uploads/sale/";
+
+        $image_parts = explode(";base64,", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+
+        $file = $folderPath . $fileName;
+        Storage::put($file, $image_base64);
+
+        $sale = Sale::find($request->sale_id);
+        $sale->payments()->create([
+            'date'=> $request->date,
+            'total'=> $sale->amount,
+            'pending'=> $request->pending-$request->paid,
+            'received'=> $request->paid,
+            'description'=> $request->description,
+            'image'=> $file,
         ]);
-        return redirect()->route('payments.index')->with('success', 'Payment created successfully');
+
+        DB::commit();
+        return redirect()->back()->with('success', 'Payment created successfully');
     }
 
     /**

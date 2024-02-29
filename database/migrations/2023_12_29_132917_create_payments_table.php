@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('received')->nullable();
             $table->integer('pending')->nullable();
             $table->morphs('paymentable');
+            $table->text('description')->nullable();
+            $table->text('image')->nullable();
             $table->integer('status')->default(1);
             $table->timestamps();
         });
