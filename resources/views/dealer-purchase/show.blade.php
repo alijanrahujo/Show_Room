@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title','Dealer Purchases')
+@section('title', 'Dealer Purchases')
 
 @section('content')
 <div class="container-fluid">
@@ -55,35 +55,46 @@
                                                                 <tr>
                                                                     <th>#</th>
                                                                     <th>Title</th>
-                                                                    <th>Enging</th>
-                                                                    <th>Chaches</th>
+                                                                    <th>Engine</th>
+                                                                    <th>Chassis</th>
                                                                     <th>Color</th>
                                                                     <th>Model</th>
-                                                                    <th>Purchase Amount</th>
+                                                                    <th>Amount</th>
+                                                                    <th>Tax</th>
+                                                                    <th>Total</th>
                                                                     <th>Status</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @foreach($purchases->purchaseDetail as $purchase)
+                                                                @foreach ($purchases->purchaseDetail as $purchase)
                                                                 <tr>
-                                                                    <td>{{$loop->iteration}}</td>
-                                                                    <td> {{$purchase->title}} </td>
-                                                                    <td> {{$purchase->engine}} </td>
-                                                                    <td> {{$purchase->chassis}} </td>
-                                                                    <td> {{$purchase->color}} </td>
-                                                                    <td> {{$purchase->model}} </td>
-                                                                    <td> {{$purchase->purchase_amount}} </td>
-                                                                    <td> <span class="badge badge-{{($purchases->status==2)?'success':'danger'}} ">{{status($purchases->status)}}</span> </td>
+                                                                    <td>{{ $loop->iteration }}</td>
+                                                                    <td> {{ $purchase->vehicle->vehicle_type }}
+                                                                    </td>
+                                                                    <td> {{ $purchase->engine }} </td>
+                                                                    <td> {{ $purchase->chassis }} </td>
+                                                                    <td> {{ $purchase->color }} </td>
+                                                                    <td> {{ $purchase->model }} </td>
+                                                                    <td> {{ $purchase->purchase_amount }} </td>
+                                                                    <td> {{ $purchase->purchase_tax }} </td>
+                                                                    <td> {{ $purchase->total }} </td>
+                                                                    <td> <span class="badge badge-{{ $purchase->status == 2 ? 'success' : 'danger' }} ">{{ status($purchase->status) }}</span>
+                                                                    </td>
                                                                     <td>
-                                                                        <a href="{{Route('dealer-purchase.show',$purchase->id)}}" class="btn btn-sm btn-primary">
-                                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                        <a href="{{ route('invoices', $purchase->id) }}" class="btn btn-sm btn-primary">
+                                                                            <i class="fas fa-file-invoice" aria-hidden="true"></i>
                                                                         </a>
-                                                                        <a href="{{Route('dealer-purchase.edit',$purchase->id)}}" class="btn btn-sm btn-warning">
+
+                                                                        <a href="{{ Route('dealer-purchase.edit', $purchase->id) }}" class="btn btn-sm btn-warning">
                                                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                                                         </a>
-                                                                        {!! Form::open(['method' => 'DELETE','route' => ['dealer-purchase.destroy', $purchase->id],'style'=>'display:inline']) !!}
-                                                                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs'] ) !!}
+                                                                        {!! Form::open([
+                                                                        'method' => 'DELETE',
+                                                                        'route' => ['dealer-purchase.destroy', $purchase->id],
+                                                                        'style' => 'display:inline',
+                                                                        ]) !!}
+                                                                        {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
                                                                         {!! Form::close() !!}
                                                                     </td>
                                                                 </tr>
@@ -117,19 +128,23 @@
                                                         <table class="table table-striped-columns">
                                                             <tr class="h5">
                                                                 <th>Dealer Name</th>
-                                                                <td>{{$purchases->purchaseable->company_name??'Not Available'}}</td>
+                                                                <td>{{ $purchases->purchaseable->company_name ?? 'Not Available' }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Dealer Phone</th>
-                                                                <td>{{$purchases->purchaseable->phone??'Not Available'}}</td>
+                                                                <td>{{ $purchases->purchaseable->phone ?? 'Not Available' }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Dealer Cnic</th>
-                                                                <td>{{$purchases->purchaseable->cnic??'Not Available'}}</td>
+                                                                <td>{{ $purchases->purchaseable->cnic ?? 'Not Available' }}
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <th>Address</th>
-                                                                <td>{{$purchases->purchaseable->address??'Not Available'}}</td>
+                                                                <td>{{ $purchases->purchaseable->address ?? 'Not Available' }}
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -155,24 +170,26 @@
                                                 <th>Qty</th>
                                                 <th>Total</th>
                                                 <th>Paid Amount</th>
-                                                <th>Pending Amount</th>
+                                                <th>Due Amount</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($payments as $payment)
+                                            @foreach ($payments as $payment)
                                             <tr>
-                                                <td>{{($purchase->purchase_amount)?$purchase->purchase_amount:0}}</td>
-                                                <td> {{$payment->purchaseDetail()->count()}}</td>
-                                                <td>{{($payment->total_amount)?$payment->total_amount:0}}</td>
-                                                <td>{{$payment->payments()->sum('recived')}}</td>
-                                                <td>{{$payment->total_amount-$payment->payments()->sum('recived')}}</td>
+                                                <td>{{ $purchase->purchase_amount ? $purchase->purchase_amount : 0 }}
+                                                </td>
+                                                <td> {{ $payment->purchaseDetail()->count() }}</td>
+                                                <td>{{ $payment->total_amount ? $payment->total_amount : 0 }}</td>
+                                                <td>{{ $payment->payments()->sum('received') }}</td>
+                                                <td>{{ $payment->total_amount - $payment->payments()->sum('received') }}
+                                                </td>
                                                 <td>
                                                     <?php
-                                                    $total = $payment->total_amount - $payment->payments()->sum('recived');
+                                                    $total = $payment->total_amount - $payment->payments()->sum('received');
                                                     ?>
-                                                    <span class="text-lg badge badge-{{($total==0)?'success':'danger'}} ">
-                                                        {{($total)?'Unpaid':'Paid'}}
+                                                    <span class="text-lg badge badge-{{ $total == 0 ? 'success' : 'danger' }} ">
+                                                        {{ $total ? 'Unpaid' : 'Paid' }}
                                                     </span>
                                                 </td>
                                                 <td>
@@ -193,26 +210,26 @@
 @endsection
 @section('style')
 <!-- DataTables -->
-<link href="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 <!-- Responsive datatable examples -->
-<link href="{{asset('assets/plugins/datatables/responsive.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 @section('script')
 <!-- Required datatable js -->
-<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.js') }}"></script>
 <!-- Buttons examples -->
-<script src="{{asset('assets/plugins/datatables/dataTables.buttons.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/jszip.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/pdfmake.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/vfs_fonts.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/buttons.html5.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/buttons.print.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/buttons.colVis.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/buttons.colVis.min.js') }}"></script>
 <!-- Responsive examples -->
-<script src="{{asset('assets/plugins/datatables/dataTables.responsive.min.js')}}"></script>
-<script src="{{asset('assets/plugins/datatables/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{asset('assets/pages/jquery.datatable.init.js')}}"></script>
+<script src="{{ asset('assets/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/pages/jquery.datatable.init.js') }}"></script>
 @endsection

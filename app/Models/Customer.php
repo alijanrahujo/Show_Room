@@ -22,6 +22,7 @@ class Customer extends Model
     {
         return $this->morphMany(Payment::class, 'paymentable');
     }
+
     public function purchaseable()
     {
         return $this->morphMany(Purchase::class, 'purchaseable');

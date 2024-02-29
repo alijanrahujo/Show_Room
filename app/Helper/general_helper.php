@@ -15,7 +15,7 @@ if (!function_exists('status')) {
 			return "Sell Out";
 		}
         else if ($val == 4) {
-			return "Pending";
+			return "Unpaid";
 		}
         else if ($val == 5) {
 			return "Paid";

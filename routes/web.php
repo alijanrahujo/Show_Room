@@ -10,11 +10,13 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PurchaseController;
 use App\Http\Controllers\Admin\DealerPurchaseController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SaleInvoicecontroller;
 use App\Http\Controllers\Admin\Salescontroller;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\VehicleController;
+use App\Http\Controllers\Admin\SaleUseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,8 +30,7 @@ use App\Http\Controllers\Admin\VehicleController;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    return redirect('login');
+    return view('welcome');
 });
 
 Route::middleware([
@@ -47,6 +48,7 @@ Route::resource("permissions", PermissionController::class);
 Route::resource("purchases", PurchaseController::class);
 Route::resource("dealer-purchase", DealerPurchaseController::class);
 Route::resource('sales', Salescontroller::class);
+Route::resource('sale-use', SaleUseController::class);
 Route::resource('payments', PaymentController::class);
 Route::resource('customers', Customercontroller::class);
 Route::resource('dealers', Dealercontroller::class);
@@ -56,6 +58,17 @@ Route::resource('dueinvoice', SaleInvoicecontroller::class);
 Route::resource('dailyexp', Expenissioncontroller::class);
 Route::resource('ledgers', Ledgercontroller::class);
 Route::resource('vehicles', VehicleController::class);
+Route::get('/sell/receipt/{id}', [Salescontroller::class,'receipt'])->name('sell.receipt');
+Route::get('/invoices/{purchase}', [SalesController::class, 'invoices'])->name('invoices');
 Route::get('/get-balance/{accountId}', [LedgerController::class, 'getBalance']);
 Route::get('/getPurchaseDetails/{id}', [SalesController::class, 'getPurchaseDetails'])->name('getPurchaseDetails');
 Route::resource('accounts', AccountController::class);
+
+Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+    Route::get('SaleRecipt', [ReportController::class, 'SaleRecipt'])->name('SaleRecipt');
+    Route::get('Expences', [ReportController::class, 'Expences'])->name('Expences');
+    Route::get('PurchaseNew', [ReportController::class, 'PurchaseNew'])->name('PurchaseNew');
+    Route::get('SaleNew', [ReportController::class, 'SaleNew'])->name('SaleNew');
+    Route::get('leadger', [ReportController::class, 'leadger'])->name('leadger');
+    Route::post('show', [ReportController::class, 'show'])->name('show');
+});

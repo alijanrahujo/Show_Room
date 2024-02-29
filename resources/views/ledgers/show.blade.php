@@ -58,7 +58,7 @@
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Paid Amount</th>
-                                                        <td>{{($purchase->payments()->sum('recived'))?$purchase->payments()->sum('recived'):'0'}}</td>
+                                                        <td>{{($purchase->payments()->sum('received'))?$purchase->payments()->sum('received'):'0'}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Remaining Amount </th>

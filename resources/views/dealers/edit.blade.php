@@ -72,7 +72,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('address', 'Company Address') !!}
-                                {!! Form::textarea('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Company Address']) !!}
+                                {!! Form::text('address', null, ['class' => 'form-control', 'id' => 'address', 'placeholder' => 'Company Address']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>

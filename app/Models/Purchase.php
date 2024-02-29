@@ -10,13 +10,15 @@ class Purchase extends Model
     use HasFactory;
     protected $fillable = [
         'date',
+        'type',
         'total_amount',
         'excluding_tax',
         'rate_tax',
         'paybel_tax',
         'including_tax',
-        'status'
+        'status',
     ];
+
 
     public function getFullTitleAttribute()
     {
@@ -36,5 +38,14 @@ class Purchase extends Model
     public function purchaseDetail()
     {
         return $this->hasMany(PurchaseDetail::class, 'purchase_id', 'id');
+    }
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        static::deleting(function ($dealer) {
+            $dealer->payments()->delete();
+        });
     }
 }

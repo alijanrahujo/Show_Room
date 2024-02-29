@@ -162,7 +162,7 @@
                                                 <td>{{$payment->purchase_amount}}</td>
                                                 <td>{{$payment->sale_amount}}</td>
                                                 <td>{{$payment->profit}}</td>
-                                                <td>{{$payment->recived}}</td>
+                                                <td>{{$payment->received}}</td>
                                                 <td>{{$payment->pending}}</td>
                                                 <td>{{$payment->status}}</td>
                                             </tr>

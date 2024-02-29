@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->integer('total');
-            $table->integer('recived')->nullable();
+            $table->integer('received')->nullable();
             $table->integer('pending')->nullable();
             $table->morphs('paymentable');
             $table->integer('status')->default(1);

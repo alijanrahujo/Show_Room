@@ -17,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::orderBy('id', 'DESC')->get();
+        $purchases = Purchase::where('type','Used')->orderBy('id', 'DESC')->get();
         return view('purchases.index', compact('purchases'));
     }
 
@@ -73,7 +73,7 @@ class PurchaseController extends Controller
         $purchase->payments()->create([
             'date' => $request->date,
             'total' => $request->total,
-            'recived' => $request->paid,
+            'received' => $request->paid,
             'status' => 0,
             'pending' => $pending,
         ]);
@@ -121,7 +121,7 @@ class PurchaseController extends Controller
         Payment::create([
             'date' => $request->date,
             'total' => $request->total,
-            'recived' => $request->paid,
+            'received' => $request->paid,
             'pending' => $pending,
         ]);
         return redirect()->route('purchases.index')->with('success', 'Purchase updated successfully');

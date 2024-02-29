@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\PurchaseDetail;
 
+use function PHPUnit\Framework\returnArgument;
+
 class DealerPurchaseController extends Controller
 {
     /**
@@ -19,8 +21,7 @@ class DealerPurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::get();
-
+        $purchases = Purchase::where('type','New')->get();
         return view('dealer-purchase.index', compact('purchases'));
     }
 
@@ -47,6 +48,7 @@ class DealerPurchaseController extends Controller
             'chassis' => 'required',
             'model' => 'required',
             'color' => 'required',
+            'power' => 'required',
             // 'status' => 'required',
         ]);
 
@@ -76,7 +78,7 @@ class DealerPurchaseController extends Controller
         $purchase->payments()->create([
             'date' => $request->date,
             'total' => $request->total,
-            'recived' => $request->paid,
+            'received' => $request->paid,
             'status' => 0,
             'pending' => $pending,
         ]);
@@ -124,7 +126,7 @@ class DealerPurchaseController extends Controller
         Payment::create([
             'date' => $request->date,
             'total' => $request->total,
-            'recived' => $request->paid,
+            'received' => $request->paid,
             'pending' => $pending,
         ]);
         return redirect()->route('dealer-purchase.index')->with('success', 'Purchase updated successfully');

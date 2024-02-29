@@ -32,12 +32,27 @@ class VehicleController extends Controller
     {
         // return $request;
         $this->validate($request, [
-            'vehicles' => 'required|array',
-            'vehicles.*' => 'string|distinct',
+            'vehicles' => 'required',
+            'power' => 'required',
+            'amount' => 'required',
+            'tax' => 'required',
+            'sale' => 'required',
+            'saletax' => 'required',
+            'registration' => 'required',
         ]);
-        foreach ($request->vehicles as $vehicle) {
-            VehicleType::create(['vehicle_type' => $vehicle, 'status' => 1]);
-        }
+
+
+        VehicleType::create([
+            'vehicle_type' => $request->vehicles,
+            'horse_power' => $request->power,
+            'reg_fee' => $request->registration,
+            'purchase_price' => $request->amount,
+            'purchase_tax' => $request->tax,
+            'sale_price' => $request->sale,
+            'sale_tax' => $request->saletax,
+            'status' => 1,
+        ]);
+
         return redirect('vehicles')->with('success', 'Vehicle created successfully');
     }
 
@@ -46,8 +61,8 @@ class VehicleController extends Controller
      */
     public function show(string $id)
     {
-        $role = VehicleType::find($id);
-        return view('vehicles.show', compact('role', 'rolePermissions'));
+        $vehicle = VehicleType::find($id);
+        return view('vehicles.show', compact('vehicle'));
     }
 
     /**
@@ -66,10 +81,23 @@ class VehicleController extends Controller
     {
         // return $request;
         $this->validate($request, [
-            'vehicle_type' => 'required',
+            'vehicles' => 'required',
+            'power' => 'required',
+            'amount' => 'required',
+            'tax' => 'required',
+            'registration' => 'required',
         ]);
 
-        $vehicle = VehicleType::find($id)->update(['vehicle_type' => $request->vehicle_type, 'status' => $request->status]);
+        $vehicle = VehicleType::find($id)->update([
+            'vehicle_type' => $request->vehicles,
+            'horse_power' => $request->power,
+            'reg_fee' => $request->registration,
+            'purchase_price' => $request->amount,
+            'purchase_tax' => $request->tax,
+            'sale_price' => $request->sale,
+            'sale_tax' => $request->saletax,
+            'status' => $request->status,
+        ]);
         return redirect()->route('vehicles.index')->with('success', 'Vehicle updated successfully');
     }
 
@@ -80,6 +108,6 @@ class VehicleController extends Controller
     {
         VehicleType::find($id)->delete();
 
-        return redirect('roles')->with('success', 'Role deleted successfully');
+        return redirect('vehicles')->with('success', 'Vehicle deleted successfully');
     }
 }

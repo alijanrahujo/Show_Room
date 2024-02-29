@@ -54,7 +54,7 @@ class SaleInvoicecontroller extends Controller
      */
     public function show($id)
     {
-        //$invoice = SaleInvoice::find($id);
+        // $invoice = SaleInvoice::find($id);
         return view('invoices.sale');
     }
 

@@ -51,7 +51,7 @@
                                     <td> {{$dealer->company_name}} </td>
                                     <td> {{$dealer->dealer_name}} </td>
                                     <td> {{$dealer->phone}} </td>
-                                    <td> {{$dealer->status}} </td>
+                                    <td> {{status($dealer->status)}} </td>
                                     <td>
                                         <a href="{{Route('dealers.show',$dealer->id)}}" class="btn btn-sm btn-primary">
                                             <i class="fa fa-eye" aria-hidden="true"></i>

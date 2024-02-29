@@ -19,7 +19,8 @@
         </div><!--end col-->
     </div>
     <!-- end page title end breadcrumb -->
-    <div class="row mt-4">
+    <livewire:dealer-purchase :id="$purchase->id" />
+    {{-- <div class="row mt-4">
         <div class="col-lg-12">
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -110,7 +111,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('paid', $purchase->payments->sum('recived'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
+                                {!! Form::number('paid', $purchase->payments->sum('received'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
@@ -133,7 +134,7 @@
                 </div>
             </div>
         </div><!--end card-->
-    </div><!--end col-->
+    </div><!--end col--> --}}
 </div><!--end card-->
 @endsection
 @section('style')

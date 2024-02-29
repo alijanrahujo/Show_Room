@@ -13,7 +13,7 @@ class SalePayment extends Model
         'sale_id',
         'purchase_amount',
         'sale_amount',
-        'recived',
+        'received',
         'pending',
         'profit',
         'status',

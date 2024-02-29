@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('purchase_id');
             $table->integer('purchase_amount');
             $table->integer('sale_amount');
-            $table->integer('recived');
+            $table->integer('received');
             $table->integer('pending');
             $table->integer('profit');
             $table->integer('status')->default(1);

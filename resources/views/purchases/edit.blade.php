@@ -110,7 +110,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('paid', 'Paid *') !!}
-                                {!! Form::number('paid', $purchase->payments->sum('recived'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
+                                {!! Form::number('paid', $purchase->payments->sum('received'), ['class' => 'form-control', 'min'=>'10000', 'id' => 'paid', 'placeholder' => 'Paid Amount']) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>

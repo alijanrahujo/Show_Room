@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use App\Models\SalePayment;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,7 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        $sales = Sale::with('customer', 'payment')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('type','New')->with('customer')->orderBy('id', 'DESC')->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -27,7 +28,7 @@ class Salescontroller extends Controller
     public function create()
     {
         $customers = Customer::pluck('customer_name', 'id');
-        $purchases = PurchaseDetail::pluck('title', 'id');
+        $purchases = PurchaseDetail::with('vehicle')->get()->pluck('vehicle.title', 'id')->toArray();
         return view('sales.create', compact('customers', 'purchases'));
     }
     public function getPurchaseDetails($id)
@@ -69,7 +70,7 @@ class Salescontroller extends Controller
             'purchase_id' => $request->bike,
             'purchase_amount' => $request->purchase_amount,
             'sale_amount' => $request->sell,
-            'recived' => $request->paid,
+            'received' => $request->paid,
             'pending' => $request->sell - $request->paid,
             'profit' => $request->sell - $request->purchase_amount,
             //'status' => $request->status,
@@ -82,9 +83,9 @@ class Salescontroller extends Controller
      */
     public function show($id)
     {
-        $sale = Sale::find($id)->with('customer', 'payment')->first();
-        $payments = SalePayment::where('sale_id', $sale->id)->get();
-        return view('sales.show', compact('sale', 'payments'));
+        $sales = Sale::find($id)->with('saleDetail')->where('id', $id)->first();
+        $payments = SalePayment::with('payments', 'saleDetail')->where('id', $id)->get();
+        return view('sales.show', compact('sales', 'payments'));
     }
 
     /**
@@ -120,5 +121,17 @@ class Salescontroller extends Controller
         // return $id;
         Sale::find($id)->delete();
         return redirect()->route('sales.index')->with('success', 'Sale deleted successfully');
+    }
+
+    public function receipt($id)
+    {
+        $sell = Sale::with('saleDetail','customer')->where('id',$id)->first();
+        //return $sell;
+        return view('sales.receipt',compact('sell'));
+    }
+    public function invoices($id)
+    {
+        $sale = SaleDetail::where('id', $id)->with('sale', 'sale.customer')->first();
+        return view('sales.invoice', compact('sale'));
     }
 }

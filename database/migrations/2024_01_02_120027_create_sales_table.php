@@ -14,12 +14,17 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->string('title');
-            $table->string('engine');
-            $table->string('chassis');
-            $table->string('model');
-            $table->string('color');
+            $table->string("type")->nullable();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
+            $table->string("amount")->nullable();
+            $table->string("installment")->nullable();
+            $table->string("months")->nullable();
+            $table->string("status")->default(1);
+            // $table->string('title');
+            // $table->string('engine');
+            // $table->string('chassis');
+            // $table->string('model');
+            // $table->string('color');
             $table->timestamps();
         });
     }

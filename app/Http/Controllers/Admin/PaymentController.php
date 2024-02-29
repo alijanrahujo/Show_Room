@@ -14,7 +14,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::with('paymentable')->where('paymentable_type','App\Models\Purchase')->orderBy('id', 'DESC')->get();
+        $payments = Payment::with('paymentable')->where('paymentable_type', 'App\Models\Purchase')->orderBy('id', 'DESC')->get();
         return view('payments.index', compact('payments'));
     }
 
@@ -31,7 +31,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        return $request;
         $this->validate($request, [
             'customer' => 'required',
             'father' => 'required',

@@ -26,4 +26,9 @@ class Dealer extends Model
     {
         return $this->morphMany(Purchase::class, 'purchaseable');
     }
+
+    public function getFullCompanyAttribute()
+    {
+        return $this->company_name . ' (' . $this->dealer_name . ')';
+    }
 }

@@ -10,12 +10,13 @@ class Sale extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'engine',
-        'chassis',
-        'model',
-        'color',
+        'date',
+        'type',
         'customer_id',
+        'amount',
+        'installment',
+        'months',
+        'status',
     ];
 
     public function payments()
@@ -30,5 +31,9 @@ class Sale extends Model
     public function payment()
     {
         return $this->hasOne(SalePayment::class, 'sale_id', 'id');
+    }
+    public function saleDetail()
+    {
+        return $this->hasMany(SaleDetail::class, 'sale_id', 'id');
     }
 }

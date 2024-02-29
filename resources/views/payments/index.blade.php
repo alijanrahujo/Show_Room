@@ -58,7 +58,7 @@
                                     <td> {{$payment->paymentable->color}} </td>
                                     <td> {{$payment->paymentable->model}} </td>
                                     <td> {{$payment->total}} </td>
-                                    <td> {{$payment->recived}} </td>
+                                    <td> {{$payment->received}} </td>
                                     <td> {{$payment->pending}} </td>
                                     <td> {{$payment->status}} </td>
                                     <td> {{$payment->date}} </td>

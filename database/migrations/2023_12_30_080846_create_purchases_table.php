@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->morphs('purchaseable');
             $table->date('date');
+            $table->string('type')->nullable();
             $table->string('total_amount');
             $table->integer('excluding_tax')->nullable();
             $table->integer('rate_tax')->nullable();

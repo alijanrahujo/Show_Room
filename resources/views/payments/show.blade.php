@@ -62,7 +62,7 @@
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Paid Amount</th>
-                                                        <td>{{$payment->recived ?? '0'}}</td>
+                                                        <td>{{$payment->received ?? '0'}}</td>
                                                     </tr>
                                                     <tr class="h5">
                                                         <th>Remaining Amount </th>
