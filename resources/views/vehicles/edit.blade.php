@@ -71,7 +71,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('tax', 'Purchase Tax(%) *') !!}
-                                    {!! Form::number('tax', $vehicle->tax, ['class' => 'form-control', 'placeholder' => 'Tax', 'id' => 'tax']) !!}
+                                    {!! Form::number('tax', $vehicle->purchase_tax, ['class' => 'form-control', 'placeholder' => 'Tax', 'id' => 'tax']) !!}
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                             </div>

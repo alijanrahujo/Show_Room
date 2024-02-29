@@ -30,7 +30,8 @@ use App\Http\Controllers\Admin\SaleUseController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
+    //return view('welcome');
 });
 
 Route::middleware([

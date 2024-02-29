@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('chassis');
             $table->string('model');
             $table->string('color');
-            $table->string('sale_amount');
+            $table->string('sale_price');
             $table->string('sale_tax');
             $table->string('total');
             $table->string('guarantor_name')->nullable();

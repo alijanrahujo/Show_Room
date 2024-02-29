@@ -180,10 +180,16 @@
                         <a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> Lock
                             screen</a>
                         <div class="dropdown-divider mb-0"></div>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i class="ti-power-off text-muted mr-2"></i> Logout
-                        </a>
+
+                         <!-- item-->
+                         <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                                <i class="ti-power-off text-muted mr-2"></i> Logout
+                            </a>
+                        </form>
                     </div>
                 </li>
             </ul><!--end topbar-nav-->
