@@ -113,15 +113,15 @@
                                                     <div class="file-box-content">
                                                         <table class="table table-striped-columns">
                                                             <tr class="h5">
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Name</th>
-                                                                <td>{{$purchase->customer->customer_name??'Not Available'}}</td>
+                                                                <th>{{($purchase->purchaseable->customer_name ?? '')?'Customer':'Dealer'}} Name</th>
+                                                                <td>{{$purchase->customer->customer_name ?? 'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Phone</th>
+                                                                <th>{{($purchase->purchaseable->customer_name ?? '')?'Customer':'Dealer'}} Phone</th>
                                                                 <td>{{$purchase->customer->phone??'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
-                                                                <th>{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}} Cnic</th>
+                                                                <th>{{($purchase->purchaseable->customer_name ?? '')?'Customer':'Dealer'}} Cnic</th>
                                                                 <td>{{$purchase->customer->cnic??'Not Available'}}</td>
                                                             </tr>
                                                             <tr>
