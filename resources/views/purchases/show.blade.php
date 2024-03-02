@@ -27,7 +27,7 @@
                         <div class="card-body">
                             <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
                                 <li class="nav-item"><a class="nav-link active" id="general_detail_tab" data-toggle="pill" href="#general_detail">Purchase Detail</a></li>
-                                <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill" href="#activity_detail">{{($purchase->purchaseable->customer_name)?'Customer':'Dealer'}}</a></li>
+                                <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill" href="#activity_detail">{{($purchase->purchaseable->customer_name ?? '')?'Customer':'Dealer'}}</a></li>
                                 <li class="nav-item"><a class="nav-link" id="portfolio_detail_tab" data-toggle="pill" href="#portfolio_detail">Payment Detail</a></li>
                             </ul>
                         </div>
