@@ -52,8 +52,8 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td> {{ $purchase->date }} </td>
-                                            <td> {{ $purchase->purchaseable->customer_name }} </td>
-                                            <td> {{ $purchase->purchaseDetail()->count() }} </td>
+                                            <td> {{ $purchase->purchaseable->customer_name ?? '' }} </td>
+                                            <td> {{ $purchase->purchaseDetail()->count() ?? 0 }} </td>
                                             <td> {{ $purchase->total_amount }} </td>
                                             <td> {{ status($purchase->status) }} </td>
                                             <td>

@@ -51,8 +51,8 @@
                                     @foreach ($sales as $sale)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td> {{ $sale->customer->customer_name }} </td>
-                                            <td> {{ $sale->saleDetail()->count() }} </td>
+                                            <td> {{ $sale->customer->customer_name ?? '' }} </td>
+                                            <td> {{ $sale->saleDetail()->count() ?? 0 }} </td>
                                             <td> {{ $sale->amount }} </td>
                                             <td> {{ $sale->installment == 'Yes' ? $sale->months . ' Month' : 'No' }} </td>
                                             <td> {{ $sale->date }} </td>
