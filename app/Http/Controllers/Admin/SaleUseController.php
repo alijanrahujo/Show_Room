@@ -38,7 +38,8 @@ class SaleUseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $sales = Sale::find($id)->with('saleDetail','payments')->where('id', $id)->first();
+        return view('sale-use.show', compact('sales'));
     }
 
     /**

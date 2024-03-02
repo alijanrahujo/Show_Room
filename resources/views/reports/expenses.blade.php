@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Purchase Report')
+@section('title', 'Expenses Report')
 
 @section('content')
     <div class="container-fluid">
@@ -10,8 +10,8 @@
                     <div class="float-right">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Expenses Report</a></li>
+                            <li class="breadcrumb-item active">Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -25,87 +25,57 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.PurchaseNew',
+                            'route' => 'reports.Expenses',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
                             'enctype' => 'multipart/form-data',
                         ]) !!}
-                        <div class="row" id="dynamic-fields">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {!! Form::label('type', 'Purchase Type') !!}
-                                    {!! Form::select('type', ['new' => 'Purchase New', 'use' => 'Purchase Used'], null, [
-                                        'placeholder' => 'Select',
-                                        'class' => 'form-control',
-                                        'id' => 'status',
-                                    ]) !!}
-                                    @error('type')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="from_date">From:</label>
+                                <input type="date" id="from_date" name="from_date" class="form-control"
+                                    placeholder="From">
                             </div>
-                            <div class="col-md-6 mt-4">
-                                <div class="form-group">
-                                    <input type="hidden" name="table" value="purchase">
-                                    {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
-                                </div>
+                            <div class="col-md-3">
+                                <label for="to_date">To:</label>
+                                <input type="date" id="to_date" name="to_date" class="form-control" placeholder="To">
+                            </div>
+                            <div class="col-md-3 mt-4">
+                                <button type="submit" class="btn btn-primary">Report</button>
                             </div>
                         </div>
                         {!! Form::close() !!}
                     </div>
                 </div>
-            </div>
-        </div> <!-- end col -->
-
-        @if (isset($data))
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+        @if (isset($expenses))
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card">
+                    <div class="card mt-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="datatable-buttons"
-                                    class="table table-striped table-bordered dt-responsive nowrap"
-                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
-                                            <th>Engine No</th>
-                                            <th>Chassis No</th>
-                                            <th>Model</th>
-                                            <th>Color</th>
-                                            <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?>
-                                            <?php
-                                        }
-                                        else {
-                                            ?><th>Horse POwer</th>
-                                            <?php
-                                        }
-                                        ?>
-                                            <th>Type</th>
+                                            <th>ID</th>
+                                            <th>Title</th>
+                                            <th>Name</th>
+                                            <th>Amount</th>
+                                            <th>Description</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $val)
+                                        @foreach ($expenses as $expense)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
-                                                <td>{{ $val->model }}</td>
-                                                <td>{{ $val->color }}</td>
-                                                <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?><?php
-                                        }
-                                        else {
-                                            ?>
-                                                <td>{{ $val->horse_power }}</td>
-                                                <?php
-                                    }
-                                        ?>
-                                                <td>{{ $val->type }}</td>
+                                                <td> {{ $expense->title }} </td>
+                                                <td> {{ $expense->name }} </td>
+                                                <td> {{ $expense->amount }} </td>
+                                                <td> {{ $expense->description }} </td>
+                                                <td> {{ status($expense->status) }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -114,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div> <!-- end row -->
+            </div>
         @endif
 
     </div><!-- container -->

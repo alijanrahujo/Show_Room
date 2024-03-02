@@ -25,14 +25,43 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('eng', 'Engine Number *') !!}
-                                {!! Form::select('vehicle', $vehicles, null, [
-                                    'wire:model.live' => 'vehicle',
+                                {!! Form::label('Vehicle Type', 'Vehicle Type *') !!}
+                                {!! Form::select('vehicle_id', $vehicles, null, [
+                                    'wire:model.live' => 'vehicle_id',
                                     'placeholder' => 'Select',
                                     'class' => 'form-control',
-                                    'id' => 'status',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('vehicle_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('Vehicle', 'Vehicle *') !!}
+                                {!! Form::select('purchase_id', $purchases, null, [
+                                    'wire:model.live' => 'purchase_id',
+                                    'placeholder' => 'Select',
+                                    'class' => 'form-control',
+                                ]) !!}
+                                @error('purchase_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('engine', 'Engine Number *') !!}
+                                {!! Form::text('engine', null, [
+                                    'wire:model' => 'engine',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Engine Number',
+                                ]) !!}
+                                @error('engine')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -41,10 +70,11 @@
                                 {!! Form::text('title', null, [
                                     'wire:model' => 'title',
                                     'class' => 'form-control',
-                                    'id' => 'title',
                                     'placeholder' => 'Example CD 70 CD 125',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -56,10 +86,11 @@
                                 {!! Form::text('chassis', null, [
                                     'wire:model' => 'chassis',
                                     'class' => 'form-control',
-                                    'id' => 'chassis',
                                     'placeholder' => 'Chassis Number',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('chassis')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -71,7 +102,9 @@
                                     'id' => 'model',
                                     'placeholder' => 'Model',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('model')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -83,22 +116,24 @@
                                 {!! Form::text('color', null, [
                                     'wire:model' => 'color',
                                     'class' => 'form-control',
-                                    'id' => 'color',
                                     'placeholder' => 'Color',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('color')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('power', 'Horse Power *') !!}
-                                {!! Form::text('power', null, [
-                                    'wire:model' => 'power',
+                                {!! Form::label('horse_power', 'Horse Power *') !!}
+                                {!! Form::text('horse_power', null, [
+                                    'wire:model' => 'horse_power',
                                     'class' => 'form-control',
-                                    'id' => 'power',
-                                    'placeholder' => 'power',
+                                    'placeholder' => 'Horse Power',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('horse_power')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -106,26 +141,28 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('tc-no', 'TC No *') !!}
-                                {!! Form::text('tc', null, [
-                                    'wire:model' => 'tcno',
+                                {!! Form::label('tc_no', 'TC No *') !!}
+                                {!! Form::text('tc_no', null, [
+                                    'wire:model' => 'tc_no',
                                     'class' => 'form-control',
-                                    'id' => 'tc-no',
                                     'placeholder' => 'TC No',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('tc_no')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('register', 'Register No *') !!}
-                                {!! Form::text('register', null, [
-                                    'wire:model' => 'register',
+                                {!! Form::label('register_no', 'Register No *') !!}
+                                {!! Form::text('register_no', null, [
+                                    'wire:model' => 'register_no',
                                     'class' => 'form-control',
-                                    'id' => 'register',
                                     'placeholder' => 'Register No',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('register_no')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -134,34 +171,122 @@
             </div>
             <div class="card">
                 <div class="card-body">
-
-
-
-                    <h5 class="card-title">Extra Detail</h5>
-
+                    <h4 class="card-title">Owner Detail</h4>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('purchaser', 'Purchaser Name *') !!}
-                                {!! Form::text('purchaser', null, [
-                                    'wire:model' => 'purchase_name',
+                                {!! Form::label('owner_cnic', 'Owner CNIC *') !!}
+                                {!! Form::text('owner_cnic', null, [
+                                    'wire:model.blur' => 'owner_cnic',
                                     'class' => 'form-control',
-                                    'id' => 'purchaser',
-                                    'placeholder' => 'purchaser Name',
+                                    'placeholder' => 'Owner CNIC',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('owner_cnic')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('owner_name', 'Owner Name *') !!}
+                                {!! Form::text('owner_name', null, [
+                                    'wire:model' => 'owner_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Owner Name',
+                                ]) !!}
+                                @error('owner_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('owner_father', 'Owner Father *') !!}
+                                {!! Form::text('owner_father', null, [
+                                    'wire:model' => 'owner_father',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Owner Father',
+                                ]) !!}
+                                @error('owner_father')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('owner_address', 'Owner Address *') !!}
+                                {!! Form::text('owner_address', null, [
+                                    'wire:model' => 'owner_address',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Owner Address',
+                                ]) !!}
+                                @error('owner_address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="card-title">Buyer Detail</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('cnic', 'Buyer CNIC') !!}
+                                {!! Form::text('cnic', null, [
+                                    'wire:model.blur' => 'cnic',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Buyer CNIC',
+                                ]) !!}
+                                @error('cnic')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('s/o', 'Son Of *') !!}
-                                {!! Form::text('s/o', null, [
-                                    'wire:model' => 'son1',
+                                {!! Form::label('phone', 'Phone Number *') !!}
+                                {!! Form::text('phone', null, [
+                                    'wire:model' => 'phone',
+                                    // 'wire:blur' => 'updatephone',
                                     'class' => 'form-control',
-                                    'id' => 'purchaser',
-                                    'placeholder' => 'Son Of',
+                                    'placeholder' => 'Phone Number',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('customer_name', 'Buyer Name *') !!}
+                                {!! Form::text('customer_name', null, [
+                                    'wire:model' => 'customer_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Buyer Name',
+                                ]) !!}
+                                @error('customer_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('father_name', 'Father Name *') !!}
+                                {!! Form::text('father_name', null, [
+                                    'wire:model' => 'father_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Father Name',
+                                ]) !!}
+                                @error('father_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -169,120 +294,46 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                {!! Form::label('address', 'Address *') !!}
-                                {!! Form::text('address', null, [
-                                    'wire:model' => 'address1',
-                                    'class' => 'form-control',
-                                    'id' => 'address',
-                                    'placeholder' => 'Address',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('guarantor', 'Guarantor Name *') !!}
-                                {!! Form::text('guarantor', null, [
-                                    'wire:model' => 'guarantor_name',
-                                    'class' => 'form-control',
-                                    'id' => 'owner',
-                                    'placeholder' => 'Guarantor Name',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('s/o', 'Son Of *') !!}
-                                {!! Form::text('s/o', null, [
-                                    'wire:model' => 'son3',
-                                    'class' => 'form-control',
-                                    'id' => 's/o',
-                                    'placeholder' => 'Son Of',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('owner', 'Owner Name *') !!}
-                                {!! Form::text('owner', null, [
-                                    'wire:model' => 'owner_name',
-                                    'class' => 'form-control',
-                                    'id' => 'owner',
-                                    'placeholder' => 'Owner Name',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('reference', 'Previouse Reference *') !!}
-                                {!! Form::text('reference', null, [
-                                    'wire:model' => 'refrence',
-                                    'class' => 'form-control',
-                                    'id' => 'reference',
-                                    'placeholder' => 'Previouse Reference',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('saler', 'Saler Name *') !!}
-                                {!! Form::text('saler', null, [
-                                    'wire:model' => 'saler',
-                                    'class' => 'form-control',
-                                    'id' => 'saler',
-                                    'placeholder' => 'Saler Name',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('s/o', 'Son Of *') !!}
-                                {!! Form::text('s/o', null, [
-                                    'wire:model' => 's/o',
-                                    'class' => 'form-control',
-                                    'id' => 'purchaser',
-                                    'placeholder' => 'Son Of',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('phone', 'phone *') !!}
-                                {!! Form::text('phone', null, [
-                                    'wire:model' => 'phone',
-                                    'class' => 'form-control',
-                                    'id' => 'purchaser',
-                                    'placeholder' => 'Phone',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('address', 'Address *') !!}
+                                {!! Form::label('address', 'Buyer Address') !!}
                                 {!! Form::text('address', null, [
                                     'wire:model' => 'address',
                                     'class' => 'form-control',
-                                    'id' => 'address',
-                                    'placeholder' => 'Address',
+                                    'placeholder' => 'Buyer Address',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Guarantor Details</h4>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('guarantor_name', 'Guarantor Name *') !!}
+                                {!! Form::text('guarantor_name', null, [
+                                    'wire:model' => 'guarantor_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Guarantor Name',
+                                ]) !!}
+                                @error('guarantor_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('guarantor_father', 'Guarantor Father *') !!}
+                                {!! Form::text('guarantor_father', null, [
+                                    'wire:model' => 'guarantor_father',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Guarantor Father',
+                                ]) !!}
+                                @error('guarantor_father')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -292,58 +343,79 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Payment Detail</h5>
-
                     <div class="row">
-                        <div class="col-md-6">
-                            {!! Form::label('Date', 'Date *') !!}
-                            {!! Form::date('date', \Carbon\Carbon::now()->format('Y-m-d'), [
-                                'class' => 'form-control',
-                                'min' => \Carbon\Carbon::now()->format('Y-m-d'),
-                                'id' => 'Date',
-                                'placeholder' => 'Date Amount',
-                            ]) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! Form::label('Time', 'Time *') !!}
-                            {!! Form::time('time', \Carbon\Carbon::now()->format('H:i'), [
-                                'class' => 'form-control',
-                                'id' => 'Time',
-                                'placeholder' => 'Select Time',
-                            ]) !!}
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('total', 'Total Value *') !!}
+                                {!! Form::label('total', 'Total Amount *') !!}
                                 {!! Form::number('total', null, [
                                     'wire:model' => 'total',
                                     'class' => 'form-control',
-                                    'min' => '10000',
-                                    'id' => 'total',
-                                    'placeholder' => 'Total Value',
+                                    'placeholder' => 'Total Amount',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('total')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
-                        <div class="col-md-6">
+
+                        <div class="col-md-4">
                             <div class="form-group">
-                                {!! Form::label('advance', 'Advance *') !!}
-                                {!! Form::number('Advance', null, [
-                                    'wire:model' => 'paid',
+                                {!! Form::label('installment', 'installment *') !!}
+                                {!! Form::select('installment', ['Yes' => 'Yes', 'No' => 'No'], null, [
+                                    'wire:model.live' => 'installment',
+                                    'placeholder' => 'Select',
                                     'class' => 'form-control',
-                                    'min' => '10000',
-                                    'id' => 'advance',
-                                    'placeholder' => 'Advance Amount',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('installment')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
+                        </div>
+                        @if ($installment == 'Yes')
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {!! Form::label('months', 'Months *') !!}
+                                    {!! Form::number('months', null, [
+                                        'wire:model' => 'months',
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Months',
+                                    ]) !!}
+                                    @error('months')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! Form::label('date', 'Date *') !!}
+                            {!! Form::date('date', null, [
+                                'wire:model' => 'date',
+                                'class' => 'form-control',
+                                'placeholder' => 'Select Date',
+                            ]) !!}
+                            @error('date')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            {!! Form::label('time', 'Time *') !!}
+                            {!! Form::time('time', null, [
+                                'wire:model' => 'time',
+                                'class' => 'form-control',
+                                'placeholder' => 'Select Time',
+                            ]) !!}
+                            @error('time')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>
                     </div>

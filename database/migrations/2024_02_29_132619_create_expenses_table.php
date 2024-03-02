@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('expenissoins', function (Blueprint $table) {
+        Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->string('expenssion');
-            $table->string('about');
-            $table->integer('income');
+            $table->string('title');
+            $table->string('description');
+            $table->integer('amount');
             $table->string('name');
+            $table->date('date');
             $table->integer('status')->default(1);
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('expenissoins');
+        Schema::dropIfExists('expenses');
     }
 };

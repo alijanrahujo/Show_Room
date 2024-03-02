@@ -18,9 +18,12 @@ if (!function_exists('status')) {
 			return "Unpaid";
 		}
         else if ($val == 5) {
-			return "Paid";
+			return "Partial Paid";
 		}
         else if ($val == 6) {
+			return "Paid";
+		}
+        else if ($val == 7) {
 			return "Complete";
 		}
 	}

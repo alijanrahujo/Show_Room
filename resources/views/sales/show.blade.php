@@ -221,10 +221,20 @@
                                                             </div>
                                                         </div>
                                                         <div class="row">
-                                                            <div class="col-md-12">
+                                                            <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     {!! Form::label('date', 'Date *') !!}
                                                                     {!! Form::date('date', null, ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    {!! Form::label('type', 'Type *') !!}
+                                                                    {!! Form::select('type', ['Cash' => 'Cash', 'Online' => 'online'], null, [
+                                                                        'placeholder' => 'Select',
+                                                                        'class' => 'form-control',
+                                                                        'id' => 'type',
+                                                                    ]) !!}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -243,10 +253,12 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12 text-center">
-                                                                <img id="captured_image" src="" alt="Captured Image">
+                                                                <img id="captured_image" src=""
+                                                                    alt="Captured Image">
                                                                 <input type="hidden" name="image" class="image-tag">
                                                                 <br>
-                                                                <button type="button" class="btn btn-success my-4" data-toggle="modal" data-target="#imageModal">
+                                                                <button type="button" class="btn btn-success my-4"
+                                                                    data-toggle="modal" data-target="#imageModal">
                                                                     Take Picture
                                                                 </button>
                                                             </div>
@@ -267,8 +279,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
-                                            aria-hidden="true">
+                                        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="imageModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-md" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-body">
@@ -276,13 +288,14 @@
                                                             <div class="col-md-12 text-center">
                                                                 <div class="m-auto" id="my_camera"></div>
                                                                 <br />
-                                                                <input type=button value="Take Snapshot" onClick="take_snapshot()"
-                                                                    class="btn btn-primary">
+                                                                <input type=button value="Take Snapshot"
+                                                                    onClick="take_snapshot()" class="btn btn-primary">
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,6 +303,8 @@
                                         <table class="table table-striped-columns">
                                             <thead>
                                                 <tr>
+                                                    <th>Date</th>
+                                                    <th>Type</th>
                                                     <th>Total Amount</th>
                                                     <th>Paid Amount</th>
                                                     <th>Pending Amount</th>
@@ -299,10 +314,12 @@
                                             <tbody>
                                                 @foreach ($sales->payments as $payment)
                                                     <tr>
+                                                        <td>{{ $payment->date }}</td>
+                                                        <td>{{ $payment->type }}</td>
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>{{ $payment->status }}</td>
+                                                        <td>{{ status($payment->status) }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -328,12 +345,13 @@
         type="text/css" />
 
     <style>
-        #captured_image
-        {
+        #captured_image {
             width: 100%;
         }
+
         .modal-body {
-            max-height: calc(100vh - 200px); /* Adjust height as needed */
+            max-height: calc(100vh - 200px);
+            /* Adjust height as needed */
             overflow-y: auto;
         }
 
@@ -344,20 +362,23 @@
 
         /* Style the custom scrollbar */
         .modal-body {
-            scrollbar-width: thin; /* "auto" or "thin" for Firefox */
-            scrollbar-color: #888888 #f0f0f0; /* thumb color and track color */
+            scrollbar-width: thin;
+            /* "auto" or "thin" for Firefox */
+            scrollbar-color: #888888 #f0f0f0;
+            /* thumb color and track color */
         }
 
         /* Style the thumb of the custom scrollbar */
         .modal-body::-webkit-scrollbar-thumb {
-            background-color: #888888; /* color of the scrollbar thumb */
+            background-color: #888888;
+            /* color of the scrollbar thumb */
         }
 
         /* Style the track of the custom scrollbar */
         .modal-body::-webkit-scrollbar-track {
-            background-color: #f0f0f0; /* color of the scrollbar track */
+            background-color: #f0f0f0;
+            /* color of the scrollbar track */
         }
-
     </style>
 @endsection
 @section('script')

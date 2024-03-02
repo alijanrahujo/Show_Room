@@ -72,7 +72,7 @@ class SaleCreate extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id])->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' =>'New'])->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
         $this->updateTotal();
     }

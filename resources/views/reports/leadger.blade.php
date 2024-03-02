@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Purchase Report')
+@section('title', 'Leadger Report')
 
 @section('content')
     <div class="container-fluid">
@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item active">Leadger Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -34,12 +34,17 @@
                         <div class="row" id="dynamic-fields">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {!! Form::label('type', 'Purchase Type') !!}
-                                    {!! Form::select('type', ['new' => 'Purchase New', 'use' => 'Purchase Used'], null, [
-                                        'placeholder' => 'Select',
-                                        'class' => 'form-control',
-                                        'id' => 'status',
-                                    ]) !!}
+                                    {!! Form::label('customer', 'Customer') !!}
+                                    {!! Form::select(
+                                        'customer',
+                                        $customers,
+                                        ['all' => 'all'],
+                                        [
+                                            'placeholder' => 'Select',
+                                            'class' => 'form-control',
+                                            'id' => 'status',
+                                        ],
+                                    ) !!}
                                     @error('type')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -58,7 +63,7 @@
             </div>
         </div> <!-- end col -->
 
-        @if (isset($data))
+        @if (isset($ledgers))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -70,44 +75,28 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Engine No</th>
-                                            <th>Chassis No</th>
-                                            <th>Model</th>
-                                            <th>Color</th>
-                                            <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?>
-                                            <?php
-                                        }
-                                        else {
-                                            ?><th>Horse POwer</th>
-                                            <?php
-                                        }
-                                        ?>
-                                            <th>Type</th>
+                                            <th>Date</th>
+                                            <th>Account Holder</th>
+                                            <th>Particular</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Balance</th>
                                         </tr>
                                     </thead>
+
+
                                     <tbody>
-                                        @foreach ($data as $val)
+                                        @foreach ($ledgers as $leadger)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
-                                                <td>{{ $val->model }}</td>
-                                                <td>{{ $val->color }}</td>
-                                                <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?><?php
-                                        }
-                                        else {
-                                            ?>
-                                                <td>{{ $val->horse_power }}</td>
-                                                <?php
-                                    }
-                                        ?>
-                                                <td>{{ $val->type }}</td>
+                                                <td> {{ $leadger->date }} </td>
+                                                <td> {{ $leadger->account_holder }} </td>
+                                                <td> {{ $leadger->particulars }} </td>
+                                                <td> {{ $leadger->debit }} </td>
+                                                <td> {{ $leadger->credit }} </td>
                                             </tr>
                                         @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

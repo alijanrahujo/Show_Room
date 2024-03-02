@@ -181,11 +181,12 @@
                             screen</a>
                         <div class="dropdown-divider mb-0"></div>
 
-                         <!-- item-->
-                         <form method="POST" action="{{ route('logout') }}">
+                        <!-- item-->
+                        <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <a class="dropdown-item notify-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item notify-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
                                 this.closest('form').submit();">
                                 <i class="ti-power-off text-muted mr-2"></i> Logout
                             </a>
@@ -222,6 +223,10 @@
             <li class="{{ Route::currentRouteName() == 'customers.index' ? 'mm-active' : '' }}">
                 <a href="{{ Route('customers.index') }}"><i class="fas fa-users"></i><span>Customer</span></a>
             </li>
+            <li class="{{ Route::currentRouteName() == 'dailyexp.index' ? 'mm-active' : '' }}">
+                <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
+            </li>
+
 
             <li>
                 <a href="javascript: void(0);"><i class="fa fa-shopping-cart"></i><span>Purchase/Sell</span><span
@@ -263,15 +268,20 @@
                         <a href="{{ route('reports.SaleRecipt') }}"><i class="fas fa-file"></i>
                             <span>Sale Invoice</span></a>
                     </li>
+                    <li class="{{ Route::currentRouteName() == 'reports.Expenses' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.Expenses') }}"><i class="fas fa-file"></i>
+                            <span>Expenses Report</span></a>
+                        </a>
+                    </li>
 
                     <li class="{{ Route::currentRouteName() == 'reports.leadger' ? 'mm-active' : '' }}">
                         <a href="{{ route('reports.leadger') }}"><i class="fas fa-file"></i>
                             <span>Leadger Report</span></a>
                     </li>
 
-                    <li class="{{ Route::currentRouteName() == 'reports.Expences' ? 'mm-active' : '' }}">
-                        <a href="{{ route('reports.Expences') }}"><i class="fas fa-file"></i>
-                            <span>Expence Report</span></a>
+                    <li class="{{ Route::currentRouteName() == 'reports.CustomerReport' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.CustomerReport') }}"><i class="fas fa-file"></i>
+                            <span>Customer Report</span></a>
                     </li>
 
                     <li class="{{ Route::currentRouteName() == 'reports.PurchaseNew' ? 'mm-active' : '' }}">

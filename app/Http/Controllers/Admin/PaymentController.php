@@ -60,6 +60,7 @@ class PaymentController extends Controller
         $sale = Sale::find($request->sale_id);
         $sale->payments()->create([
             'date'=> $request->date,
+            'type'=> $request->type,
             'total'=> $sale->amount,
             'pending'=> $request->pending-$request->paid,
             'received'=> $request->paid,

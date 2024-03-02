@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Purchase Report')
+@section('title', 'Sale Report')
 
 @section('content')
     <div class="container-fluid">
@@ -25,7 +25,7 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.show',
+                            'route' => 'reports.SaleNew',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
@@ -45,21 +45,76 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 mt-4">
                                 <div class="form-group">
-                                    <input type="hidden" name="table" value="sale">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
                         </div>
-
                         {!! Form::close() !!}
                     </div>
                 </div>
-            </div> <!-- end col -->
-        </div> <!-- end row -->
+            </div>
+        </div> <!-- end col -->
+
+        @if (isset($data))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-buttons"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Engine No</th>
+                                            <th>Chassis No</th>
+                                            <th>Model</th>
+                                            <th>Color</th>
+                                            <?php
+                                        if (!isset($data[0]['horse_power'])) {
+                                            ?>
+                                            <?php
+                                        }
+                                        else {
+                                            ?><th>Horse POwer</th>
+                                            <?php
+                                        }
+                                        ?>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $val)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $val->engine }}</td>
+                                                <td>{{ $val->chassis }}</td>
+                                                <td>{{ $val->model }}</td>
+                                                <td>{{ $val->color }}</td>
+                                                <?php
+                                        if (!isset($data[0]['horse_power'])) {
+                                            ?><?php
+                                        }
+                                        else {
+                                            ?>
+                                                <td>{{ $val->horse_power }}</td>
+                                                <?php
+                                    }
+                                        ?>
+                                                <td>{{ $val->type }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        @endif
 
     </div><!-- container -->
 @endsection

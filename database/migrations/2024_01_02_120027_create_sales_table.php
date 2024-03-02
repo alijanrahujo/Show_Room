@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->date('date');
+            $table->string('time')->nullable();
             $table->string("type")->nullable();
             $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
             $table->string("amount")->nullable();
