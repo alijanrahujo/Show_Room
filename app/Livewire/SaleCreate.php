@@ -94,8 +94,9 @@ class SaleCreate extends Component
             $this->reg_fee = ($this->registration == 'Yes') ? $this->vehicle_type->reg_fee : 0;
             $this->total = ($this->sale_tax) ? $this->sale_price + ($this->sale_price / 100 * $this->sale_tax) : $this->sale_price;
             $this->total += ($this->fitting == 'Yes') ? $this->fitting_price : 0;
+            $this->total += ($this->registration == 'Yes') ? $this->reg_fee : 0;
         } else {
-            $this->reset(['sale_price', 'sale_tax', 'reg_fee', 'total', 'fitting_price']);
+            $this->reset(['sale_price', 'sale_tax', 'reg_fee', 'total', 'fitting_price', 'reg_fee']);
         }
     }
 

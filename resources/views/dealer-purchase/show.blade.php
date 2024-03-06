@@ -90,11 +90,11 @@
                                                                                     class="badge badge-{{ $purchase->status == 2 ? 'success' : 'danger' }} ">{{ status($purchase->status) }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <a href="{{ route('invoices', $purchase->id) }}"
+                                                                                {{-- <a href="{{ route('invoices', $purchase->id) }}"
                                                                                     class="btn btn-sm btn-primary">
                                                                                     <i class="fas fa-file-invoice"
                                                                                         aria-hidden="true"></i>
-                                                                                </a>
+                                                                                </a> --}}
 
                                                                                 <a href="{{ Route('dealer-purchase.edit', $purchase->id) }}"
                                                                                     class="btn btn-sm btn-warning">

@@ -175,10 +175,6 @@
                     </div>
                     <div class="invoice-head-middle-right text-start" style="margin-top:10px">
                         </br>
-                        <p>
-                            <span class="text-bold">Rupees: 1000</span>
-                        </p>
-
                     </div>
                     <div class="invoice-foot text-center">
                         <div class="invoice-btns">
