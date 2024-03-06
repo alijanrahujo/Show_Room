@@ -79,7 +79,7 @@
                                             <?php
                                         }
                                         else {
-                                            ?><th>Horse POwer</th>
+                                            ?><th>Horse Power</th>
                                             <?php
                                         }
                                         ?>

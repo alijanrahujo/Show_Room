@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Installment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Sale extends Model
 {
@@ -35,5 +36,10 @@ class Sale extends Model
     public function saleDetail()
     {
         return $this->hasMany(SaleDetail::class, 'sale_id', 'id');
+    }
+
+    public function installments()
+    {
+        return $this->morphMany(Installment::class, 'installmentable');
     }
 }

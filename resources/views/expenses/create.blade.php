@@ -41,7 +41,7 @@
                         ]) !!}
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('title', 'Title *') !!}
                                     {!! Form::text('title', null, [
@@ -52,34 +52,14 @@
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {!! Form::label('description', 'Description *') !!}
-                                    {!! Form::text('description', null, ['class' => 'form-control', 'id' => 'description', 'placeholder' => 'Description']) !!}
-                                    <small id="emailHelp" class="form-text text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('amount', 'Amount *') !!}
                                     {!! Form::text('amount', null, ['class' => 'form-control', 'id' => 'amount', 'placeholder' => 'Amount']) !!}
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {!! Form::label('name', 'Name *') !!}
-                                    {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Name']) !!}
-                                    <small id="emailHelp" class="form-text text-muted"></small>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('date', 'Date') !!}
                                     {!! Form::date('date', null, [
@@ -90,7 +70,7 @@
                                     <small id="emailHelp" class="form-text text-muted"></small>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('status', 'Status') !!}
                                     {!! Form::select('status', ['1' => 'Active', '0' => 'Deactive'], '1', [
@@ -99,7 +79,17 @@
                                         'id' => 'status',
                                     ]) !!}
                                 </div>
-                            </div>
+                            </div> --}}
+                        </div>
+
+                        <div class="row">
+                            {{-- <div class="col-md-6">
+                                <div class="form-group">
+                                    {!! Form::label('name', 'Name *') !!}
+                                    {!! Form::text('name', null, ['class' => 'form-control', 'id' => 'name', 'placeholder' => 'Name']) !!}
+                                    <small id="emailHelp" class="form-text text-muted"></small>
+                                </div>
+                            </div> --}}
                         </div>
 
 

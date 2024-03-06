@@ -27,4 +27,9 @@ class Customer extends Model
     {
         return $this->morphMany(Purchase::class, 'purchaseable');
     }
+
+    public function sale()
+    {
+        return $this->hasOne(Sale::class, 'customer_id', 'id');
+    }
 }

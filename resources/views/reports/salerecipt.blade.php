@@ -46,6 +46,7 @@
                                     @foreach ($customers as $customer)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $customer->customer_name }}</td>
                                         </tr>
                                     @endforeach
 

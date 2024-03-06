@@ -25,32 +25,43 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.PurchaseNew',
+                            'route' => 'reports.leadger',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
                             'enctype' => 'multipart/form-data',
                         ]) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    {!! Form::label('customer', 'Customer') !!}
-                                    {!! Form::select(
-                                        'customer',
-                                        $customers,
-                                        ['all' => 'all'],
-                                        [
-                                            'placeholder' => 'Select',
-                                            'class' => 'form-control',
-                                            'id' => 'status',
-                                        ],
-                                    ) !!}
-                                    @error('type')
+                                    {!! Form::label('customer_id', 'Customer') !!}
+                                    {!! Form::select('customer_id',$customers,null,['placeholder' => 'Select','class' => 'form-control']) !!}
+                                    @error('customer_id')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-4">
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('from', 'From date') !!}
+                                    {!! Form::date('from', null, ['class' => 'form-control', 'placeholder' => 'Enter From Date']) !!}
+                                    @error('from')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('to', 'To date') !!}
+                                    {!! Form::date('to', null, ['class' => 'form-control', 'placeholder' => 'Enter To Date']) !!}
+                                    @error('to')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-4">
                                 <div class="form-group">
                                     <input type="hidden" name="table" value="purchase">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
@@ -63,7 +74,7 @@
             </div>
         </div> <!-- end col -->
 
-        @if (isset($ledgers))
+        @if (isset($combinedData))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -74,26 +85,21 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Date</th>
-                                            <th>Account Holder</th>
                                             <th>Particular</th>
                                             <th>Debit</th>
                                             <th>Credit</th>
                                             <th>Balance</th>
                                         </tr>
                                     </thead>
-
-
                                     <tbody>
-                                        @foreach ($ledgers as $leadger)
+                                        @foreach ($combinedData as $leadger)
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td> {{ $leadger->date }} </td>
-                                                <td> {{ $leadger->account_holder }} </td>
-                                                <td> {{ $leadger->particulars }} </td>
-                                                <td> {{ $leadger->debit }} </td>
-                                                <td> {{ $leadger->credit }} </td>
+                                                <td> {{ $leadger['date'] }} </td>
+                                                <td> {{ $leadger['particular'] }} </td>
+                                                <td> {{ $leadger['debit'] }} </td>
+                                                <td> {{ $leadger['credit'] }} </td>
+                                                <td> {{ $leadger['balance'] }} </td>
                                             </tr>
                                         @endforeach
 

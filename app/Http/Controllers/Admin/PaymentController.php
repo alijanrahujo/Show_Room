@@ -65,7 +65,7 @@ class PaymentController extends Controller
             'pending'=> $request->pending-$request->paid,
             'received'=> $request->paid,
             'description'=> $request->description,
-            'image'=> $file,
+            'image'=> str_replace('public/','',$file),
         ]);
 
         DB::commit();

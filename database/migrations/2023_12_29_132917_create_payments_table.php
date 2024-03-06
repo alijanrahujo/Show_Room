@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->date('date')->nullable();
+            $table->string('type')->default('Cash');
             $table->integer('total');
             $table->integer('received')->nullable();
             $table->integer('pending')->nullable();

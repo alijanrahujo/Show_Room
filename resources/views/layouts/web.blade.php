@@ -223,10 +223,6 @@
             <li class="{{ Route::currentRouteName() == 'customers.index' ? 'mm-active' : '' }}">
                 <a href="{{ Route('customers.index') }}"><i class="fas fa-users"></i><span>Customer</span></a>
             </li>
-            <li class="{{ Route::currentRouteName() == 'dailyexp.index' ? 'mm-active' : '' }}">
-                <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
-            </li>
-
 
             <li>
                 <a href="javascript: void(0);"><i class="fa fa-shopping-cart"></i><span>Purchase/Sell</span><span
@@ -260,14 +256,19 @@
                 </ul>
             </li>
 
+            <li class="{{ Route::currentRouteName() == 'dailyexp.index' ? 'mm-active' : '' }}">
+                <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
+            </li>
+
+            {{-- Report Section --}}
             <li>
                 <a href="javascript: void(0);"><i class="fas fa-book"></i><span>Reports</span><span
                         class="menu-arrow"></span></a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{ Route::currentRouteName() == 'reports.SaleRecipt' ? 'mm-active' : '' }}">
+                    {{-- <li class="{{ Route::currentRouteName() == 'reports.SaleRecipt' ? 'mm-active' : '' }}">
                         <a href="{{ route('reports.SaleRecipt') }}"><i class="fas fa-file"></i>
                             <span>Sale Invoice</span></a>
-                    </li>
+                    </li> --}}
                     <li class="{{ Route::currentRouteName() == 'reports.Expenses' ? 'mm-active' : '' }}">
                         <a href="{{ route('reports.Expenses') }}"><i class="fas fa-file"></i>
                             <span>Expenses Report</span></a>
@@ -279,8 +280,8 @@
                             <span>Leadger Report</span></a>
                     </li>
 
-                    <li class="{{ Route::currentRouteName() == 'reports.CustomerReport' ? 'mm-active' : '' }}">
-                        <a href="{{ route('reports.CustomerReport') }}"><i class="fas fa-file"></i>
+                    <li class="{{ Route::currentRouteName() == 'reports.Customer' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.Customer') }}"><i class="fas fa-file"></i>
                             <span>Customer Report</span></a>
                     </li>
 
@@ -296,6 +297,7 @@
 
                 </ul>
             </li>
+            {{-- End --}}
 
             <li>
                 <a href="javascript: void(0);"><i class="fas fa-user-tag"></i><span>Manage User</span><span

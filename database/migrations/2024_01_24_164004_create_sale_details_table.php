@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('color');
             $table->string('sale_price');
             $table->string('sale_tax');
+            $table->string('reg_fee')->nullable();
+            $table->string('fitting_price')->nullable();
             $table->string('total');
             $table->string('guarantor_name')->nullable();
             $table->string('guarantor_father')->nullable();

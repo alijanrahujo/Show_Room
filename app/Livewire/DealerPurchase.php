@@ -140,6 +140,15 @@ class DealerPurchase extends Component
                 'type' => 'New',
             ]);
 
+            $purchase->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->total_amount,
+                'received' => $this->total_amount,
+                'pending' => 0,
+                'status' => 6,
+            ]);
+
             foreach ($this->data as $val) {
                 $details = new PurchaseDetail;
                 $details->type = 'New';
@@ -164,6 +173,15 @@ class DealerPurchase extends Component
                 'date' => $this->date,
                 'total_amount' => $this->total_amount,
                 'type' => 'New',
+            ]);
+            $purchase->payments()->delete();
+            $purchase->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->total_amount,
+                'received' => $this->total_amount,
+                'pending' => 0,
+                'status' => 6,
             ]);
 
             $purchase->purchaseDetail()->delete();

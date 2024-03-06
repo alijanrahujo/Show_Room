@@ -21,11 +21,6 @@ return new class extends Migration
             $table->string("installment")->nullable();
             $table->string("months")->nullable();
             $table->string("status")->default(1);
-            // $table->string('title');
-            // $table->string('engine');
-            // $table->string('chassis');
-            // $table->string('model');
-            // $table->string('color');
             $table->timestamps();
         });
     }

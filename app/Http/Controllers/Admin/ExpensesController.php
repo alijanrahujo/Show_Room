@@ -33,18 +33,14 @@ class ExpensesController extends Controller
         //return $request;
         $this->validate($request, [
             'title' => 'required',
-            'description' => 'required',
             'amount' => 'required',
-            'name' => 'required',
-            
+            'date' => 'required',
+
         ]);
         Expenses::create([
             'title' => $request->title,
-            'description' => $request->description,
             'amount' => $request->amount,
-            'name' => $request->name,
             'date' => $request->date,
-            'status' => $request->status
         ]);
         return redirect()->route('dailyexp.index')->with('success', 'Expenses created successfully');
     }
@@ -91,7 +87,4 @@ class ExpensesController extends Controller
         Expenses::find($id)->delete();
         return redirect()->route('dailyexp.index')->with('success', 'Expenses deleted successfully');
     }
-
-    
-
 }

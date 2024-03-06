@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Payment;
 use App\Models\Purchase;
 use App\Models\PurchaseDetail;
 use App\Models\Sale;
@@ -18,7 +19,7 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        $sales = Sale::where('type','New')->with('customer')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('type', 'New')->with('customer')->orderBy('id', 'DESC')->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -33,7 +34,7 @@ class Salescontroller extends Controller
     }
     public function getPurchaseDetails($id)
     {
-        return $id;
+        // return $id;
         // Fetch purchase details based on the provided ID
         $purchase = Purchase::find($id);
 
@@ -83,7 +84,7 @@ class Salescontroller extends Controller
      */
     public function show($id)
     {
-        $sales = Sale::find($id)->with('saleDetail','payments')->where('id', $id)->first();
+        $sales = Sale::find($id)->with('saleDetail', 'payments', 'installments')->where('id', $id)->first();
         // $payments = SalePayment::with('payments', 'saleDetail')->where('id', $id)->get();
         return view('sales.show', compact('sales'));
     }
@@ -125,13 +126,21 @@ class Salescontroller extends Controller
 
     public function receipt($id)
     {
-        $sell = Sale::with('saleDetail','customer')->where('id',$id)->first();
+        $sell = Sale::with('saleDetail', 'customer')->where('id', $id)->first();
         //return $sell;
-        return view('sales.receipt',compact('sell'));
+        return view('sales.receipt', compact('sell'));
     }
+
     public function invoices($id)
     {
-        $sale = SaleDetail::where('id', $id)->with('sale', 'sale.customer')->first();
+        $sale = SaleDetail::where('sale_id', $id)->with('sale', 'sale.customer')->first();
         return view('sales.invoice', compact('sale'));
+    }
+
+    public function paymentreceipt($id)
+    {
+        $payment = Payment::where('id',$id)->with('paymentable')->first();
+        //return $payment;
+        return view('sales.paymentreceipt', compact('payment'));
     }
 }

@@ -9,8 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css" />
 </head>
 
@@ -29,9 +32,11 @@
                             <img src="{{ asset('assets/images/parts.png') }}">
                             <div class="invoice-head-middle-left text-start">
 
-                                <h4 style="transform: rotate(175deg); background-color: brown; border:1px solid black;width:95px; margin-left: -2px; text-align: center;border-radius: 5px;color: brown;">
+                                <h4
+                                    style="transform: rotate(175deg); background-color: brown; border:1px solid black;width:95px; margin-left: -2px; text-align: center;border-radius: 5px;color: brown;">
                                 </h4>
-                                <h5 style="font-size: 20px; padding: 3px; height: 25px; margin-top: -20px; background-color: white; border:1px solid black;width:100px; line-height: 20px; text-align: center;border-radius: 5px;color: brown; position: absolute;">
+                                <h5
+                                    style="font-size: 20px; padding: 3px; height: 25px; margin-top: -20px; background-color: white; border:1px solid black;width:100px; line-height: 20px; text-align: center;border-radius: 5px;color: brown; position: absolute;">
                                     INVOICE</h5>
 
                             </div>

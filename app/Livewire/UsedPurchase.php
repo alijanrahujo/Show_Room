@@ -34,7 +34,7 @@ class UsedPurchase extends Component
 
     public function updatedEngine()
     {
-        $purchases = PurchaseDetail::where('engine', $this->engine)->orderby('id','desc')->first();
+        $purchases = PurchaseDetail::where('engine', $this->engine)->orderby('id', 'desc')->first();
         $this->title = $purchases->vehicle->vehicle_type ?? '';
         $this->horse_power = $purchases->vehicle->horse_power ?? '';
         $this->chassis = $purchases->chassis ?? '';
@@ -48,7 +48,7 @@ class UsedPurchase extends Component
 
     public function updatedCnic()
     {
-        $customer = Customer::where('cnic',$this->cnic)->orderby('id','desc')->first();
+        $customer = Customer::where('cnic', $this->cnic)->orderby('id', 'desc')->first();
         $this->customer_name = $customer->customer_name ?? '';
         $this->father_name = $customer->father_name ?? '';
         $this->address = $customer->address ?? '';
@@ -63,7 +63,7 @@ class UsedPurchase extends Component
 
     public function updatedOwnerCnic()
     {
-        $customer = Customer::where('cnic',$this->owner_cnic)->orderby('id','desc')->first();
+        $customer = Customer::where('cnic', $this->owner_cnic)->orderby('id', 'desc')->first();
         $this->owner_name = $customer->customer_name ?? '';
         $this->owner_father = $customer->father_name ?? '';
         $this->owner_address = $customer->address ?? '';
@@ -78,26 +78,25 @@ class UsedPurchase extends Component
             'father_name' => 'required',
             'address' => 'required',
             'vehicle_id' => 'required',
-            'owner_name' => 'required',
-            'owner_father' => 'required',
-            'owner_cnic' => 'required',
-            'owner_address' => 'required',
+            // 'owner_name' => 'required',
+            // 'owner_father' => 'required',
+            // 'owner_cnic' => 'required',
+            // 'owner_address' => 'required',
             'engine' => 'required',
-            'title' => 'required',
+            // 'title' => 'required',
             'chassis' => 'required',
             'model' => 'required',
             'color' => 'required',
             'horse_power' => 'required',
             'maker' => 'required',
-            'tc_no' => 'required',
+            // 'tc_no' => 'required',
             'register_no' => 'required',
         ]);
 
         DB::beginTransaction();
 
-        $customer = Customer::where('cnic',$this->cnic)->first();
-        if(!$customer)
-        {
+        $customer = Customer::where('cnic', $this->cnic)->first();
+        if (!$customer) {
             $customer = Customer::create([
                 'cnic' => $this->cnic,
                 'phone' => $this->phone,
@@ -111,7 +110,7 @@ class UsedPurchase extends Component
             'date' => $this->date,
             'total_amount' => $this->total_amount,
             'status' => 2,
-            'type' => 'Used',
+            'type' => 'Use',
         ]);
 
         $purchase->payments()->create([
@@ -147,7 +146,7 @@ class UsedPurchase extends Component
             'purchase_amount' => $this->total_amount,
             'purchase_tax' => 0,
             'total' => $this->total_amount,
-            'status' => ($this->paid >0)?5:4,
+            'status' => ($this->paid > 0) ? 5 : 4,
         ]);
         DB::commit();
         return redirect('purchases');

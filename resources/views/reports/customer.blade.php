@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Purchase Report')
+@section('title', 'Customer Report')
 
 @section('content')
     <div class="container-fluid">
@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item active">Customer Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -25,17 +25,30 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.PurchaseNew',
+                            'route' => 'reports.Customer',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
                             'enctype' => 'multipart/form-data',
                         ]) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div class="form-group">
-                                    {!! Form::label('type', 'Purchase Type') !!}
-                                    {!! Form::select('type', ['new' => 'Purchase New', 'use' => 'Purchase Used'], null, [
+                                    {!! Form::label('customer', 'Sale Customer') !!}
+                                    {!! Form::select('customer', $customers, null, [
+                                        'placeholder' => 'Select',
+                                        'class' => 'form-control',
+                                        'id' => 'status',
+                                    ]) !!}
+                                    @error('Customer')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    {!! Form::label('type', 'Type') !!}
+                                    {!! Form::select('type', ['sale' => 'Sale', 'purchase' => 'Purchase'], null, [
                                         'placeholder' => 'Select',
                                         'class' => 'form-control',
                                         'id' => 'status',
@@ -45,9 +58,8 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-4">
+                            <div class="col-md-2 mt-4">
                                 <div class="form-group">
-                                    <input type="hidden" name="table" value="purchase">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
@@ -58,7 +70,7 @@
             </div>
         </div> <!-- end col -->
 
-        @if (isset($data))
+        @if (isset($sale))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -70,43 +82,68 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Date</th>
                                             <th>Engine No</th>
                                             <th>Chassis No</th>
                                             <th>Model</th>
                                             <th>Color</th>
-                                            <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?>
-                                            <?php
-                                        }
-                                        else {
-                                            ?><th>Horse Power</th>
-                                            <?php
-                                        }
-                                        ?>
                                             <th>Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $val)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
-                                                <td>{{ $val->model }}</td>
-                                                <td>{{ $val->color }}</td>
-                                                <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?><?php
-                                        }
-                                        else {
-                                            ?>
-                                                <td>{{ $val->horse_power }}</td>
-                                                <?php
-                                    }
-                                        ?>
-                                                <td>{{ $val->type }}</td>
-                                            </tr>
+                                        @foreach ($sale as $val)
+                                            @foreach ($val->saleDetail as $detail)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $val->date }}</td>
+                                                    <td>{{ $detail->engine }}</td>
+                                                    <td>{{ $detail->chassis }}</td>
+                                                    <td>{{ $detail->model }}</td>
+                                                    <td>{{ $detail->color }}</td>
+                                                    <td>{{ 'Sale' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- end row -->
+        @elseif (isset($purchase))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="datatable-buttons"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date</th>
+                                            <th>Engine No</th>
+                                            <th>Chassis No</th>
+                                            <th>Model</th>
+                                            <th>Color</th>
+                                            <th>Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($purchase as $val)
+                                            @foreach ($val->purchaseDetail as $detail)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $val->date }}</td>
+                                                    <td>{{ $detail->engine }}</td>
+                                                    <td>{{ $detail->chassis }}</td>
+                                                    <td>{{ $detail->model }}</td>
+                                                    <td>{{ $detail->color }}</td>
+                                                    <td>{{ 'Purchase' }}</td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

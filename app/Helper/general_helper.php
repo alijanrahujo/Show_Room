@@ -1,5 +1,7 @@
 <?php
 
+use Rmunate\Utilities\SpellNumber;
+
 if (!function_exists('status')) {
 	function status($val)
 	{
@@ -41,6 +43,14 @@ if (!function_exists('long_date')) {
 	function long_date($val)
 	{
 		return date('d-m-Y h:i:s A', strtotime($val));
+	}
+}
+
+
+if (!function_exists('num2word')) {
+	function num2word($val)
+	{
+		return SpellNumber::value($val)->toLetters();
 	}
 }
 

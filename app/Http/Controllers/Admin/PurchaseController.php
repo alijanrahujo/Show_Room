@@ -17,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::where('type','Used')->orderBy('id', 'DESC')->get();
+        $purchases = Purchase::where('type', 'Used')->orderBy('id', 'DESC')->get();
         return view('purchases.index', compact('purchases'));
     }
 

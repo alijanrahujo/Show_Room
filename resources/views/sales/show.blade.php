@@ -32,11 +32,15 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="activity_detail_tab" data-toggle="pill"
-                                            href="#activity_detail">Customer Detail</a>
+                                            href="#customer_detail">Customer Detail</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="portfolio_detail_tab" data-toggle="pill"
                                             href="#portfolio_detail">Payment Detail</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="installment_detail_tab" data-toggle="pill"
+                                            href="#installment_detail">Install Detail</a>
                                     </li>
                                 </ul>
                             </div>
@@ -126,7 +130,7 @@
                             </div>
                         </div>
                     </div><!--end general detail-->
-                    <div class="tab-pane fade" id="activity_detail">
+                    <div class="tab-pane fade" id="customer_detail">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
@@ -309,6 +313,7 @@
                                                     <th>Paid Amount</th>
                                                     <th>Pending Amount</th>
                                                     <th>Status</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -320,6 +325,12 @@
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
                                                         <td>{{ status($payment->status) }}</td>
+                                                        <td>
+                                                            <a href="{{ Route('sell.paymentreceipt', $payment->id) }}"
+                                                                class="btn btn-sm btn-primary">
+                                                                <i class="fa fa-print" aria-hidden="true"></i>
+                                                            </a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -328,7 +339,38 @@
                                 </div>
                             </div>
                         </div><!--end row-->
-                    </div><!--end portfolio detail-->
+                    </div>
+                    <div class="tab-pane fade" id="installment_detail">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-striped-columns">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Description</th>
+                                                    <th>Total Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($sales->installments as $installment)
+                                                    <tr>
+                                                        <td>{{ $installment->date }}</td>
+                                                        <td>{{ $installment->description }}</td>
+                                                        <td>{{ $installment->amount }}</td>
+                                                        <td>{{ status($installment->status) }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end row-->
+                    </div>
+                    <!--end portfolio detail-->
                 </div><!--end tab-content-->
             </div><!--end col-->
         </div>

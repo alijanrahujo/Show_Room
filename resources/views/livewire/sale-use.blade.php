@@ -139,7 +139,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('tc_no', 'TC No *') !!}
                                 {!! Form::text('tc_no', null, [
@@ -151,7 +151,7 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('register_no', 'Register No *') !!}

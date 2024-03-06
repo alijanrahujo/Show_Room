@@ -130,7 +130,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('tc_no', 'TC No *') !!}
                                 {!! Form::text('tc_no', null, [
@@ -141,7 +141,7 @@
                                 ]) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('register_no', 'Register No *') !!}
@@ -161,81 +161,81 @@
             <div class="card">
                 <div class="card-body">
 
-                <h4>Seller Details</h4>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('cnic', 'Seller CNIC') !!}
-                            {!! Form::text('cnic', null, [
-                                'wire:model.blur' => 'cnic',
-                                'class' => 'form-control',
-                                'placeholder' => 'Seller CNIC',
-                            ]) !!}
-                            @error('cnic')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
+                    <h4>Seller Details</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('cnic', 'Seller CNIC') !!}
+                                {!! Form::text('cnic', null, [
+                                    'wire:model.blur' => 'cnic',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Seller CNIC',
+                                ]) !!}
+                                @error('cnic')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('phone', 'Phone Number *') !!}
+                                {!! Form::text('phone', null, [
+                                    'wire:model' => 'phone',
+                                    // 'wire:blur' => 'updatephone',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Phone Number',
+                                ]) !!}
+                                @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('phone', 'Phone Number *') !!}
-                            {!! Form::text('phone', null, [
-                                'wire:model' => 'phone',
-                                // 'wire:blur' => 'updatephone',
-                                'class' => 'form-control',
-                                'placeholder' => 'Phone Number',
-                            ]) !!}
-                            @error('phone')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('customer_name', 'Seller Name *') !!}
-                            {!! Form::text('customer_name', null, [
-                                'wire:model' => 'customer_name',
-                                'class' => 'form-control',
-                                'placeholder' => 'Seller Name',
-                            ]) !!}
-                            @error('customer_name')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('customer_name', 'Seller Name *') !!}
+                                {!! Form::text('customer_name', null, [
+                                    'wire:model' => 'customer_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Seller Name',
+                                ]) !!}
+                                @error('customer_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('father_name', 'Father Name *') !!}
+                                {!! Form::text('father_name', null, [
+                                    'wire:model' => 'father_name',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Father Name',
+                                ]) !!}
+                                @error('father_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('father_name', 'Father Name *') !!}
-                            {!! Form::text('father_name', null, [
-                                'wire:model' => 'father_name',
-                                'class' => 'form-control',
-                                'placeholder' => 'Father Name',
-                            ]) !!}
-                            @error('father_name')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            {!! Form::label('address', 'Seller Address') !!}
-                            {!! Form::text('address', null, [
-                                'wire:model' => 'address',
-                                'class' => 'form-control',
-                                'placeholder' => 'Seller Address',
-                            ]) !!}
-                            @error('address')
-                                <span class="text-danger">{{$message}}</span>
-                            @enderror
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {!! Form::label('address', 'Seller Address') !!}
+                                {!! Form::text('address', null, [
+                                    'wire:model' => 'address',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Seller Address',
+                                ]) !!}
+                                @error('address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                </div>
 
                     <h4 class="card-title">Owner Detail</h4>
 

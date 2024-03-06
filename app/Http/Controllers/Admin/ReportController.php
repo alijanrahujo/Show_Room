@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Sale;
 use App\Models\Report;
+use App\Models\Payment;
 use App\Models\Customer;
 use App\Models\Expenses;
-use App\Http\Controllers\Controller;
-use App\Models\PurchaseDetail;
 use App\Models\SaleDetail;
 use Illuminate\Http\Request;
+use App\Models\PurchaseDetail;
+use App\Http\Controllers\Controller;
+use App\Models\Purchase;
 
 class ReportController extends Controller
 {
@@ -26,46 +29,72 @@ class ReportController extends Controller
         $customers = Customer::pluck('customer_name', 'id');
         return view("reports.leadger", compact('customers'));
     }
-
-    function Expences()
+    function LeadgerDetail(Request $request)
     {
-        // $request;
-        $reports = collect();
-        if($request->report_type == 'New Purchase')
-        {
-            $reports = PurchaseDetail::where('type','New','customer_id',);
+        $customers = Customer::pluck('customer_name', 'id');
+
+        $expenses = Expenses::select('*');
+        $payments = Payment::with('paymentable');
+
+        if ($request->customer_id > 0) {
+            $payments = $payments;
+            $expenses = $expenses;
         }
-        else if($request->report_type == 'Used purchase')
-        {
-            $reports = PurchaseDetail::where('type','Used');
+        if ($request->from && $request->to) {
+            $payments = $payments->whereBetween('date', [$request->from, $request->to]);
+            $expenses = $expenses->whereBetween('date', [$request->from, $request->to]);
         }
-        else if($request->report_type == 'New Sell')
-        {
-            $reports = SaleDetail::where('type','New');
-        }
-        else if($request->report_type == 'New Sell')
-        {
-            $reports = SaleDetail::where('type','Used');
+        $payments = $payments->get();
+        $expenses = $expenses->get();
+
+
+        $combinedData = [];
+        $payments->each(function ($payment) use (&$combinedData) {
+            $combinedData[] = [
+                'date' => $payment->date,
+                'particular' => ($payment->paymentable_type == 'App\\Models\\Sale') ? 'Sale (' . $payment->paymentable->type . ')' : 'Purchase (' . $payment->paymentable->type . ')',
+                'debit' => ($payment->paymentable_type == 'App\\Models\\Sale') ? $payment->received : 0,
+                'credit' => ($payment->paymentable_type == 'App\\Models\\Purchase') ? $payment->received : 0,
+            ];
+        });
+
+        $expenses->each(function ($expense) use (&$combinedData) {
+            $combinedData[] = [
+                'date' => $expense->date,
+                'particular' => $expense->title,
+                'debit' => 0,
+                'credit' => $expense->amount,
+            ];
+        });
+
+        // Sort combinedData by date
+        usort($combinedData, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        // Calculate balance
+        $balance = 0;
+        foreach ($combinedData as &$data) {
+            $balance += $data['debit'] - $data['credit'];
+            $data['balance'] = $balance;
         }
 
-        if($request->customer)
-        {
-            $reports = $reports->where('customer_id',$request->customer_id)->get();
-        }
-        else
-        {
-            $reports = $reports->all();
-        }
+        // $sale = SaleDetail::join('sales', 'sales.id', '=', 'sale_details.sale_id')
+        // ->select('sales.date', 'title as particuler', 'sale_price as amount')
+        // ->get();
 
-        $customers = Customer::orderBy('id', 'DESC')->get();
-        return view('reports.CustomerReport', compact('customers','reports'));
-        return "Expences";
+        // $purchase = PurchaseDetail::join('purchases', 'purchases.id', '=', 'purchase_details.purchase_id')
+        // ->select('purchases.date', 'title as particuler', 'purchase_amount as amount')
+        // ->get();
+
+        return view("reports.leadger", compact('customers', 'combinedData'));
     }
 
     function PurchaseNew()
     {
         return view('reports.purchase');
     }
+
     function PurchaseDetail(Request $request)
     {
         // return "ok";
@@ -119,14 +148,34 @@ class ReportController extends Controller
             }
         }
     }
+
     public function Expenses()
     {
         return view('reports.expenses');
     }
+
     public function ExpenseDetail(Request $request)
     {
         // return "working";
         $expenses = Expenses::whereBetween('date', [$request->input('from_date'), $request->input('to_date')])->get();
         return view('reports.expenses', compact('expenses'));
+    }
+
+    function Customer()
+    {
+        $customers = Customer::pluck("customer_name", 'id');
+        return view("reports.customer", compact('customers'));
+    }
+    function CustomerDetail(Request $request)
+    {
+        $customers = Customer::pluck("customer_name", 'id');
+        $customer = Customer::find($request->customer);
+        if ($request->type == "sale") {
+            $sale = Sale::where('customer_id', $request->customer)->with('saleDetail', 'customer')->get();
+            return view("reports.customer", compact("sale", 'customer', 'customers'));
+        } else {
+            $purchase = $customer->purchaseable;
+            return view("reports.customer", compact('purchase', 'customer', 'customers'));
+        }
     }
 }

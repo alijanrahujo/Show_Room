@@ -131,8 +131,9 @@
                             @enderror
                         </div>
                     </div>
-
-                    <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('tax', 'Tax *') !!}
                             {!! Form::select('tax', ['Yes' => 'Yes', 'No' => 'No'], null, [
@@ -141,32 +142,6 @@
                                 'class' => 'form-control',
                             ]) !!}
                             @error('tax')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            {!! Form::label('registration', 'Registration *') !!}
-                            {!! Form::select('registration', ['Yes' => 'Yes', 'No' => 'No'], null, [
-                                'wire:model.live' => 'registration',
-                                'placeholder' => 'Select',
-                                'class' => 'form-control',
-                            ]) !!}
-                            @error('registration')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            {!! Form::label('sale_price', 'Sale Price *') !!}
-                            {!! Form::number('sale_price', null, [
-                                'wire:model.live' => 'sale_price',
-                                'class' => 'form-control',
-                                'placeholder' => 'Sale Price',
-                            ]) !!}
-                            @error('sale_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -186,6 +161,19 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
+                            {!! Form::label('registration', 'Registration *') !!}
+                            {!! Form::select('registration', ['Yes' => 'Yes', 'No' => 'No'], null, [
+                                'wire:model.live' => 'registration',
+                                'placeholder' => 'Select',
+                                'class' => 'form-control',
+                            ]) !!}
+                            @error('registration')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
                             {!! Form::label('reg_fee', 'Registration Amount *') !!}
                             {!! Form::number('reg_fee', null, [
                                 'wire:model.live' => 'reg_fee',
@@ -193,6 +181,47 @@
                                 'placeholder' => 'registration Amount',
                             ]) !!}
                             @error('reg_fee')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {!! Form::label('fitting', 'Fitting *') !!}
+                            {!! Form::select('fitting', ['Yes' => 'Yes', 'No' => 'No'], null, [
+                                'wire:model.live' => 'fitting',
+                                'placeholder' => 'Select',
+                                'class' => 'form-control',
+                            ]) !!}
+                            @error('fitting')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {!! Form::label('fitting_price', 'Fitting Price *') !!}
+                            {!! Form::number('fitting_price', null, [
+                                'wire:model.live' => 'fitting_price',
+                                'class' => 'form-control',
+                                'placeholder' => 'Fitting Price',
+                            ]) !!}
+                            @error('fitting_price')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            {!! Form::label('sale_price', 'Sale Price *') !!}
+                            {!! Form::number('sale_price', null, [
+                                'wire:model.live' => 'sale_price',
+                                'class' => 'form-control',
+                                'placeholder' => 'Sale Price',
+                            ]) !!}
+                            @error('sale_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -210,6 +239,8 @@
                             @enderror
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <br />
@@ -264,7 +295,6 @@
                                     </td>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
@@ -302,7 +332,7 @@
                             <div class="form-group">
                                 {!! Form::label('months', 'Months *') !!}
                                 {!! Form::number('months', null, [
-                                    'wire:model' => 'months',
+                                    'wire:model.live' => 'months',
                                     'class' => 'form-control',
                                     'placeholder' => 'Months',
                                 ]) !!}
@@ -313,7 +343,47 @@
                         </div>
                     @endif
                 </div>
+                {{-- <div class="row">
+                    @if (!empty($months))
+                        @for ($i = 1; $i <= $months; $i++)
+                            @php
+                                $currentMonth = \Carbon\Carbon::now()
+                                    ->addMonths($i - 1)
+                                    ->format('Y-m-d');
+                            @endphp
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {!! Form::label("instaDate. $i", "Date  $i") !!}
+                                    {!! Form::date('instaDate. $i', $currentMonth, [
+                                        'class' => 'form-control',
+                                        'wire:model' => 'instaDate {{$i}}',
+                                    ]) !!}
 
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {!! Form::label("instaAmount. $i", "Amount  $i") !!}
+                                    {!! Form::number('instaAmount. $i', null, [
+                                        'class' => 'form-control',
+                                        'wire:model' => 'instaAmount. {{$i}}',
+                                        'placeholder' => "Amount for Month  $i",
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {!! Form::label("instaDesc. $i", "Description  $i") !!}
+                                    {!! Form::text('instaDesc. $i', null, [
+                                        'class' => 'form-control',
+                                        'wire:model' => 'instaDesc. $i',
+                                        'placeholder' => "Description for Month  $i",
+                                    ]) !!}
+                                </div>
+                            </div>
+                        @endfor
+                    @endif
+                </div> --}}
                 <div class="row">
                     <div class="col-6 mt-4">
                         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}

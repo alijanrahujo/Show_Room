@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sell Receipt | {{$sell->customer->customer_name}} #{{$sell->id}}</title>
+    <title>Sell Receipt | {{ $sell->customer->customer_name }} #{{ $sell->id }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,198 +20,223 @@
         *,
         *::after,
         *::before {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
         }
 
         :root {
-        --blue-color: #0c2f54;
-        --dark-color: #535b61;
-        --white-color: #fff;
+            --blue-color: #0c2f54;
+            --dark-color: #535b61;
+            --white-color: #fff;
         }
 
         ul {
-        list-style-type: none;
+            list-style-type: none;
         }
+
         ul li {
-        margin: 2px 0;
+            margin: 2px 0;
         }
 
         /* text colors */
         .text-dark {
-        color: var(--dark-color);
+            color: var(--dark-color);
         }
+
         .text-blue {
-        color: var(--blue-color);
+            color: var(--blue-color);
         }
+
         .text-end {
-        text-align: right;
+            text-align: right;
         }
+
         .text-center {
-        text-align: center;
+            text-align: center;
         }
+
         .text-start {
-        text-align: left;
+            text-align: left;
         }
+
         .text-bold {
-        font-weight: 700;
-        /* text-align: center; */
+            font-weight: 700;
+            /* text-align: center; */
         }
 
         /* hr line */
         .hr {
-        height: 1px;
-        background-color: rgba(0, 0, 0, 0.1);
+            height: 1px;
+            background-color: rgba(0, 0, 0, 0.1);
         }
+
         /* border-bottom */
         .border-bottom {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         body {
-        font-family: "Poppins", sans-serif;
-        color: var(--dark-color);
-        font-size: 14px;
+            font-family: "Poppins", sans-serif;
+            color: var(--dark-color);
+            font-size: 14px;
         }
+
         .invoice-wrapper {
-        min-height: 100vh;
-        background-color: rgba(0, 0, 0, 0.1);
-        padding-top: 20px;
-        padding-bottom: 20px;
+            min-height: 100vh;
+            background-color: rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
+
         .invoice {
-        max-width: 860px;
-        margin-top: auto;
-        margin-right: auto;
-        margin-left: auto;
-        background-color: var(--white-color);
-        padding: 70px;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 5px;
-        min-height: 720px;
+            max-width: 860px;
+            margin-top: auto;
+            margin-right: auto;
+            margin-left: auto;
+            background-color: var(--white-color);
+            padding: 70px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            min-height: 720px;
         }
+
         .invoice-head-top-left img {
-        width: 130px;
+            width: 130px;
         }
+
         .invoice-head-top-right img {
-        width: 160px;
-        margin-top: 30px;
+            width: 160px;
+            margin-top: 30px;
         }
 
         .invoice-head-middle,
         .invoice-head-bottom {
-        padding: 16px 0;
-        text-align: center;
+            padding: 16px 0;
+            text-align: center;
         }
+
         .invoice-body {
-        /* border: 1px solid rgba(0, 0, 0, 0.1); */
-        border-radius: 4px;
-        overflow: hidden;
+            /* border: 1px solid rgba(0, 0, 0, 0.1); */
+            border-radius: 4px;
+            overflow: hidden;
         }
+
         .invoice-body table {
-        /* border-collapse: collapse; */
-        /* border-radius: 4px; */
-        width: 100%;
+            /* border-collapse: collapse; */
+            /* border-radius: 4px; */
+            width: 100%;
         }
+
         .invoice-body table td,
         .invoice-body table th {
-        padding: 12px;
-        /* border: 1px solid black; */
+            padding: 12px;
+            /* border: 1px solid black; */
         }
+
         .invoice-body table tr {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
+
         .invoice-body table thead {
-        background-color: rgba(0, 0, 0, 0.02);
+            background-color: rgba(0, 0, 0, 0.02);
         }
+
         .invoice-body-info-item {
-        display: grid;
-        grid-template-columns: 80% 20%;
+            display: grid;
+            grid-template-columns: 80% 20%;
         }
+
         .invoice-body-info-item .info-item-td {
-        padding: 12px;
-        background-color: rgba(0, 0, 0, 0.02);
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.02);
         }
+
         .invoice-foot {
-        padding: 30px 0;
+            padding: 30px 0;
         }
+
         .invoice-foot p {
-        font-size: 12px;
+            font-size: 12px;
         }
+
         .invoice-btns {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
+
         .invoice-btn {
-        padding: 3px 9px;
-        color: var(--dark-color);
-        font-family: inherit;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        cursor: pointer;
+            padding: 3px 9px;
+            color: var(--dark-color);
+            font-family: inherit;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            cursor: pointer;
         }
 
         .invoice-head-top,
         .invoice-head-middle,
         .invoice-head-bottom {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        padding-bottom: 10px;
-        margin-top: -60px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            padding-bottom: 10px;
+            margin-top: -60px;
         }
 
         @media screen and (max-width: 992px) {
-        .invoice {
-            padding: 40px;
-        }
+            .invoice {
+                padding: 40px;
+            }
         }
 
         @media screen and (max-width: 576px) {
-        .invoice-head-top,
-        .invoice-head-middle,
-        .invoice-head-bottom {
-            grid-template-columns: repeat(1, 1fr);
-        }
-        .invoice-head-bottom-right {
-            margin-top: 12px;
-            margin-bottom: 12px;
-        }
-        .invoice * {
-            text-align: left;
-        }
-        .invoice {
-            padding: 28px;
-        }
+
+            .invoice-head-top,
+            .invoice-head-middle,
+            .invoice-head-bottom {
+                grid-template-columns: repeat(1, 1fr);
+            }
+
+            .invoice-head-bottom-right {
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+
+            .invoice * {
+                text-align: left;
+            }
+
+            .invoice {
+                padding: 28px;
+            }
         }
 
         /* .overflow-view {
         overflow-x: scroll;
         } */
         .invoice-body {
-        min-width: 500px;
-        margin-top: 20px;
+            min-width: 500px;
+            margin-top: 20px;
         }
 
         @media print {
-        .print-area {
-            visibility: visible;
-            width: 100%;
-            position: absolute;
-            left: 0;
-            top: 0;
-            overflow: hidden;
-        }
+            .print-area {
+                visibility: visible;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                overflow: hidden;
+            }
 
-        .overflow-view {
-            overflow-x: hidden;
-        }
+            .overflow-view {
+                overflow-x: hidden;
+            }
 
-        .invoice-btns {
-            display: none;
+            .invoice-btns {
+                display: none;
+            }
         }
-        }
-
     </style>
 
 </head>
@@ -224,10 +249,10 @@
                 <div class="invoice-head">
                     <div class="invoice-head-top">
                         <div class="invoice-head-top-left text-start">
-                            <img src="{{asset('assets/images/honda logo.png')}}">
+                            <img src="{{ asset('assets/images/honda logo.png') }}">
                         </div>
                         <div class="invoice-head-top-right text-end">
-                            <img src="{{asset('assets/images/parts.png')}}">
+                            <img src="{{ asset('assets/images/parts.png') }}">
                             <div class="invoice-head-right">
                                 <div class="invoice-head-middle-right text-end">
                                     <p>
@@ -258,7 +283,7 @@
                     </div>
                     <div class="invoice-head-middle-right text-end">
                         <p>
-                            <spanf class="text-bold">Dated: {{$sell->date}}
+                            <spanf class="text-bold">Dated: {{ $sell->date }}
 
                             </spanf>
                         </p>
@@ -279,24 +304,29 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-bold" colspan="2">Name: {{$sell->customer->customer_name}}</td>
+                                    <td class="text-bold" colspan="2">Name: {{ $sell->customer->customer_name }}</td>
                                     <!-- <td style="width: 250px;"></td> -->
                                     <td class="text-bold">Cash Price:</td>
-                                    <td class="text-bold">{{$sell->amount}}</td>
+                                    <td class="text-bold">{{ $sell->amount }}</td>
 
                                 </tr>
                                 <tr>
-                                    <td class="text-bold" colspan="2">Father's Name : {{$sell->customer->father_name}}</td>
+                                    <td class="text-bold" colspan="2">Father's Name :
+                                        {{ $sell->customer->father_name }}</td>
                                     <!-- <td></td> -->
                                     <td class="text-bold">Fitting Charges:</td>
-                                    <td class="text-bold"> {{0}} </td>
+                                    <td class="text-bold">
+                                        {{ $sell->saleDetail()->sum('fitting_price') > 0 ? $sell->saleDetail()->sum('fitting_price') : ' ' }}
+                                    </td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">Address: {{$sell->customer->address}}</td>
+                                    <td colspan="2" class="text-bold">Address: {{ $sell->customer->address }}</td>
                                     <!-- <td rowspan="2"></td> -->
                                     <td class="text-bold">Registration Fee:</td>
-                                    <td class="text-bold"> {{0}} </td>
+                                    <td class="text-bold">
+                                        {{ $sell->saleDetail()->sum('reg_fee') > 0 ? $sell->saleDetail()->sum('reg_fee') : ' ' }}
+                                    </td>
 
                                 </tr>
                                 <tr>
@@ -307,46 +337,51 @@
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">Contact: {{$sell->customer->phone}}</td>
+                                    <td colspan="2" class="text-bold">Contact: {{ $sell->customer->phone }}</td>
+                                    <!-- <td></td> -->
+                                    <td class="text-bold">Total</td>
+                                    <td class="text-bold">{{ $sell->saleDetail()->sum('total') }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="text-bold">CNIC No: {{ $sell->customer->cnic }}</td>
                                     <!-- <td></td> -->
                                     <td></td>
                                     <td></td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">CNIC No: {{$sell->customer->cnic}}</td>
-                                    <!-- <td></td> -->
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="text-bold">Honda: {{implode(', ', $sell->saleDetail()->pluck('title')->toArray())}}</td>
+                                    <td colspan="4" class="text-bold">Honda:
+                                        {{ implode(', ', $sell->saleDetail()->pluck('title')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td> -->
                                     <!-- <td></td> -->
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-bold">Model: {{implode(', ', $sell->saleDetail()->pluck('model')->toArray())}}</td>
+                                    <td colspan="4" class="text-bold">Model:
+                                        {{ implode(', ', $sell->saleDetail()->pluck('model')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-bold">Colour: {{implode(', ', $sell->saleDetail()->pluck('color')->toArray())}}
+                                    <td colspan="4" class="text-bold">Colour:
+                                        {{ implode(', ', $sell->saleDetail()->pluck('color')->toArray()) }}
                                     </td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-bold">Engine #: {{implode(', ', $sell->saleDetail()->pluck('engine')->toArray())}}</td>
+                                    <td colspan="4" class="text-bold">Engine #:
+                                        {{ implode(', ', $sell->saleDetail()->pluck('engine')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-bold">Chassis #: {{implode(', ', $sell->saleDetail()->pluck('chassis')->toArray())}}</td>
+                                    <td colspan="4" class="text-bold">Chassis #:
+                                        {{ implode(', ', $sell->saleDetail()->pluck('chassis')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
@@ -358,13 +393,15 @@
                 </div>
                 <div class="invoice-head-middle-right text-end" style="margin-top:20px">
                     <p>
-                        <spanf class="text-bold" style="margin-right: 150px;">Received Cash: {{$sell->payments->sum('received')}}
+                        <spanf class="text-bold" style="margin-right: 150px;">Received Cash:
+                            {{ $sell->payments->sum('received') }}
 
                         </spanf>
                     </p>
 
                     <p>
-                        <spanf class="text-bold" style="margin-right: 150px;">Pending Cash: {{$sell->amount - $sell->payments->sum('received')}}
+                        <spanf class="text-bold" style="margin-right: 150px;">Pending Cash:
+                            {{ $sell->amount - $sell->payments->sum('received') }}
 
                         </spanf>
                     </p>

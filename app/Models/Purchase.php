@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Payment;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Purchase extends Model
 {
@@ -38,6 +39,11 @@ class Purchase extends Model
     public function purchaseDetail()
     {
         return $this->hasMany(PurchaseDetail::class, 'purchase_id', 'id');
+    }
+
+    public function installments()
+    {
+        return $this->morphMany(Installment::class, 'installmentable');
     }
 
     public static function boot(): void

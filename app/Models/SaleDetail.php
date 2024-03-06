@@ -24,6 +24,8 @@ class SaleDetail extends Model
         'sale_amount',
         'sale_tax',
         'total',
+        'fitting_price',
+        'reg_fee',
         'guarantor_name',
         'guarantor_father',
         'owner_name',

@@ -34,14 +34,13 @@ class SaleUse extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id,'type'=>'Used'])->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'Used'])->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
-
     }
 
     public function updatedPurchaseId($id)
     {
-        $purchase = PurchaseDetail::where('id',$id)->orderBy('id','DESC')->first();
+        $purchase = PurchaseDetail::where('id', $id)->orderBy('id', 'DESC')->first();
         $this->engine = $purchase->engine ?? '';
         $this->title = $purchase->title ?? '';
         $this->chassis = $purchase->chassis ?? '';
@@ -61,7 +60,7 @@ class SaleUse extends Component
 
     public function updatedCnic()
     {
-        $customer = Customer::where('cnic',$this->cnic)->first();
+        $customer = Customer::where('cnic', $this->cnic)->first();
         $this->phone = $customer->phone ?? '';
         $this->customer_name = $customer->customer_name ?? '';
         $this->father_name = $customer->father_name ?? '';
@@ -81,7 +80,6 @@ class SaleUse extends Component
             'model' => 'required',
             'color' => 'required',
             'horse_power' => 'required',
-            'tc_no' => 'required',
             'register_no' => 'required',
             'owner_cnic' => 'required',
             'owner_name' => 'required',
@@ -115,7 +113,7 @@ class SaleUse extends Component
         $sale = Sale::create([
             'date' => $this->date,
             'time' => $this->time,
-            'type' => 'Used',
+            'type' => 'Use',
             'customer_id' => $customer->id,
             'amount' => $this->total,
             'installment' => $this->installment,
@@ -146,6 +144,6 @@ class SaleUse extends Component
         PurchaseDetail::where(['purchase_id' => $this->purchase_id, 'chassis' => $this->chassis])->update(['status' => 3]);
 
         DB::commit();
-        return redirect()->route('sale-use.show',$sale->id);
+        return redirect()->route('sale-use.show', $sale->id);
     }
 }
