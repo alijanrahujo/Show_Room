@@ -86,8 +86,8 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        $purchase = Purchase::find($id);
-        $payments = $purchase->with('payments')->get();
+        $purchase = Purchase::where('id',$id)->with('payments')->first();
+        $payments = $purchase->payments;
         return view('purchases.show', compact('purchase', 'payments'));
     }
 

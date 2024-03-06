@@ -139,7 +139,7 @@ class Salescontroller extends Controller
 
     public function paymentreceipt($id)
     {
-        $payment = Payment::where('id',$id)->with('paymentable')->first();
+        $payment = Payment::where('id', $id)->with('paymentable')->first();
         //return $payment;
         return view('sales.paymentreceipt', compact('payment'));
     }

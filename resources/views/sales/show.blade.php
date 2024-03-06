@@ -84,12 +84,12 @@
                                                                     @foreach ($sales->saleDetail as $sale)
                                                                         <tr>
                                                                             <td>{{ $loop->iteration }}</td>
-                                                                            <td> {{ '1' }}</td>
+                                                                            <td> {{ $sale->title }}</td>
                                                                             <td> {{ $sale->engine }} </td>
                                                                             <td> {{ $sale->chassis }} </td>
                                                                             <td> {{ $sale->color }} </td>
                                                                             <td> {{ $sale->model }} </td>
-                                                                            <td> {{ $sale->amount }} </td>
+                                                                            <td> {{ $sale->total }} </td>
                                                                             <td>
                                                                                 <span
                                                                                     class="badge badge-{{ $sales->status == 2 ? 'success' : 'danger' }} ">{{ status($sales->status) }}</span>

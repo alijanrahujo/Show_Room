@@ -110,7 +110,7 @@ class UsedPurchase extends Component
             'date' => $this->date,
             'total_amount' => $this->total_amount,
             'status' => 2,
-            'type' => 'Use',
+            'type' => 'Used',
         ]);
 
         $purchase->payments()->create([
@@ -118,6 +118,7 @@ class UsedPurchase extends Component
             'total' => $this->total_amount,
             'received' => $this->paid,
             'pending' => $this->total_amount - $this->paid,
+            'status' => 6,
         ]);
 
         $purchaseDetail = PurchaseDetail::create([

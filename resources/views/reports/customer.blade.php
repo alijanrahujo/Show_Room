@@ -100,7 +100,7 @@
                                                     <td>{{ $detail->chassis }}</td>
                                                     <td>{{ $detail->model }}</td>
                                                     <td>{{ $detail->color }}</td>
-                                                    <td>{{ 'Sale' }}</td>
+                                                    <td>{{ $detail->type}}</td>
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -141,7 +141,7 @@
                                                     <td>{{ $detail->chassis }}</td>
                                                     <td>{{ $detail->model }}</td>
                                                     <td>{{ $detail->color }}</td>
-                                                    <td>{{ 'Purchase' }}</td>
+                                                    <td>{{ $detail->type }}</td>
                                                 </tr>
                                             @endforeach
                                         @endforeach

@@ -85,7 +85,8 @@
                                                                             <td> {{ $purchase->purchase_amount }} </td>
                                                                             <td> {{ $purchase->purchase_tax }} </td>
                                                                             <td> {{ $purchase->total }} </td>
-                                                                            <td> <span
+                                                                            <td>
+                                                                                <span
                                                                                     class="badge badge-{{ $purchase->status == 2 ? 'success' : 'danger' }} ">{{ status($purchase->status) }}</span>
                                                                             </td>
                                                                             <td>

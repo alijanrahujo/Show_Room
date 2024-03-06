@@ -102,7 +102,7 @@ class ReportController extends Controller
             $data = PurchaseDetail::where('type', 'New')->get();
             return view('reports.purchase', compact('data'));
         } else {
-            $data = PurchaseDetail::where('type', 'Use')->get();
+            $data = PurchaseDetail::where('type', 'Used')->get();
             return view('reports.purchase', compact('data'));
         }
     }
@@ -118,7 +118,7 @@ class ReportController extends Controller
             $data = SaleDetail::where('type', 'New')->get();
             return view('reports.sale', compact('data'));
         } else {
-            $data = SaleDetail::where('type', 'Use')->get();
+            $data = SaleDetail::where('type', 'Used')->get();
             return view('reports.sale', compact('data'));
         }
     }

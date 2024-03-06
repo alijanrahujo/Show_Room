@@ -61,10 +61,8 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Title</th>
-                                            <th>Name</th>
                                             <th>Amount</th>
-                                            <th>Description</th>
-                                            <th>Status</th>
+                                            <th>Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,10 +70,8 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td> {{ $expense->title }} </td>
-                                                <td> {{ $expense->name }} </td>
                                                 <td> {{ $expense->amount }} </td>
-                                                <td> {{ $expense->description }} </td>
-                                                <td> {{ status($expense->status) }} </td>
+                                                <td> {{ $expense->date }} </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

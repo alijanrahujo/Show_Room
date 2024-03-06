@@ -164,6 +164,7 @@ class DealerPurchase extends Component
                 $details->total = $val['total'];
                 $details->do_number = $val['do_number'];
                 $details->do_date = $val['do_date'];
+                $details->status = 2;
                 $details->save();
             }
         } else {
@@ -199,7 +200,8 @@ class DealerPurchase extends Component
                     'purchase_tax' => $val['purchase_tax'],
                     'total' => $val['total'],
                     'do_number' => $val['do_number'],
-                    'do_date' => $val['do_date']
+                    'do_date' => $val['do_date'],
+                    'status' => 2,
                 ];
             }
 

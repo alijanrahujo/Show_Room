@@ -59,13 +59,14 @@ class PaymentController extends Controller
 
         $sale = Sale::find($request->sale_id);
         $sale->payments()->create([
-            'date'=> $request->date,
-            'type'=> $request->type,
-            'total'=> $sale->amount,
-            'pending'=> $request->pending-$request->paid,
-            'received'=> $request->paid,
-            'description'=> $request->description,
-            'image'=> str_replace('public/','',$file),
+            'date' => $request->date,
+            'type' => $request->type,
+            'total' => $sale->amount,
+            'pending' => $request->pending - $request->paid,
+            'received' => $request->paid,
+            'description' => $request->description,
+            'image' => str_replace('public/', '', $file),
+            'status' => 6,
         ]);
 
         DB::commit();

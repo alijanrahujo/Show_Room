@@ -74,7 +74,7 @@
                 </div>
                 <div class="overflow-view">
                     <div class="invoice-body">
-                        <table style="border: 1px;" class="text-bold">
+                        <table cellspacing='0' class="text-bold">
                             <thead>
                                 <tr>
                                     <td>QTY NO</td>
@@ -128,7 +128,7 @@
 
 
                     </div>
-
+                    <br><br>
                     <div class="invoice-head-middle-right">
                         <div class="invoice-head-middle-right text-end">
                             <p>
@@ -155,12 +155,7 @@
                         </div>
                     </div>
                     <div class="invoice-head-middle-right text-start" style="margin-top:10px">
-                        </br>
-                        <p>
-                            <span class="text-bold">Rupees: 1000</span>
-                        </p>
-
-                    </div>
+                        </br> </div>
                     <div class="invoice-foot text-center">
                         <div class="invoice-btns">
                             <button type="button" class="invoice-btn" onclick="printInvoice()">
