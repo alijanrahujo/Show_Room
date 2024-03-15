@@ -28,8 +28,31 @@ class Customer extends Model
         return $this->morphMany(Purchase::class, 'purchaseable');
     }
 
-    public function sale()
+    public function sales()
     {
-        return $this->hasOne(Sale::class, 'customer_id', 'id');
+        return $this->hasMany(Sale::class, 'customer_id', 'id');
+    }
+
+    public function getTotalAmountAttribute()
+    {
+        return $this->sales->sum('amount') ?? 0;
+    }
+
+    public function getPaidAmountAttribute()
+    {
+        $paidAmount = 0;
+        foreach ($this->sales as $sale) {
+            $paidAmount += $sale->payments->sum('received');
+        }
+        return $paidAmount;
+    }
+
+    public function getDueAmountAttribute()
+    {
+        $dueAmount = 0;
+        foreach ($this->sales as $sale) {
+            $dueAmount += $sale->amount - $sale->payments->sum('received');
+        }
+        return $dueAmount;
     }
 }

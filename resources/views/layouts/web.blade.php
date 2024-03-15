@@ -56,7 +56,7 @@
                         English <img src="{{ asset('assets/images/flags/us_flag.jpg') }}" class="ml-2" height="16"
                             alt="" /> <i class="mdi mdi-chevron-down"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right">
+                    {{-- <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="javascript: void(0);"><span> German </span><img
                                 src="{{ asset('assets/images/flags/germany_flag.jpg') }}" alt=""
                                 class="ml-2 float-right" height="14" /></a>
@@ -72,10 +72,10 @@
                         <a class="dropdown-item" href="javascript: void(0);"><span> Russian </span><img
                                 src="{{ asset('assets/images/flags/russia_flag.jpg') }}" alt=""
                                 class="ml-2 float-right" height="14" /></a>
-                    </div>
+                    </div> --}}
                 </li>
 
-                <li class="dropdown notification-list">
+                {{-- <li class="dropdown notification-list">
                     <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown"
                         href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="ti-bell noti-icon"></i>
@@ -161,7 +161,7 @@
                             View all <i class="fi-arrow-right"></i>
                         </a>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown"
@@ -172,13 +172,13 @@
                                 class="mdi mdi-chevron-down"></i> </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a>
-                        <a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> My
+                        {{-- <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a> --}}
+                        {{-- <a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> My
                             Wallet</a>
                         <a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i>
                             Settings</a>
                         <a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> Lock
-                            screen</a>
+                            screen</a> --}}
                         <div class="dropdown-divider mb-0"></div>
 
                         <!-- item-->
@@ -201,12 +201,12 @@
                         <i class="ti-menu nav-icon"></i>
                     </button>
                 </li>
-                <li class="hide-phone app-search">
+                {{-- <li class="hide-phone app-search">
                     <form role="search" class="">
                         <input type="text" id="AllCompo" placeholder="Search..." class="form-control">
                         <a href=""><i class="fas fa-search"></i></a>
                     </form>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- end navbar-->
@@ -216,73 +216,109 @@
     <!-- Left Sidenav -->
     <div class="left-sidenav">
         <ul class="metismenu left-sidenav-menu">
-            <li>
+            <li class="{{ Route::currentRouteName() == 'dashboard' ? 'mm-active' : '' }}">
                 <a href="{{ Route('dashboard') }}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
             </li>
+            @can('customer-show')
+                <li class="{{ Route::currentRouteName() == 'customers.index' ? 'mm-active' : '' }}">
+                    <a href="{{ Route('customers.index') }}"><i class="fas fa-users"></i><span>Customer</span></a>
+                </li>
+            @endcan
 
-            <li class="{{ Route::currentRouteName() == 'customers.index' ? 'mm-active' : '' }}">
-                <a href="{{ Route('customers.index') }}"><i class="fas fa-users"></i><span>Customer</span></a>
-            </li>
+            @can(['purchaseNew-show', 'saleNew-show'])
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span>Purchase/Sell</span>
+                        <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        @can('purchaseNew-show')
+                            <li class="{{ Route::currentRouteName() == 'dealer-purchase.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('dealer-purchase.index') }}">
+                                    <i class="fas fa-wallet"></i><span>Purchase New</span></a>
+                            </li>
+                        @endcan
+                        @can('saleNew-show')
+                            <li class="{{ Route::currentRouteName() == 'sales.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('sales.index') }}">
+                                    <i class="fas fa-balance-scale-left"></i><span>Sale New</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
 
-            <li>
-                <a href="javascript: void(0);"><i class="fa fa-shopping-cart"></i><span>Purchase/Sell</span><span
-                        class="menu-arrow"></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{ Route::currentRouteName() == 'dealer-purchase.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('dealer-purchase.index') }}">
-                            <i class="fas fa-wallet"></i><span>Purchase New</span></a>
-                    </li>
-                    <li class="{{ Route::currentRouteName() == 'sales.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('sales.index') }}">
-                            <i class="fas fa-balance-scale-left"></i><span>Sale New</span></a>
-                    </li>
-                </ul>
-            </li>
+            @can(['purchaseUsed-show', 'saleUsed-show'])
+                <li>
+                    <a href="javascript: void(0);"><i class="fas fa-bicycle" aria-hidden="true"></i>
+                        <span>Used Bikes</span>
+                        <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        @can('purchaseUsed-show')
+                            <li class="{{ Route::currentRouteName() == 'purchases.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('purchases.index') }}">
+                                    <i class="fas fa-balance-scale-right"></i><span>Purchase Use</span></a>
+                            </li>
+                        @endcan
 
-            <li>
-                <a href="javascript: void(0);"><i class="fas fa-bicycle" aria-hidden="true"></i>
-                    <span>Used Bikes</span>
-                    <span class="menu-arrow"></span>
-                </a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{ Route::currentRouteName() == 'purchases.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('purchases.index') }}">
-                            <i class="fas fa-balance-scale-right"></i><span>Purchase Use</span></a>
-                    </li>
-                    <li class="{{ Route::currentRouteName() == 'sale-use.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('sale-use.index') }}">
-                            <i class="fas fa-balance-scale-left"></i><span>Sale Use</span></a>
-                    </li>
-                </ul>
-            </li>
+                        @can('saleUsed-show')
+                            <li class="{{ Route::currentRouteName() == 'sale-use.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('sale-use.index') }}">
+                                    <i class="fas fa-balance-scale-left"></i><span>Sale Use</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
 
-            <li class="{{ Route::currentRouteName() == 'dailyexp.index' ? 'mm-active' : '' }}">
-                <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
-            </li>
+            @can('registrations-show')
+                <li class="{{ Route::currentRouteName() == 'registration.index' ? 'mm-active' : '' }}">
+                    <a href="{{ Route('registration.index') }}"><i
+                            class="fa fa-address-card"></i><span>Registations</span></a>
+                </li>
+            @endcan
+
+            @can('expenses-show')
+                <li class="{{ Route::currentRouteName() == 'dailyexp.index' ? 'mm-active' : '' }}">
+                    <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
+                </li>
+            @endcan
 
             {{-- Report Section --}}
             <li>
-                <a href="javascript: void(0);"><i class="fas fa-book"></i><span>Reports</span><span
-                        class="menu-arrow"></span></a>
+                <a href="javascript: void(0);">
+                    <i class="fas fa-book"></i>
+                    <span>Reports</span>
+                    <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
+                </a>
                 <ul class="nav-second-level" aria-expanded="false">
-                    {{-- <li class="{{ Route::currentRouteName() == 'reports.SaleRecipt' ? 'mm-active' : '' }}">
-                        <a href="{{ route('reports.SaleRecipt') }}"><i class="fas fa-file"></i>
-                            <span>Sale Invoice</span></a>
-                    </li> --}}
+
                     <li class="{{ Route::currentRouteName() == 'reports.Expenses' ? 'mm-active' : '' }}">
                         <a href="{{ route('reports.Expenses') }}"><i class="fas fa-file"></i>
                             <span>Expenses Report</span></a>
                         </a>
                     </li>
 
-                    <li class="{{ Route::currentRouteName() == 'reports.leadger' ? 'mm-active' : '' }}">
-                        <a href="{{ route('reports.leadger') }}"><i class="fas fa-file"></i>
-                            <span>Leadger Report</span></a>
+                    <li class="{{ Route::currentRouteName() == 'reports.dailyexp' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.dailyexp') }}"><i class="fas fa-file"></i>
+                            <span>Daily Exp Report</span></a>
+                    </li>
+
+                    <li class="{{ Route::currentRouteName() == 'reports.ledger' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.ledger') }}"><i class="fas fa-file"></i>
+                            <span>Ledger Report</span></a>
                     </li>
 
                     <li class="{{ Route::currentRouteName() == 'reports.Customer' ? 'mm-active' : '' }}">
                         <a href="{{ route('reports.Customer') }}"><i class="fas fa-file"></i>
                             <span>Customer Report</span></a>
+                    </li>
+
+                    <li class="{{ Route::currentRouteName() == 'reports.letter' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.letter') }}"><i class="fas fa-file"></i>
+                            <span>GL Report</span></a>
                     </li>
 
                     <li class="{{ Route::currentRouteName() == 'reports.PurchaseNew' ? 'mm-active' : '' }}">
@@ -294,44 +330,68 @@
                         <a href="{{ route('reports.SaleNew') }}"><i class="fas fa-file"></i>
                             <span>Sale Report</span></a>
                     </li>
+                    <li class="{{ Route::currentRouteName() == 'reports.Chassis' ? 'mm-active' : '' }}">
+                        <a href="{{ route('reports.Chassis') }}"><i class="fas fa-file"></i>
+                            <span>Vehicle Report</span></a>
+                    </li>
 
                 </ul>
             </li>
             {{-- End --}}
 
-            <li>
-                <a href="javascript: void(0);"><i class="fas fa-user-tag"></i><span>Manage User</span><span
-                        class="menu-arrow"></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{ Route::currentRouteName() == 'users.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('users.index') }}">
-                            <i class="fa fa-user"></i><span>User</span></a>
-                    </li>
-                    <li class="{{ Route::currentRouteName() == 'roles.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('roles.index') }}">
-                            <i class="fa fa-key"></i><span>Role</span></a>
-                    </li>
-                    <li class="{{ Route::currentRouteName() == 'permissions.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('permissions.index') }}">
-                            <i class="fa fa-pen"></i><span>Permission</span></a>
-                    </li>
-                </ul>
-            </li>
+            @can(['user-show', 'role-show', 'permission-show'])
 
-            <li>
-                <a href="javascript: void(0);"><i class="fa fa-cog"></i><span>Settings</span><span
-                        class="menu-arrow"></span></a>
-                <ul class="nav-second-level" aria-expanded="false">
-                    <li class="{{ Route::currentRouteName() == 'dealers.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('dealers.index') }}"><i class="fa fa-user"></i><span>Dealer</span></a>
-                    </li>
-                    <li class="{{ Route::currentRouteName() == 'vehicles.index' ? 'mm-active' : '' }}">
-                        <a href="{{ route('vehicles.index') }}">
-                            <i class="fa fa-bicycle" aria-hidden="true"></i><span>Vehicle</span></a>
-                    </li>
-                </ul>
-            </li>
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="fas fa-user-tag"></i>
+                        <span>Manage User</span>
+                        <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        @can('user-show')
+                            <li class="{{ Route::currentRouteName() == 'users.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('users.index') }}">
+                                    <i class="fa fa-user"></i><span>User</span></a>
+                            </li>
+                        @endcan
+                        @can('role-show')
+                            <li class="{{ Route::currentRouteName() == 'roles.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('roles.index') }}">
+                                    <i class="fa fa-key"></i><span>Role</span></a>
+                            </li>
+                        @endcan
+                        @can('permission-show')
+                            <li class="{{ Route::currentRouteName() == 'permissions.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('permissions.index') }}">
+                                    <i class="fa fa-pen"></i><span>Permission</span></a>
+                            </li>
+                        </ul>
+                    @endcan
+                </li>
 
+            @endcan
+            @can(['vehicle-show', 'dealer-show'])
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="fa fa-cog"></i>
+                        <span>Settings</span>
+                        <span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        @can('dealer-show')
+                            <li class="{{ Route::currentRouteName() == 'dealers.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('dealers.index') }}"><i class="fa fa-user"></i><span>Dealer</span></a>
+                            </li>
+                        @endcan
+                        @can('vehicle-show')
+                            <li class="{{ Route::currentRouteName() == 'vehicles.index' ? 'mm-active' : '' }}">
+                                <a href="{{ route('vehicles.index') }}">
+                                    <i class="fa fa-bicycle" aria-hidden="true"></i><span>Vehicle</span></a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
         </ul>
     </div>
     <!-- end left-sidenav-->

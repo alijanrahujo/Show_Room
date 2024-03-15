@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Purchase Report')
+@section('title', 'Daily Expenses Report')
 
 @section('content')
     <div class="container-fluid">
@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Purchase Report</li>
+                            <li class="breadcrumb-item active">Daily Expenses Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -25,27 +25,14 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.PurchaseNew',
+                            'route' => 'reports.dailyexp',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
                             'enctype' => 'multipart/form-data',
                         ]) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    {!! Form::label('type', 'Purchase Type') !!}
-                                    {!! Form::select('type', ['New' => 'Purchase New', 'Used' => 'Purchase Used'], null, [
-                                        'placeholder' => 'Select',
-                                        'class' => 'form-control',
-                                        'id' => 'status',
-                                    ]) !!}
-                                    @error('type')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     {!! Form::label('from', 'From date') !!}
                                     {!! Form::date('from', null, ['class' => 'form-control', 'placeholder' => 'Enter From Date']) !!}
@@ -55,7 +42,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-5">
                                 <div class="form-group">
                                     {!! Form::label('to', 'To date') !!}
                                     {!! Form::date('to', null, ['class' => 'form-control', 'placeholder' => 'Enter To Date']) !!}
@@ -64,8 +51,9 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3 mt-4">
+                            <div class="col-md-2 mt-4">
                                 <div class="form-group">
+                                    <input type="hidden" name="table" value="purchase">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
@@ -76,7 +64,7 @@
             </div>
         </div> <!-- end col -->
 
-        @if (isset($data))
+        @if (isset($combinedData))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -87,36 +75,24 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>Date</th>
-                                            <th>Purchased From</th>
-                                            <th>Engine No</th>
-                                            <th>Chassis No</th>
-                                            <th>Model</th>
-                                            <th>Color</th>
-                                            <th>Horse Power</th>
-                                            <th>total</th>
-                                            <th>Type</th>
+                                            <th>Particular</th>
+                                            <th>Debit</th>
+                                            <th>Credit</th>
+                                            <th>Balance</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($data as $val)
-                                            @foreach ($val->PurchaseDetail as $detail)
-                                                <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $val->date }}</td>
-                                                    <td>{{ $val->purchaseable->company_name ?? $val->purchaseable->customer_name }}
-                                                    </td>
-                                                    <td>{{ $detail->engine }}</td>
-                                                    <td>{{ $detail->chassis }}</td>
-                                                    <td>{{ $detail->model }}</td>
-                                                    <td>{{ $detail->color }}</td>
-                                                    <td>{{ $detail->horse_power }}</td>
-                                                    <td>{{ $detail->total }}</td>
-                                                    <td>{{ $val->type }}</td>
-                                                </tr>
-                                            @endforeach
+                                        @foreach ($combinedData as $dailyExpenses)
+                                            <tr>
+                                                <td> {{ $dailyExpenses['date'] }} </td>
+                                                <td> {{ $dailyExpenses['particular'] }} </td>
+                                                <td> {{ $dailyExpenses['debit'] }} </td>
+                                                <td> {{ $dailyExpenses['credit'] }} </td>
+                                                <td> {{ $dailyExpenses['balance'] }} </td>
+                                            </tr>
                                         @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

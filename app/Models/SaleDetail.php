@@ -19,6 +19,7 @@ class SaleDetail extends Model
         'engine',
         'chassis',
         'model',
+        'horse_power',
         'color',
         'pre_refrence',
         'sale_amount',

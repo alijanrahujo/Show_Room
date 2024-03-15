@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Purchase;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PurchaseDetail extends Model
 {
@@ -19,7 +20,7 @@ class PurchaseDetail extends Model
         'address',
         'owner_name',
         'owner_father',
-        'owner_cinc',
+        'owner_cnic',
         'owner_address',
         'engine',
         'title',
@@ -53,4 +54,16 @@ class PurchaseDetail extends Model
         return $this->belongsTo(Purchase::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(function ($model) {
+            $purchase_id = $model->purchase_id;
+            $query = PurchaseDetail::where('purchase_id', $purchase_id)->where('status', 2)->count();
+            if ($query == 0) {
+                Purchase::where('id', $purchase_id)->update(['status' => 3]);
+            }
+        });
+    }
 }

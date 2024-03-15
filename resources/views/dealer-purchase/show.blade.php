@@ -96,18 +96,18 @@
                                                                                         aria-hidden="true"></i>
                                                                                 </a> --}}
 
-                                                                                <a href="{{ Route('dealer-purchase.edit', $purchase->id) }}"
+                                                                                {{-- <a href="{{ Route('dealer-purchase.edit', $purchase->id) }}"
                                                                                     class="btn btn-sm btn-warning">
                                                                                     <i class="fa fa-edit"
                                                                                         aria-hidden="true"></i>
-                                                                                </a>
-                                                                                {!! Form::open([
+                                                                                </a> --}}
+                                                                                {{-- {!! Form::open([
                                                                                     'method' => 'DELETE',
                                                                                     'route' => ['dealer-purchase.destroy', $purchase->id],
                                                                                     'style' => 'display:inline',
                                                                                 ]) !!}
                                                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
-                                                                                {!! Form::close() !!}
+                                                                                {!! Form::close() !!} --}}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -309,7 +309,7 @@
                                                     <th>Type</th>
                                                     <th>Total Amount</th>
                                                     <th>Paid Amount</th>
-                                                    <th>Pending Amount</th>
+                                                    <th>Due Amount</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>

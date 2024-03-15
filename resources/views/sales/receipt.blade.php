@@ -303,7 +303,7 @@
                                 </tr> -->
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr >
                                     <td class="text-bold" colspan="2">Name: {{ $sell->customer->customer_name }}</td>
                                     <!-- <td style="width: 250px;"></td> -->
                                     <td class="text-bold">Cash Price:</td>

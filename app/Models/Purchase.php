@@ -20,7 +20,6 @@ class Purchase extends Model
         'status',
     ];
 
-
     public function getFullTitleAttribute()
     {
         return $this->title . ' (' . $this->model . ' - ' . $this->color . ')';
@@ -52,6 +51,8 @@ class Purchase extends Model
 
         static::deleting(function ($dealer) {
             $dealer->payments()->delete();
+            $dealer->installments()->delete();
+
         });
     }
 }

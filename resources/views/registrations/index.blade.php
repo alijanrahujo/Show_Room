@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Reports')
+@section('title', 'Registrations')
 
 @section('content')
     <div class="container-fluid">
@@ -10,8 +10,8 @@
                     <div class="float-right">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">{{ $table }} Report</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">Registrations</a></li>
+                            <li class="breadcrumb-item active">Registration list</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -27,54 +27,60 @@
 
                         <h4 class="mt-0 header-title clearfix">
                             <div>
-                                {{-- <a href="{{ Route('reports.create') }}" class="btn btn-primary float-right">Add Vehicle
-                                    Type</a> --}}
+                                <a href="{{ Route('registration.create') }}" class="btn btn-primary float-right">Add
+                                    Registration</a>
                             </div>
                         </h4>
                         <div class="table-responsive">
-                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                            <table id="datatable-buttons"
+                                class="text-center table table-striped table-bordered dt-responsive nowrap"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Engine No</th>
-                                        <th>Chassis No</th>
-                                        <th>Model</th>
-                                        <th>Color</th>
-                                        <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?>
-                                        <?php
-                                        }
-                                        else {
-                                            ?><th>Horse POwer</th>
-                                        <?php
-                                        }
-                                        ?>
+                                        <th>Date</th>
+                                        <th>Title</th>
+                                        <th>Chassis</th>
                                         <th>Type</th>
+                                        <th>Customer Name</th>
+                                        <th>Phone</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    @foreach ($data as $val)
+                                    @foreach ($registrations as $register)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $val->engine }}</td>
-                                            <td>{{ $val->chassis }}</td>
-                                            <td>{{ $val->model }}</td>
-                                            <td>{{ $val->color }}</td>
-                                            <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?><?php
-                                        }
-                                        else {
-                                            ?>
-                                            <td>{{ $val->horse_power }}</td>
-                                            <?php
-                                    }
-                                        ?>
-                                            <td>{{ $val->type }}</td>
+                                            <td>{{ $register->date }}</td>
+                                            <td>{{ $register->title }}</td>
+                                            <td>{{ $register->chassis }}</td>
+                                            <td>{{ $register->type }}</td>
+                                            <td>{{ $register->name }}</td>
+                                            <td>{{ $register->phone }}</td>
+                                            <td>{{ status($register->status) }}</td>
+                                            <td>
+                                                <a href="{{ Route('registration.show', $register->id) }}"
+                                                    class="btn btn-sm btn-primary">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ Route('registration.edit', $register->id) }}"
+                                                    class="btn btn-sm btn-warning">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                </a>
+                                                {!! Form::open([
+                                                    'method' => 'DELETE',
+                                                    'route' => ['registration.destroy', $register->id],
+                                                    'style' => 'display:inline',
+                                                    'onsubmit' => 'return confirm("Are you sure you want to delete this?");'
+                                                ]) !!}
+                                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
+                                                {!! Form::close() !!}
+                                            </td>
                                         </tr>
                                     @endforeach
+
                                 </tbody>
                             </table>
                         </div>

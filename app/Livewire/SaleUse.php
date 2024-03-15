@@ -17,7 +17,7 @@ class SaleUse extends Component
     public $owner_cnic, $owner_name, $owner_father, $owner_address;
     public $cnic, $phone, $customer_name, $father_name, $address;
     public $guarantor_name, $guarantor_father;
-    public $total, $date, $time, $installment, $months;
+    public $total, $date, $time, $installment, $months, $down_payment_amount;
 
     public function mount()
     {
@@ -80,7 +80,6 @@ class SaleUse extends Component
             'model' => 'required',
             'color' => 'required',
             'horse_power' => 'required',
-            'register_no' => 'required',
             'owner_cnic' => 'required',
             'owner_name' => 'required',
             'owner_father' => 'required',
@@ -97,6 +96,7 @@ class SaleUse extends Component
             'time' => 'required',
             'installment' => 'required|in:Yes,No',
             'months' => 'required_if:installment,Yes',
+            'down_payment_amount' => 'required_if:installment,Yes',
         ]);
 
         DB::beginTransaction();
@@ -110,16 +110,45 @@ class SaleUse extends Component
         ]);
         $customer = Customer::where('cnic', $this->cnic)->first();
 
+        $status = 4;
+        if ($this->down_payment_amount < $this->total) {
+            $status = 5;
+        } elseif ($this->total == $this->down_payment_amount) {
+            $status = 6;
+        }
         $sale = Sale::create([
             'date' => $this->date,
             'time' => $this->time,
-            'type' => 'Use',
+            'type' => 'Used',
             'customer_id' => $customer->id,
             'amount' => $this->total,
             'installment' => $this->installment,
             'months' => $this->months,
-            'status' => 4,
+            'down_payment_amount' => $this->down_payment_amount,
+            'status' => $status,
         ]);
+
+        if ($this->installment == 'Yes') {
+            $sale->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->total,
+                'pending' => $this->total - $this->down_payment_amount,
+                'received' => $this->down_payment_amount,
+                'description' => 'Down Payment',
+                'status' => 6,
+            ]);
+        }
+
+        for ($i = 0; $i < $this->months; $i++) {
+            $currentMonth = \Carbon\Carbon::now()->addMonths($i)->format('Y-m-d');
+            $sale->installments()->create([
+                'date' => $currentMonth,
+                'amount' => ($this->total - $this->down_payment_amount) / $this->months,
+                'due_amount' => ($this->total - $this->down_payment_amount) / $this->months,
+                'description' => 'Sale used bike'
+            ]);
+        }
 
         $details = new SaleDetail;
         $details->sale_id = $sale->id;
@@ -132,6 +161,7 @@ class SaleUse extends Component
         $details->chassis = $this->chassis;
         $details->model = $this->model;
         $details->color = $this->color;
+        $details->horse_power = $this->horse_power;
         $details->sale_price = $this->total;
         $details->sale_tax = 0;
         $details->total = $this->total;
@@ -141,7 +171,7 @@ class SaleUse extends Component
         $details->pre_refrence = $this->pre_refrence;
         $details->save();
 
-        PurchaseDetail::where(['purchase_id' => $this->purchase_id, 'chassis' => $this->chassis])->update(['status' => 3]);
+        PurchaseDetail::where(['id' => $this->purchase_id, 'chassis' => $this->chassis])->update(['status' => 3]);
 
         DB::commit();
         return redirect()->route('sale-use.show', $sale->id);

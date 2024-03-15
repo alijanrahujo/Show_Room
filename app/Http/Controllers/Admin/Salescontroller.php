@@ -19,7 +19,7 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        $sales = Sale::where('type', 'New')->with('customer')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('type', 'New')->with('customer')->orderBy('id', 'DESC')->latest()->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -82,10 +82,25 @@ class Salescontroller extends Controller
     /**
      * Display the specified resource.
      */
+    // public function show($id)
+    // {
+    //     $sales = Sale::with('saleDetail', 'payments', 'installments')->find($id);
+
+    //     $hasImage = $sales->payments->contains('image', '!=', null) && $sales->installment == 'Yes';
+
+    //     return view($hasImage ? 'sales.show' : 'sales.show_with_out_image', compact('sales'));
+    // }
+
+
     public function show($id)
     {
-        $sales = Sale::find($id)->with('saleDetail', 'payments', 'installments')->where('id', $id)->first();
-        // $payments = SalePayment::with('payments', 'saleDetail')->where('id', $id)->get();
+        $sales = Sale::with('saleDetail', 'payments', 'installments')->findOrFail($id);
+
+        $paymentsWithoutImage = $sales->payments->where('image', null);
+        if ($paymentsWithoutImage->isNotEmpty()) {
+            return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
+        }
+
         return view('sales.show', compact('sales'));
     }
 
@@ -133,7 +148,7 @@ class Salescontroller extends Controller
 
     public function invoices($id)
     {
-        $sale = SaleDetail::where('sale_id', $id)->with('sale', 'sale.customer')->first();
+        $sale = SaleDetail::where('purchase_id', $id)->with('sale', 'sale.customer')->first();
         return view('sales.invoice', compact('sale'));
     }
 

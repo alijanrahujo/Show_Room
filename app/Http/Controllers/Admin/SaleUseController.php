@@ -13,7 +13,7 @@ class SaleUseController extends Controller
      */
     public function index()
     {
-        $sales = Sale::where('type','Used')->with('customer')->orderBy('id', 'DESC')->get();
+        $sales = Sale::where('type', 'Used')->with('customer')->orderBy('id', 'DESC')->latest()->get();
         return view('sale-use.index', compact('sales'));
     }
 
@@ -38,7 +38,13 @@ class SaleUseController extends Controller
      */
     public function show(string $id)
     {
-        $sales = Sale::find($id)->with('saleDetail','payments')->where('id', $id)->first();
+        $sales = Sale::find($id)->with('saleDetail', 'payments')->where('id', $id)->first();
+
+        $paymentsWithoutImage = $sales->payments->where('image', null);
+        if ($paymentsWithoutImage->isNotEmpty()) {
+            return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
+        }
+
         return view('sale-use.show', compact('sales'));
     }
 

@@ -21,7 +21,7 @@ class DealerPurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::where('type', 'New')->get();
+        $purchases = Purchase::where('type', 'New')->latest()->get();
         return view('dealer-purchase.index', compact('purchases'));
     }
 
@@ -92,7 +92,12 @@ class DealerPurchaseController extends Controller
     public function show($id)
     {
         $purchases = Purchase::with('purchaseDetail', 'payments')->where('id', $id)->first();
-        // $payments = $purchases->with('payments', 'purchaseDetail')->where('id', $id)->get();
+
+        $paymentsWithoutImage = $purchases->payments->where('image', null);
+        if ($paymentsWithoutImage->isNotEmpty()) {
+            return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
+        }
+
         return view('dealer-purchase.show', compact('purchases'));
     }
 

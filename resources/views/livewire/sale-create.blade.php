@@ -300,7 +300,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('grand_total', 'Grand Total *') !!}
                             {!! Form::number('grand_total', null, [
@@ -314,7 +314,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             {!! Form::label('installment', 'installment *') !!}
                             {!! Form::select('installment', ['Yes' => 'Yes', 'No' => 'No'], null, [
@@ -328,7 +328,7 @@
                         </div>
                     </div>
                     @if ($installment == 'Yes')
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('months', 'Months *') !!}
                                 {!! Form::number('months', null, [
@@ -342,48 +342,22 @@
                             </div>
                         </div>
                     @endif
-                </div>
-                {{-- <div class="row">
-                    @if (!empty($months))
-                        @for ($i = 1; $i <= $months; $i++)
-                            @php
-                                $currentMonth = \Carbon\Carbon::now()
-                                    ->addMonths($i - 1)
-                                    ->format('Y-m-d');
-                            @endphp
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {!! Form::label("instaDate. $i", "Date  $i") !!}
-                                    {!! Form::date('instaDate. $i', $currentMonth, [
-                                        'class' => 'form-control',
-                                        'wire:model' => 'instaDate {{$i}}',
-                                    ]) !!}
-
-                                </div>
+                    @if ($installment == 'Yes')
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                {!! Form::label('down_payment_amount', 'Down payment amount *') !!}
+                                {!! Form::number('down_payment_amount', null, [
+                                    'wire:model.live' => 'down_payment_amount',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Down payment amount',
+                                ]) !!}
+                                @error('down_payment_amount')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {!! Form::label("instaAmount. $i", "Amount  $i") !!}
-                                    {!! Form::number('instaAmount. $i', null, [
-                                        'class' => 'form-control',
-                                        'wire:model' => 'instaAmount. {{$i}}',
-                                        'placeholder' => "Amount for Month  $i",
-                                    ]) !!}
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    {!! Form::label("instaDesc. $i", "Description  $i") !!}
-                                    {!! Form::text('instaDesc. $i', null, [
-                                        'class' => 'form-control',
-                                        'wire:model' => 'instaDesc. $i',
-                                        'placeholder' => "Description for Month  $i",
-                                    ]) !!}
-                                </div>
-                            </div>
-                        @endfor
+                        </div>
                     @endif
-                </div> --}}
+                </div>
                 <div class="row">
                     <div class="col-6 mt-4">
                         {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}

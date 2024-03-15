@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('installments', function (Blueprint $table) {
             $table->id();
             $table->date("date")->nullable();
-            $table->string("amount")->nullable();
+            $table->decimal("amount")->nullable();
+            $table->date("paid_date")->nullable();
+            $table->decimal("paid_amount")->nullable();
+            $table->decimal("due_amount")->nullable();
             $table->string("description")->nullable();
             $table->morphs('installmentable');
             $table->integer('status')->default(4);

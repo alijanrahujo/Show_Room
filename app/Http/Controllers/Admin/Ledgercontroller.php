@@ -14,7 +14,7 @@ class Ledgercontroller extends Controller
      */
     public function index()
     {
-        $ledgers = Ledger::orderBy('id', 'DESC')->get();
+        $ledgers = Ledger::orderBy('id', 'DESC')->latest()->get();
         return view('ledgers.index', compact('ledgers'));
     }
 

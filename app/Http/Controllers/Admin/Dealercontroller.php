@@ -13,7 +13,7 @@ class Dealercontroller extends Controller
      */
     public function index()
     {
-        $dealers = Dealer::orderBy('id', 'DESC')->get();
+        $dealers = Dealer::orderBy('id', 'DESC')->latest()->get();
         return view('dealers.index', compact('dealers'));
     }
 

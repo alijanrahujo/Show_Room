@@ -13,7 +13,7 @@ class ExpensesController extends Controller
      */
     public function index()
     {
-        $expenses = Expenses::orderBy('id', 'DESC')->get();
+        $expenses = Expenses::orderBy('id', 'DESC')->latest()->get();
         return view('expenses.index', compact('expenses'));
     }
 

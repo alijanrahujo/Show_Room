@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string("address")->nullable();
             $table->string("owner_name")->nullable();
             $table->string("owner_father")->nullable();
-            $table->string("owner_cinc")->nullable();
+            $table->string("owner_cnic")->nullable();
             $table->string("owner_address")->nullable();
             $table->string('engine');
             $table->string('title')->nullable();

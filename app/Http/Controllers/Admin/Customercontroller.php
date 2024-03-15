@@ -13,7 +13,7 @@ class Customercontroller extends Controller
      */
     public function index()
     {
-        $customers = Customer::orderBy('id', 'DESC')->get();
+        $customers = Customer::orderBy('id', 'DESC')->latest()->get();
         return view('customers.index', compact('customers'));
     }
 
@@ -87,7 +87,7 @@ class Customercontroller extends Controller
      */
     public function destroy($id)
     {
-        // return $id;
+        //return $id;
         Customer::find($id)->delete();
         return redirect()->route('customers.index')->with('success', 'Dealer deleted successfully');
     }

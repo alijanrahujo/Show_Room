@@ -13,8 +13,8 @@ class DealerPurchase extends Component
 {
     public $dealers;
     public $vehicles;
-    public $vehicle_id, $chassis, $engine, $model, $color, $horse_power, $purchase_amount, $purchase_tax, $total_amount, $do_number, $do_date;
-    public $data;
+    public $vehicle_id, $title, $chassis, $engine, $model, $color, $horse_power, $purchase_amount, $purchase_tax, $do_number, $do_date;
+    public $data, $total_amount, $excluding_tax, $rate_tax, $paybel_tax, $including_tax;
 
     public $date, $dealer_id, $total;
 
@@ -37,6 +37,7 @@ class DealerPurchase extends Component
             $this->total_amount = $purchase['total_amount'];
             $this->data = $purchase->purchaseDetail->toArray();
             $this->dealer_id = $purchase->purchaseable->id;
+            $this->amount_update();
         }
     }
 
@@ -51,6 +52,7 @@ class DealerPurchase extends Component
         $this->horse_power = $vehicle_type->horse_power ?? '';
         $this->purchase_amount = $vehicle_type->purchase_price ?? '';
         $this->purchase_tax = $vehicle_type->purchase_tax ?? '';
+        $this->title = $vehicle_type->vehicle_type ?? '';
     }
 
     function addvehicle()
@@ -73,6 +75,7 @@ class DealerPurchase extends Component
         if ($this->edit_data) {
             $this->data[$this->edit_id] = [
                 'vehicle_id' => $this->vehicle_id,
+                'title' => $this->title,
                 'vehicle' => $vehicle,
                 'chassis' => $this->chassis,
                 'engine' => $this->engine,
@@ -88,6 +91,7 @@ class DealerPurchase extends Component
         } else {
             $this->data[] = [
                 'vehicle_id' => $this->vehicle_id,
+                'title' => $this->title,
                 'vehicle' => $vehicle,
                 'chassis' => $this->chassis,
                 'engine' => $this->engine,
@@ -114,10 +118,18 @@ class DealerPurchase extends Component
     function amount_update()
     {
         $this->total_amount = 0;
+        $this->excluding_tax = 0;
+        $this->rate_tax = 0;
+        $this->paybel_tax = 0;
+        $this->including_tax = 0;
         foreach ($this->data as $item) {
-            $amount = is_array($item) ? ($item['total'] ?? 0) : ($item->total ?? 0);
-            $this->total_amount += $amount;
+            $this->total_amount += is_array($item) ? ($item['total'] ?? 0) : ($item->total ?? 0);
+            $this->excluding_tax += is_array($item) ? ($item['purchase_amount'] ?? 0) : ($item->purchase_amount ?? 0);
+            $this->rate_tax += is_array($item) ? ($item['purchase_tax'] ?? 0) : ($item->purchase_tax ?? 0);
+            $this->including_tax += is_array($item) ? ($item['total'] ?? 0) : ($item->total ?? 0);
         }
+        $this->rate_tax = $this->rate_tax/count($this->data);
+        $this->paybel_tax = $this->total_amount/100*$this->rate_tax;
     }
 
     function submit()
@@ -131,11 +143,15 @@ class DealerPurchase extends Component
 
         $dealer = Dealer::find($this->dealer_id);
 
-        if (!$this->edit_form_id) {
+        if(!$this->edit_form_id) {
             //Store New Data
             $purchase = $dealer->purchaseable()->create([
                 'date' => $this->date,
                 'total_amount' => $this->total_amount,
+                'excluding_tax' => $this->excluding_tax,
+                'rate_tax' => $this->rate_tax,
+                'paybel_tax' => $this->paybel_tax,
+                'including_tax' => $this->including_tax,
                 'status' => 2,
                 'type' => 'New',
             ]);
@@ -154,6 +170,7 @@ class DealerPurchase extends Component
                 $details->type = 'New';
                 $details->vehicle_id = $val['vehicle_id'];
                 $details->purchase_id = $purchase->id;
+                $details->title = $val['title'];
                 $details->chassis = $val['chassis'];
                 $details->engine = $val['engine'];
                 $details->model = $val['model'];
@@ -173,6 +190,10 @@ class DealerPurchase extends Component
             $purchase->update([
                 'date' => $this->date,
                 'total_amount' => $this->total_amount,
+                'excluding_tax' => $this->excluding_tax,
+                'rate_tax' => $this->rate_tax,
+                'paybel_tax' => $this->paybel_tax,
+                'including_tax' => $this->including_tax,
                 'type' => 'New',
             ]);
             $purchase->payments()->delete();
@@ -191,6 +212,7 @@ class DealerPurchase extends Component
                 $purchaseDetailsData[] = [
                     'vehicle_id' => $val['vehicle_id'],
                     'type' => 'New',
+                    'title' => $val['title'],
                     'chassis' => $val['chassis'],
                     'engine' => $val['engine'],
                     'model' => $val['model'],
@@ -207,12 +229,13 @@ class DealerPurchase extends Component
 
             $purchase->purchaseDetail()->createMany($purchaseDetailsData);
         }
-        return redirect('dealer-purchase');
+        return redirect()->route('dealer-purchase.show', $purchase->id);
     }
 
     function edit($id)
     {
         $this->vehicle_id = $this->data[$id]['vehicle_id'];
+        $this->title = $this->data[$id]['title'];
         $this->chassis = $this->data[$id]['chassis'];
         $this->engine = $this->data[$id]['engine'];
         $this->model = $this->data[$id]['model'];

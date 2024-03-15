@@ -38,7 +38,7 @@
                                         <th>#</th>
                                         <th>Customer</th>
                                         <th>Sale Qty</th>
-                                        <th>Sale Amount</th>
+                                        <th>Due Amount</th>
                                         <th>Installment</th>
                                         <th>Date</th>
                                         <th>Status</th>
@@ -53,7 +53,7 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td> {{ $sale->customer->customer_name ?? '' }} </td>
                                             <td> {{ $sale->saleDetail()->count() ?? 0 }} </td>
-                                            <td> {{ $sale->amount }} </td>
+                                            <td> {{ $sale->due_amount }} </td>
                                             <td> {{ $sale->installment == 'Yes' ? $sale->months . ' Month' : 'No' }} </td>
                                             <td> {{ $sale->date }} </td>
                                             <td> {{ status($sale->status) }} </td>
@@ -62,11 +62,11 @@
                                                     class="btn btn-sm btn-primary">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ Route('sale-use.edit', $sale->id) }}"
+                                                {{-- <a href="{{ Route('sale-use.edit', $sale->id) }}"
                                                     class="btn btn-sm btn-warning">
                                                     <i class="fa fa-edit" aria-hidden="true"></i>
-                                                </a>
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['sale-use.destroy', $sale->id], 'style' => 'display:inline']) !!}
+                                                </a> --}}
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['sale-use.destroy', $sale->id], 'style' => 'display:inline','onsubmit' => 'return confirm("Are you sure you want to delete this?");']) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
                                                 {!! Form::close() !!}
                                             </td>

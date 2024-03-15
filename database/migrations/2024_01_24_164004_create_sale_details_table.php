@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sale_id')->constrained('sales')->cascadeOnDelete();
+            $table->string('vehicle_id')->nullable();
             $table->string('tc_no')->nullable();
             $table->string('register_no')->nullable();
             $table->string('purchase_id');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('chassis');
             $table->string('model');
             $table->string('color');
+            $table->string('horse_power');
             $table->string('sale_price');
             $table->string('sale_tax');
             $table->string('reg_fee')->nullable();

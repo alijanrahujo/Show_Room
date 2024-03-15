@@ -32,10 +32,10 @@
                             'enctype' => 'multipart/form-data',
                         ]) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('type', 'Sale Type') !!}
-                                    {!! Form::select('type', ['new' => 'Sale New', 'use' => 'Sale Used'], null, [
+                                    {!! Form::select('type', ['New' => 'Sale New', 'Used' => 'Sale Used'], null, [
                                         'placeholder' => 'Select',
                                         'class' => 'form-control',
                                         'id' => 'status',
@@ -45,7 +45,26 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6 mt-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('from', 'From date') !!}
+                                    {!! Form::date('from', null, ['class' => 'form-control', 'placeholder' => 'Enter From Date']) !!}
+                                    @error('from')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('to', 'To date') !!}
+                                    {!! Form::date('to', null, ['class' => 'form-control', 'placeholder' => 'Enter To Date']) !!}
+                                    @error('to')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-3 mt-4">
                                 <div class="form-group">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
@@ -69,43 +88,33 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Date</th>
+                                            <th>Customer Name</th>
                                             <th>Engine No</th>
                                             <th>Chassis No</th>
                                             <th>Model</th>
                                             <th>Color</th>
-                                            <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?>
-                                            <?php
-                                        }
-                                        else {
-                                            ?><th>Horse Power</th>
-                                            <?php
-                                        }
-                                        ?>
+                                            <th>Horse Power</th>
+                                            <th>Amount</th>
                                             <th>Type</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $val)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
-                                                <td>{{ $val->model }}</td>
-                                                <td>{{ $val->color }}</td>
-                                                <?php
-                                        if (!isset($data[0]['horse_power'])) {
-                                            ?><?php
-                                        }
-                                        else {
-                                            ?>
-                                                <td>{{ $val->horse_power }}</td>
-                                                <?php
-                                    }
-                                        ?>
-                                                <td>{{ $val->type }}</td>
-                                            </tr>
+                                            @foreach ($val->saleDetail as $detail)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $val->date }}</td>
+                                                    <td>{{ $val->customer->customer_name }}</td>
+                                                    <td>{{ $detail->engine }}</td>
+                                                    <td>{{ $detail->chassis }}</td>
+                                                    <td>{{ $detail->model }}</td>
+                                                    <td>{{ $detail->color }}</td>
+                                                    <td>{{ $detail->horse_power }}</td>
+                                                    <td>{{ $detail->total }}</td>
+                                                    <td>{{ $val->type }}</td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     </tbody>
                                 </table>

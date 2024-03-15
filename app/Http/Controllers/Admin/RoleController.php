@@ -39,7 +39,11 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-        $role = Role::create(['name' => $request->input('role')]);
+        $role = Role::create([
+            'name' => $request->input('role'),
+            'guard_name' => 'web',
+        ]);
+
         $role->syncPermissions($request->input('permission'));
 
         return redirect('roles')->with('success', 'Role created successfully');
@@ -96,7 +100,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        Role::find($id)->delete();
+        $role = Role::find($id);
+        $role->delete();
 
         return redirect('roles')->with('success', 'Role deleted successfully');
     }

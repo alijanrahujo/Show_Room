@@ -181,8 +181,7 @@
                         @foreach ($data as $key => $purchase)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td></td>
-                                {{-- <td> {{ $purchase['vehicle']['vehicle_type'] }} </td> --}}
+                                <td> {{ $purchase['title'] }} </td>
                                 <td> {{ $purchase['engine'] }} </td>
                                 <td> {{ $purchase['chassis'] }} </td>
                                 <td> {{ $purchase['color'] }} </td>

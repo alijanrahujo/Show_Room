@@ -64,6 +64,7 @@
                                                     'method' => 'DELETE',
                                                     'route' => ['vehicles.destroy', $vehicle->id],
                                                     'style' => 'display:inline',
+                                                    'onsubmit' => 'return confirm("Are you sure you want to delete this?");'
                                                 ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
                                                 {!! Form::close() !!}

@@ -13,7 +13,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = VehicleType::get();
+        $vehicles = VehicleType::latest()->get();
         return view('vehicles.index', compact('vehicles'));
     }
 

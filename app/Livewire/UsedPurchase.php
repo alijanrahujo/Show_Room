@@ -11,20 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class UsedPurchase extends Component
 {
-    public $purchases, $vehicles, $purchase_id, $vehicle_id, $data;
-
+    public $vehicles, $purchase_id, $vehicle_id;
     public $date, $time, $total_amount, $paid;
-
     public $engine, $title, $chassis, $model, $color, $horse_power, $maker, $tc_no, $register_no;
     public $cnic, $phone, $customer_name, $father_name, $address;
-    public $owner_name, $owner_father, $owner_cnic, $owner_address;
-
+    public $owner_name, $owner_father, $owner_cnic, $owner_address, $extra;
 
     public function mount()
     {
         $this->vehicles = VehicleType::pluck('vehicle_type', 'id');
         $this->time = Carbon::now()->format('H:i');
         $this->date = Carbon::now()->format('Y-m-d');
+        $this->maker = 'Honda';
     }
 
     public function render()
@@ -34,39 +32,41 @@ class UsedPurchase extends Component
 
     public function updatedEngine()
     {
-        $purchases = PurchaseDetail::where('engine', $this->engine)->orderby('id', 'desc')->first();
-        $this->title = $purchases->vehicle->vehicle_type ?? '';
-        $this->horse_power = $purchases->vehicle->horse_power ?? '';
-        $this->chassis = $purchases->chassis ?? '';
-        $this->model = $purchases->model ?? '';
-        $this->color = $purchases->color ?? '';
-        $this->vehicle_id = $purchases->vehicle_id ?? '';
-        $this->title = $purchases->vehicle_type ?? '';
+        $purchaseDetail = PurchaseDetail::where('engine', $this->engine)->latest()->first();
+        if ($purchaseDetail) {
+            $this->title = $purchaseDetail->vehicle->vehicle_type;
+            $this->horse_power = $purchaseDetail->vehicle->horse_power;
+            $this->chassis = $purchaseDetail->chassis;
+            $this->model = $purchaseDetail->model;
+            $this->color = $purchaseDetail->color;
+            $this->vehicle_id = $purchaseDetail->vehicle_id;
+            $this->title = $purchaseDetail->vehicle_type;
+        }
     }
 
-
-
-    public function updatedCnic()
+    public function updatedCnic($cnic)
     {
-        $customer = Customer::where('cnic', $this->cnic)->orderby('id', 'desc')->first();
+        $customer = Customer::where('cnic', $cnic)->latest()->first();
         $this->customer_name = $customer->customer_name ?? '';
         $this->father_name = $customer->father_name ?? '';
         $this->address = $customer->address ?? '';
         $this->phone = $customer->phone ?? '';
-    }
 
-    public function updatedVehicleId()
-    {
-        $vehicle = VehicleType::find($this->vehicle_id);
-        $this->title = $vehicle->vehicle_type ?? '';
+        $this->updatedOwnerCnic();
     }
 
     public function updatedOwnerCnic()
     {
-        $customer = Customer::where('cnic', $this->owner_cnic)->orderby('id', 'desc')->first();
-        $this->owner_name = $customer->customer_name ?? '';
-        $this->owner_father = $customer->father_name ?? '';
-        $this->owner_address = $customer->address ?? '';
+        $this->owner_cnic = $this->cnic;
+        $this->owner_name = $this->customer_name;
+        $this->owner_father = $this->father_name;
+        $this->owner_address = $this->address;
+    }
+
+    public function updatedVehicleId($id)
+    {
+        $vehicle = VehicleType::select('vehicle_type')->where('id', $id)->first();
+        $this->title = $vehicle->vehicle_type ?? '';
     }
 
     public function submit()
@@ -78,33 +78,23 @@ class UsedPurchase extends Component
             'father_name' => 'required',
             'address' => 'required',
             'vehicle_id' => 'required',
-            // 'owner_name' => 'required',
-            // 'owner_father' => 'required',
-            // 'owner_cnic' => 'required',
-            // 'owner_address' => 'required',
             'engine' => 'required',
-            // 'title' => 'required',
             'chassis' => 'required',
             'model' => 'required',
             'color' => 'required',
             'horse_power' => 'required',
             'maker' => 'required',
-            // 'tc_no' => 'required',
-            'register_no' => 'required',
         ]);
 
         DB::beginTransaction();
 
-        $customer = Customer::where('cnic', $this->cnic)->first();
-        if (!$customer) {
-            $customer = Customer::create([
-                'cnic' => $this->cnic,
-                'phone' => $this->phone,
-                'customer_name' => $this->customer_name,
-                'father_name' => $this->father_name,
-                'address' => $this->address,
-            ]);
-        }
+        $customer = Customer::firstOrNew(['cnic' => $this->cnic], [
+            'phone' => $this->phone,
+            'customer_name' => $this->customer_name,
+            'father_name' => $this->father_name,
+            'address' => $this->address,
+        ]);
+        $customer->save();
 
         $purchase = $customer->purchaseable()->create([
             'date' => $this->date,
@@ -121,7 +111,7 @@ class UsedPurchase extends Component
             'status' => 6,
         ]);
 
-        $purchaseDetail = PurchaseDetail::create([
+        PurchaseDetail::create([
             'purchase_id' => $purchase->id,
             'vehicle_id' => $this->vehicle_id,
             'customer_id' => $customer->id,
@@ -147,9 +137,17 @@ class UsedPurchase extends Component
             'purchase_amount' => $this->total_amount,
             'purchase_tax' => 0,
             'total' => $this->total_amount,
-            'status' => ($this->paid > 0) ? 5 : 4,
+            'status' => 2,
         ]);
+
         DB::commit();
-        return redirect('purchases');
+        return redirect()->route('purchases.show', $purchase->id);
+    }
+
+    public function updated($field, $value)
+    {
+        if (in_array($field, ['customer_name', 'father_name', 'cnic', 'phone', 'address'])) {
+            $this->updatedOwnerCnic();
+        }
     }
 }

@@ -13,7 +13,7 @@ class SaleInvoicecontroller extends Controller
      */
     public function index()
     {
-        $invoices = SaleInvoice::orderBy('id', 'DESC')->get();
+        $invoices = SaleInvoice::orderBy('id', 'DESC')->latest()->get();
         return view('invoices.index', compact('invoices'));
     }
 

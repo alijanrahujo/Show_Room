@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Leadger Report')
+@section('title', 'Letter Report')
 
 @section('content')
     <div class="container-fluid">
@@ -11,7 +11,7 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboard</a></li>
                             <li class="breadcrumb-item"><a href="javascript:void(0);">Reports</a></li>
-                            <li class="breadcrumb-item active">Leadger Report</li>
+                            <li class="breadcrumb-item active">Letter Report</li>
                         </ol>
                     </div>
                     <!-- <h4 class="page-title">Employee list</h4> -->
@@ -25,24 +25,14 @@
                 <div class="card">
                     <div class="card-body">
                         {!! Form::open([
-                            'route' => 'reports.leadger',
+                            'route' => 'reports.letter',
                             'method' => 'post',
                             'class' => 'parsley-examples',
                             'novalidate' => '',
                             'enctype' => 'multipart/form-data',
                         ]) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    {!! Form::label('customer_id', 'Customer') !!}
-                                    {!! Form::select('customer_id',$customers,null,['placeholder' => 'Select','class' => 'form-control']) !!}
-                                    @error('customer_id')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('from', 'From date') !!}
                                     {!! Form::date('from', null, ['class' => 'form-control', 'placeholder' => 'Enter From Date']) !!}
@@ -52,7 +42,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('to', 'To date') !!}
                                     {!! Form::date('to', null, ['class' => 'form-control', 'placeholder' => 'Enter To Date']) !!}
@@ -61,9 +51,8 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-3 mt-4">
+                            <div class="col-md-4 mt-4">
                                 <div class="form-group">
-                                    <input type="hidden" name="table" value="purchase">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
                             </div>
@@ -72,9 +61,9 @@
                     </div>
                 </div>
             </div>
-        </div> <!-- end col -->
+        </div>
 
-        @if (isset($combinedData))
+        @if (isset($letters))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -85,24 +74,33 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Date</th>
-                                            <th>Particular</th>
-                                            <th>Debit</th>
-                                            <th>Credit</th>
-                                            <th>Balance</th>
+                                            <td>Name</td>
+                                            <td>Phone</td>
+                                            <th>Title</th>
+                                            <th>Engine No</th>
+                                            <th>Chassis No</th>
+                                            <th>Model - Color</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($combinedData as $leadger)
+                                        @foreach ($letters as $val)
                                             <tr>
-                                                <td> {{ $leadger['date'] }} </td>
-                                                <td> {{ $leadger['particular'] }} </td>
-                                                <td> {{ $leadger['debit'] }} </td>
-                                                <td> {{ $leadger['credit'] }} </td>
-                                                <td> {{ $leadger['balance'] }} </td>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $val->date }}</td>
+                                                <td>{{ $val->name }}</td>
+                                                <td>{{ $val->phone }}</td>
+                                                <td>{{ $val->title }}</td>
+                                                <td>{{ $val->engine }}</td>
+                                                <td>{{ $val->chassis }}</td>
+                                                <td>{{ $val->model . ' - ' . $val->color }}</td>
+                                                <td>{{ $val->payment }}</td>
+                                                <td>{{ status($val->status) }}</td>
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>

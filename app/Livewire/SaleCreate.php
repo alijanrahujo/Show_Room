@@ -23,9 +23,9 @@ class SaleCreate extends Component
 
     public $cnic, $phone, $customer, $father, $address;
 
-    public $purchase_id, $vehicle_id, $engine, $chassis, $model, $color, $purchase_amount, $sale, $date, $total, $registration, $tax, $sale_price, $sale_tax, $reg_fee, $fitting, $fitting_price;
+    public $purchase_id, $vehicle_id, $engine, $chassis, $model, $color, $purchase_amount, $sale, $date, $total, $registration, $tax, $sale_price, $sale_tax, $reg_fee, $fitting, $fitting_price, $horse_power;
 
-    public $grand_total, $installment, $months;
+    public $grand_total, $installment, $months, $down_payment_amount;
 
     public $instaDate, $instaAmount, $instaDesc;
 
@@ -44,12 +44,17 @@ class SaleCreate extends Component
         $this->instaDate = [];
         $this->instaAmount = [];
         $this->instaDesc = [];
+        $this->down_payment_amount = 0;
     }
 
-    public function updated()
+    public function updated($field)
     {
-        $this->updateTotal();
+        if (in_array($field, ['vehicle_id', 'tax', 'registration'])) {
+            $this->updateTotal();
+        }
+        $this->updateAmount();
         $this->grandTotal();
+
     }
 
     public function render()
@@ -81,23 +86,26 @@ class SaleCreate extends Component
     {
         $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'New', 'status' => 2])->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
+        $this->sale_price = $this->vehicle_type->sale_price ?? 0;
         $this->updateTotal();
+        $this->updateAmount();
     }
 
     public function updateTotal()
     {
         if ($this->vehicle_type) {
-            if (!$this->sale_price && $this->vehicle_type) {
-                $this->sale_price = $this->vehicle_type->sale_price ?? 0;
-            }
             $this->sale_tax = ($this->tax == 'Yes') ? $this->vehicle_type->sale_tax : 0;
             $this->reg_fee = ($this->registration == 'Yes') ? $this->vehicle_type->reg_fee : 0;
-            $this->total = ($this->sale_tax) ? $this->sale_price + ($this->sale_price / 100 * $this->sale_tax) : $this->sale_price;
-            $this->total += ($this->fitting == 'Yes') ? $this->fitting_price : 0;
-            $this->total += ($this->registration == 'Yes') ? $this->reg_fee : 0;
         } else {
             $this->reset(['sale_price', 'sale_tax', 'reg_fee', 'total', 'fitting_price', 'reg_fee']);
         }
+    }
+
+    public function updateAmount()
+    {
+        $this->total = ($this->sale_tax) ? $this->sale_price + ($this->sale_price / 100 * $this->sale_tax) : $this->sale_price;
+        $this->total += ($this->fitting == 'Yes') ? (int)$this->fitting_price : 0;
+        $this->total += ($this->registration == 'Yes') ? (int)$this->reg_fee : 0;
     }
 
     public function addrecord()
@@ -130,6 +138,7 @@ class SaleCreate extends Component
             'chassis' => $purchase->chassis,
             'model' => $purchase->model,
             'color' => $purchase->color,
+            'horse_power' => $purchase->horse_power,
         ];
         $this->purchase_id = null;
         $this->grandTotal();
@@ -164,6 +173,7 @@ class SaleCreate extends Component
             'grand_total' => 'required',
             'installment' => 'required|in:Yes,No',
             'months' => 'required_if:installment,Yes',
+            'down_payment_amount' => 'required_if:installment,Yes',
             'fitting' => 'required|in:Yes,No',
             'fitting_price' => 'required_if:fitting_price,Yes',
 
@@ -181,6 +191,19 @@ class SaleCreate extends Component
 
         $customer = Customer::where('cnic', $this->cnic)->first();
 
+        if($this->down_payment_amount == 0)
+        {
+            $status = 4;
+        }
+        else if($this->down_payment_amount < $this->grand_total)
+        {
+            $status = 5;
+        }
+        else if($this->down_payment_amount >= $this->grand_total)
+        {
+            $status = 6;
+        }
+
         $sale = Sale::create([
             'date' => $this->date,
             'type' => 'New',
@@ -188,21 +211,49 @@ class SaleCreate extends Component
             'amount' => $this->grand_total,
             'installment' => $this->installment,
             'months' => $this->months,
-            'status' => 4,
+            'down_payment_amount' => $this->down_payment_amount,
+            'status' => $status,
         ]);
 
-        for ($i = 0; $i < $this->months; $i++) {
-            $currentMonth = \Carbon\Carbon::now()->addMonths($i)->format('Y-m-d');
-            $sale->installments()->create([
-                'date' => $currentMonth,
-                'amount' => $this->grand_total / $this->months,
-                'description' => 'Sale new bike'
+        if ($this->installment == 'Yes') {
+            $sale->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->grand_total,
+                'pending' => $this->grand_total - $this->down_payment_amount,
+                'received' => $this->down_payment_amount,
+                'description' => 'Down Payment',
+                'status' => 6,
+            ]);
+
+
+            for ($i = 0; $i < $this->months; $i++) {
+                $currentMonth = \Carbon\Carbon::now()->addMonths($i)->format('Y-m-d');
+                $sale->installments()->create([
+                    'date' => $currentMonth,
+                    'amount' => ($this->grand_total-$this->down_payment_amount) / $this->months,
+                    'due_amount' => ($this->grand_total-$this->down_payment_amount) / $this->months,
+                    'description' => 'Sale new bike'
+                ]);
+            }
+        }
+        else if($this->down_payment_amount == 0)
+        {
+            $sale->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->grand_total,
+                'pending' => $this->grand_total - $this->down_payment_amount,
+                'received' => $this->down_payment_amount,
+                'description' => 'Not Payments',
+                'status' => 4,
             ]);
         }
 
         foreach ($this->purchased as $val) {
 
             $details = new SaleDetail;
+            $details->vehicle_id = $val['vehicle_id'];
             $details->purchase_id = $val['purchase_id'];
             $details->sale_id = $sale->id;
             $details->type = 'New';
@@ -210,7 +261,9 @@ class SaleCreate extends Component
             $details->chassis = $val['chassis'];
             $details->engine = $val['engine'];
             $details->model = $val['model'];
+            $details->horse_power = $val['horse_power'];
             $details->color = $val['color'];
+            $details->horse_power = $val['horse_power'];
             $details->sale_price = $val['sale_price'];
             $details->sale_tax = $val['sale_tax'];
             $details->reg_fee = $val['reg_fee'];
@@ -218,7 +271,7 @@ class SaleCreate extends Component
             $details->total = $val['total'];
             $details->save();
 
-            PurchaseDetail::where(['purchase_id' => $val['purchase_id'], 'chassis' => $val['chassis']])->update(['status' => 3]);
+            PurchaseDetail::where(['id' => $val['purchase_id'], 'chassis' => $val['chassis']])->update(['status' => 3]);
         }
         DB::commit();
         return redirect()->route('sales.show', $sale->id);

@@ -40,7 +40,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="installment_detail_tab" data-toggle="pill"
-                                            href="#installment_detail">Install Detail</a>
+                                            href="#installment_detail">Installment Detail</a>
                                     </li>
                                 </ul>
                             </div>
@@ -220,7 +220,12 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     {!! Form::label('paid', 'Paying Amount*') !!}
-                                                                    {!! Form::text('paid', null, ['class' => 'form-control', 'placeholder' => 'Enter paid']) !!}
+                                                                    {!! Form::number('paid', null, [
+                                                                        'class' => 'form-control',
+                                                                        'placeholder' => 'Enter paid',
+                                                                        'max' => $sales->amount - $sales->payments()->sum('received'),
+                                                                        'onKeyUp' => 'validatePayment(this)',
+                                                                    ]) !!}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -228,7 +233,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     {!! Form::label('date', 'Date *') !!}
-                                                                    {!! Form::date('date', null, ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
+                                                                    {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -345,25 +350,50 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <table class="table table-striped-columns">
+                                        <table class="table table-striped table-bordered dt-responsive nowrap">
                                             <thead>
                                                 <tr>
                                                     <th>Date</th>
                                                     <th>Description</th>
-                                                    <th>Total Amount</th>
+                                                    <th>Amount</th>
+                                                    <th>Paid Amount</th>
+                                                    <th>Due Amount</th>
                                                     <th>Status</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @php
+                                                    $balance = 0;
+                                                    $total = 0;
+                                                    $paid = 0;
+                                                @endphp
                                                 @foreach ($sales->installments as $installment)
+                                                    @php
+                                                        $total += $installment->amount;
+                                                        $paid += $installment->paid_amount;
+
+                                                        $balance += $installment->amount;
+                                                        $balance -= $installment->paid_amount;
+                                                    @endphp
                                                     <tr>
                                                         <td>{{ $installment->date }}</td>
                                                         <td>{{ $installment->description }}</td>
                                                         <td>{{ $installment->amount }}</td>
+                                                        <td>{{ $installment->paid_amount??0 }}</td>
+                                                        <td>{{ $balance }}</td>
                                                         <td>{{ status($installment->status) }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="2">Total</th>
+                                                    <th>{{$total}}</th>
+                                                    <th>{{$paid}}</th>
+                                                    <th>{{$balance}}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                 </div>
@@ -457,6 +487,16 @@
                 $("#captured_image").attr('src', data_uri);
                 $('#imageModal').modal('hide');
             });
+        }
+    </script>
+    <script>
+        function validatePayment(input) {
+            var pendingAmount = parseFloat(document.getElementById('pending').value);
+            var payingAmount = parseFloat(input.value);
+
+            if (payingAmount > pendingAmount) {
+                input.value = pendingAmount;
+            }
         }
     </script>
 @endsection

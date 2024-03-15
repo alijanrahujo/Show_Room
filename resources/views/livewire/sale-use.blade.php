@@ -1,15 +1,6 @@
 <div>
     <div class="row mt-4">
         <div class="col-lg-12">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Vehicle Detail</h5>
@@ -139,19 +130,6 @@
                     </div>
 
                     <div class="row">
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('tc_no', 'TC No *') !!}
-                                {!! Form::text('tc_no', null, [
-                                    'wire:model' => 'tc_no',
-                                    'class' => 'form-control',
-                                    'placeholder' => 'TC No',
-                                ]) !!}
-                                @error('tc_no')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div> --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('register_no', 'Register No *') !!}
@@ -344,7 +322,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Payment Detail</h5>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('total', 'Total Amount *') !!}
                                 {!! Form::number('total', null, [
@@ -358,7 +336,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('installment', 'installment *') !!}
                                 {!! Form::select('installment', ['Yes' => 'Yes', 'No' => 'No'], null, [
@@ -372,7 +350,7 @@
                             </div>
                         </div>
                         @if ($installment == 'Yes')
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('months', 'Months *') !!}
                                     {!! Form::number('months', null, [
@@ -381,6 +359,21 @@
                                         'placeholder' => 'Months',
                                     ]) !!}
                                     @error('months')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        @endif
+                        @if ($installment == 'Yes')
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('down_payment_amount', 'Down payment amount *') !!}
+                                    {!! Form::number('down_payment_amount', null, [
+                                        'wire:model.live' => 'down_payment_amount',
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Down payment amount',
+                                    ]) !!}
+                                    @error('down_payment_amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

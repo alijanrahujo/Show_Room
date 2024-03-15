@@ -17,7 +17,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::where('type', 'Used')->orderBy('id', 'DESC')->get();
+        $purchases = Purchase::where('type', 'Used')->orderBy('id', 'DESC')->latest()->get();
         return view('purchases.index', compact('purchases'));
     }
 
@@ -88,6 +88,12 @@ class PurchaseController extends Controller
     {
         $purchase = Purchase::where('id',$id)->with('payments')->first();
         $payments = $purchase->payments;
+
+        $paymentsWithoutImage = $purchase->payments->where('image', null);
+        if ($paymentsWithoutImage->isNotEmpty()) {
+            return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
+        }
+
         return view('purchases.show', compact('purchase', 'payments'));
     }
 

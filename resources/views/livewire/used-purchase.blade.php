@@ -1,15 +1,6 @@
 <div>
     <div class="row mt-4">
         <div class="col-lg-12">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Vehicle Detail</h4>
@@ -48,18 +39,6 @@
                                 @enderror
                             </div>
                         </div>
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('title', 'Title *') !!}
-                                {!! Form::text('title', null, [
-                                    'wire:model' => 'title',
-                                    'class' => 'form-control',
-                                    'id' => 'title',
-                                    'placeholder' => 'Example CD 70 CD 125',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div> --}}
                     </div>
 
                     <div class="row">
@@ -117,7 +96,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('maker', 'Maker *') !!}
-                                {!! Form::select('maker', ['1' => 'Honda', '2' => 'China'], '1', [
+                                {!! Form::select('maker', ['Honda' => 'Honda', 'China' => 'China'], null, [
                                     'wire:model' => 'maker',
                                     'class' => 'form-control',
                                     'id' => 'maker',
@@ -130,18 +109,6 @@
                     </div>
 
                     <div class="row">
-                        {{-- <div class="col-md-6">
-                            <div class="form-group">
-                                {!! Form::label('tc_no', 'TC No *') !!}
-                                {!! Form::text('tc_no', null, [
-                                    'wire:model' => 'tc_no',
-                                    'class' => 'form-control',
-                                    'id' => 'tc_no',
-                                    'placeholder' => 'TC No',
-                                ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
-                            </div>
-                        </div> --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('register_no', 'Register No *') !!}
@@ -180,8 +147,7 @@
                             <div class="form-group">
                                 {!! Form::label('phone', 'Phone Number *') !!}
                                 {!! Form::text('phone', null, [
-                                    'wire:model' => 'phone',
-                                    // 'wire:blur' => 'updatephone',
+                                    'wire:model.blur' => 'phone',
                                     'class' => 'form-control',
                                     'placeholder' => 'Phone Number',
                                 ]) !!}
@@ -195,9 +161,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                {{ $extra }}
                                 {!! Form::label('customer_name', 'Seller Name *') !!}
                                 {!! Form::text('customer_name', null, [
-                                    'wire:model' => 'customer_name',
+                                    'wire:model.blur' => 'customer_name',
                                     'class' => 'form-control',
                                     'placeholder' => 'Seller Name',
                                 ]) !!}
@@ -210,7 +177,7 @@
                             <div class="form-group">
                                 {!! Form::label('father_name', 'Father Name *') !!}
                                 {!! Form::text('father_name', null, [
-                                    'wire:model' => 'father_name',
+                                    'wire:model.blur' => 'father_name',
                                     'class' => 'form-control',
                                     'placeholder' => 'Father Name',
                                 ]) !!}
@@ -226,7 +193,7 @@
                             <div class="form-group">
                                 {!! Form::label('address', 'Seller Address') !!}
                                 {!! Form::text('address', null, [
-                                    'wire:model' => 'address',
+                                    'wire:model.blur' => 'address',
                                     'class' => 'form-control',
                                     'placeholder' => 'Seller Address',
                                 ]) !!}

@@ -13,7 +13,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-        $accounts = Account::orderBy('id', 'DESC')->get();
+        $accounts = Account::orderBy('id', 'DESC')->latest()->get();
         return view('accounts.index', compact('accounts'));
     }
 

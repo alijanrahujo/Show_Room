@@ -175,10 +175,6 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div>
-                                            {{-- <a href="{{ Route('payments.create') }}"
-                                                class="mb-3 btn btn-primary float-right">Add</a> --}}
-                                        </div>
                                         <button type="button" class="mb-3 float-right btn btn-primary" data-toggle="modal"
                                             data-target="#exampleModal" data-whatever="@mdo">Add</button>
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -216,7 +212,12 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     {!! Form::label('paid', 'Paying Amount*') !!}
-                                                                    {!! Form::text('paid', null, ['class' => 'form-control', 'placeholder' => 'Enter paid']) !!}
+                                                                    {!! Form::number('paid', null, [
+                                                                        'class' => 'form-control',
+                                                                        'placeholder' => 'Enter paid',
+                                                                        'max' => $sales->amount - $sales->payments()->sum('received'),
+                                                                        'onKeyUp' => 'validatePayment(this)',
+                                                                    ]) !!}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -224,7 +225,7 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     {!! Form::label('date', 'Date *') !!}
-                                                                    {!! Form::date('date', null, ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
+                                                                    {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control', 'placeholder' => 'Enter date']) !!}
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -411,6 +412,16 @@
                 $("#captured_image").attr('src', data_uri);
                 $('#imageModal').modal('hide');
             });
+        }
+    </script>
+    <script>
+        function validatePayment(input) {
+            var pendingAmount = parseFloat(document.getElementById('pending').value);
+            var payingAmount = parseFloat(input.value);
+
+            if (payingAmount > pendingAmount) {
+                input.value = pendingAmount;
+            }
         }
     </script>
 @endsection
