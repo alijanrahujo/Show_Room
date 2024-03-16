@@ -184,7 +184,17 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>{{ status($payment->status) }}</td>
+                                                        <td>
+                                                            @if ($payment->stats = 6)
+                                                                <span class="badge badge-success">
+                                                                    Paid
+                                                                </span>
+                                                            @else
+                                                                <span class="badge badge-danger">
+                                                                    Partial Paid
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

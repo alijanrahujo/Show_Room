@@ -96,18 +96,6 @@
                                                                                     <i class="fas fa-file-invoice"
                                                                                         aria-hidden="true"></i>
                                                                                 </a>
-                                                                                <a href="{{ Route('dealer-purchase.edit', $sale->id) }}"
-                                                                                    class="btn btn-sm btn-warning">
-                                                                                    <i class="fa fa-edit"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a>
-                                                                                {!! Form::open([
-                                                                                    'method' => 'DELETE',
-                                                                                    'route' => ['dealer-purchase.destroy', $sale->id],
-                                                                                    'style' => 'display:inline',
-                                                                                ]) !!}
-                                                                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
-                                                                                {!! Form::close() !!}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

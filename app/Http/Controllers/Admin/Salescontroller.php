@@ -19,7 +19,7 @@ class Salescontroller extends Controller
      */
     public function index()
     {
-        $sales = Sale::where('type', 'New')->with('customer')->orderBy('id', 'DESC')->latest()->get();
+        $sales = Sale::where('type', 'New')->with('customer', 'payments')->orderBy('id', 'DESC')->latest()->get();
         return view('sales.index', compact('sales'));
     }
 
@@ -50,7 +50,7 @@ class Salescontroller extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request;
         $this->validate($request, [
             'customer' => 'required',
             'bike' => 'required',
@@ -141,14 +141,14 @@ class Salescontroller extends Controller
 
     public function receipt($id)
     {
-        $sell = Sale::with('saleDetail', 'customer')->where('id', $id)->first();
-        //return $sell;
-        return view('sales.receipt', compact('sell'));
+        $sale = Sale::with('saleDetail', 'customer', 'payments')->where('id', $id)->first();
+        $payment = $sale->payments()->latest()->first();
+        return view('sales.receipt', compact('sale', 'payment'));
     }
 
     public function invoices($id)
     {
-        $sale = SaleDetail::where('purchase_id', $id)->with('sale', 'sale.customer')->first();
+        $sale = SaleDetail::where('sale_id', $id)->with('sale', 'sale.customer')->first();
         return view('sales.invoice', compact('sale'));
     }
 

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Sell Receipt | {{ $sell->customer->customer_name }} #{{ $sell->id }}</title>
+    <title>Sell Receipt | {{ $sale->customer->customer_name }} #{{ $sale->id }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -283,7 +283,7 @@
                     </div>
                     <div class="invoice-head-middle-right text-end">
                         <p>
-                            <spanf class="text-bold">Dated: {{ $sell->date }}
+                            <spanf class="text-bold">Dated: {{ $sale->date }}
 
                             </spanf>
                         </p>
@@ -303,29 +303,29 @@
                                 </tr> -->
                             </thead>
                             <tbody>
-                                <tr >
-                                    <td class="text-bold" colspan="2">Name: {{ $sell->customer->customer_name }}</td>
+                                <tr>
+                                    <td class="text-bold" colspan="2">Name: {{ $sale->customer->customer_name }}</td>
                                     <!-- <td style="width: 250px;"></td> -->
                                     <td class="text-bold">Cash Price:</td>
-                                    <td class="text-bold">{{ $sell->amount }}</td>
+                                    <td class="text-bold">{{ $sale->amount }}</td>
 
                                 </tr>
                                 <tr>
                                     <td class="text-bold" colspan="2">Father's Name :
-                                        {{ $sell->customer->father_name }}</td>
+                                        {{ $sale->customer->father_name }}</td>
                                     <!-- <td></td> -->
                                     <td class="text-bold">Fitting Charges:</td>
                                     <td class="text-bold">
-                                        {{ $sell->saleDetail()->sum('fitting_price') > 0 ? $sell->saleDetail()->sum('fitting_price') : ' ' }}
+                                        {{ $sale->saleDetail()->sum('fitting_price') > 0 ? $sale->saleDetail()->sum('fitting_price') : ' ' }}
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">Address: {{ $sell->customer->address }}</td>
+                                    <td colspan="2" class="text-bold">Address: {{ $sale->customer->address }}</td>
                                     <!-- <td rowspan="2"></td> -->
                                     <td class="text-bold">Registration Fee:</td>
                                     <td class="text-bold">
-                                        {{ $sell->saleDetail()->sum('reg_fee') > 0 ? $sell->saleDetail()->sum('reg_fee') : ' ' }}
+                                        {{ $sale->saleDetail()->sum('reg_fee') > 0 ? $sale->saleDetail()->sum('reg_fee') : ' ' }}
                                     </td>
 
                                 </tr>
@@ -337,36 +337,37 @@
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">Contact: {{ $sell->customer->phone }}</td>
+                                    <td colspan="2" class="text-bold">Contact: {{ $sale->customer->phone }}</td>
                                     <!-- <td></td> -->
                                     <td class="text-bold">Total</td>
-                                    <td class="text-bold">{{ $sell->saleDetail()->sum('total') }}</td>
+                                    <td class="text-bold">{{ $sale->saleDetail()->sum('total') }}</td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">CNIC No: {{ $sell->customer->cnic }}</td>
+                                    <td colspan="2" class="text-bold">CNIC No: {{ $sale->customer->cnic }}</td>
                                     <!-- <td></td> -->
                                     <td></td>
-                                    <td></td>
+                                    <td><img height="100px" src="{{ asset('storage/' . $payment->image) }}">
+                                    </td>
 
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Honda:
-                                        {{ implode(', ', $sell->saleDetail()->pluck('title')->toArray()) }}</td>
+                                        {{ implode(', ', $sale->saleDetail()->pluck('title')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td> -->
                                     <!-- <td></td> -->
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Model:
-                                        {{ implode(', ', $sell->saleDetail()->pluck('model')->toArray()) }}</td>
+                                        {{ implode(', ', $sale->saleDetail()->pluck('model')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="text-bold">Colour:
-                                        {{ implode(', ', $sell->saleDetail()->pluck('color')->toArray()) }}
+                                    <td colspan="4" class="text-bold">Color:
+                                        {{ implode(', ', $sale->saleDetail()->pluck('color')->toArray()) }}
                                     </td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
@@ -374,14 +375,14 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Engine #:
-                                        {{ implode(', ', $sell->saleDetail()->pluck('engine')->toArray()) }}</td>
+                                        {{ implode(', ', $sale->saleDetail()->pluck('engine')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Chassis #:
-                                        {{ implode(', ', $sell->saleDetail()->pluck('chassis')->toArray()) }}</td>
+                                        {{ implode(', ', $sale->saleDetail()->pluck('chassis')->toArray()) }}</td>
                                     <!-- <td></td> -->
                                     <!-- <td></td>
                                     <td></td> -->
@@ -394,14 +395,14 @@
                 <div class="invoice-head-middle-right text-end" style="margin-top:20px">
                     <p>
                         <spanf class="text-bold" style="margin-right: 150px;">Received Cash:
-                            {{ $sell->payments->sum('received') }}
+                            {{ $sale->payments->sum('received') }}
 
                         </spanf>
                     </p>
 
                     <p>
                         <spanf class="text-bold" style="margin-right: 150px;">Pending Cash:
-                            {{ $sell->amount - $sell->payments->sum('received') }}
+                            {{ $sale->amount - $sale->payments->sum('received') }}
 
                         </spanf>
                     </p>

@@ -148,19 +148,18 @@ class ReportController extends Controller
             'to' => 'required'
         ]);
 
-        $customer = Customer::with('sales','purchaseable')->where('id',$request->customer_id)->first();
+        $customer = Customer::with('sales', 'purchaseable')->where('id', $request->customer_id)->first();
 
 
         $combinedData = [];
 
         $bf_payment = 0;
-        $customer->sales()->whereDate('date', '<', $request->from)->each(function ($sale) use (&$combinedData,&$request,&$bf_payment) {
+        $customer->sales()->whereDate('date', '<', $request->from)->each(function ($sale) use (&$combinedData, &$request, &$bf_payment) {
             $bf_payment += $sale->amount;
             $bf_payment -= $sale->payments()->whereDate('date', '<', $request->from)->sum('received');
         });
 
-        if($bf_payment > 0)
-        {
+        if ($bf_payment > 0) {
             $combinedData[] = [
                 'date' => '',
                 'particular' => 'B/F',
@@ -171,10 +170,10 @@ class ReportController extends Controller
 
 
         $customer->sales()->whereBetween('date', [$request->from, $request->to])->each(function ($sale) use (&$combinedData) {
-            $sale->saleDetail->each(function ($saleDetail) use (&$combinedData,&$sale) {
+            $sale->saleDetail->each(function ($saleDetail) use (&$combinedData, &$sale) {
                 $combinedData[] = [
                     'date' => $sale->date,
-                    'particular' => $saleDetail->title.' ch:'.$saleDetail->chassis.(($saleDetail =='New')?' (SN)':' (SU)'),
+                    'particular' => $saleDetail->title . ' ch:' . $saleDetail->chassis . (($saleDetail == 'New') ? ' (SN)' : ' (SU)'),
                     'debit' => $saleDetail->total,
                     'credit' => 0,
                 ];
@@ -183,22 +182,22 @@ class ReportController extends Controller
 
 
         $customer->purchaseable()->whereBetween('date', [$request->from, $request->to])->each(function ($purchase) use (&$combinedData) {
-            $purchase->purchaseDetail->each(function ($purchaseDetail) use (&$combinedData,&$purchase) {
+            $purchase->purchaseDetail->each(function ($purchaseDetail) use (&$combinedData, &$purchase) {
                 $combinedData[] = [
                     'date' => $purchase->date,
-                    'particular' => $purchaseDetail->title.' ch:'.$purchaseDetail->chassis,
+                    'particular' => $purchaseDetail->title . ' ch:' . $purchaseDetail->chassis,
                     'debit' => 0,
                     'credit' => $purchaseDetail->total,
                 ];
             });
         });
 
-        $customer->sales()->each(function ($sale) use (&$combinedData,$request) {
-            $sale->payments()->whereBetween('date', [$request->from, $request->to])->each(function ($payment) use (&$combinedData,&$sale) {
-                if($payment->received > 0){
+        $customer->sales()->each(function ($sale) use (&$combinedData, $request) {
+            $sale->payments()->whereBetween('date', [$request->from, $request->to])->each(function ($payment) use (&$combinedData, &$sale) {
+                if ($payment->received > 0) {
                     $combinedData[] = [
                         'date' => $payment->date,
-                        'particular' => $payment->type. ' ('.$payment->id.')',
+                        'particular' => $payment->type . ' (' . $payment->id . ')',
                         'debit' => 0,
                         'credit' => $payment->received,
                     ];
@@ -221,7 +220,7 @@ class ReportController extends Controller
         }
 
         $customers = Customer::pluck('customer_name', 'id');
-        return view("reports.ledger", compact('customers','combinedData','customer','request'));
+        return view("reports.ledger", compact('customers', 'combinedData', 'customer', 'request'));
     }
 
     function PurchaseNew()
@@ -244,6 +243,7 @@ class ReportController extends Controller
     {
         return view('reports.sale');
     }
+
     function SaleDetail(Request $request)
     {
         if (!empty($request->input('from') && $request->input('to'))) {

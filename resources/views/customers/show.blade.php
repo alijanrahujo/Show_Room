@@ -297,7 +297,39 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h2>Sale Detail</h2>
+                                        <table class="table table-striped table-bordered dt-responsive nowrap"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Engine No</th>
+                                                    <th>Chassis No</th>
+                                                    <th>Model</th>
+                                                    <th>Color</th>
+                                                    <th>Horse Power</th>
+                                                    <th>Amount</th>
+                                                    <th>Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($sales as $val)
+                                                    @foreach ($val->saleDetail as $sale)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $val->date }}</td>
+                                                            <td>{{ $sale->engine }}</td>
+                                                            <td>{{ $sale->chassis }}</td>
+                                                            <td>{{ $sale->model }}</td>
+                                                            <td>{{ $sale->color }}</td>
+                                                            <td>{{ $sale->horse_power }}</td>
+                                                            <td>{{ $sale->total }}</td>
+                                                            <td>{{ $sale->type }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -308,7 +340,39 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h2>Purchase Detail</h2>
+                                        <table class="table table-striped table-bordered dt-responsive nowrap"
+                                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Date</th>
+                                                    <th>Engine No</th>
+                                                    <th>Chassis No</th>
+                                                    <th>Model</th>
+                                                    <th>Color</th>
+                                                    <th>Horse Power</th>
+                                                    <th>Amount</th>
+                                                    <th>Type</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($purchases as $val)
+                                                    @foreach ($val->PurchaseDetail as $purchase)
+                                                        <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $val->date }}</td>
+                                                            <td>{{ $purchase->engine }}</td>
+                                                            <td>{{ $purchase->chassis }}</td>
+                                                            <td>{{ $purchase->model }}</td>
+                                                            <td>{{ $purchase->color }}</td>
+                                                            <td>{{ $purchase->horse_power }}</td>
+                                                            <td>{{ $purchase->total }}</td>
+                                                            <td>{{ $purchase->type }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -358,7 +422,7 @@
 
         function take_snapshot() {
             Webcam.snap(function(data_uri) {
-                $(".image-tag").val(data_uri);
+                $(".image-tag").sale(data_uri);
                 $("#captured_image").attr('src', data_uri);
                 $('#imageModal').modal('hide');
             });

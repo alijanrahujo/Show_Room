@@ -54,7 +54,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             {!! Form::label('received', 'Paying Amount*') !!}
-                                                            {!! Form::text('received', null, ['class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Enter Paying Amount']) !!}
+                                                            {!! Form::text('received', null, ['class' => 'form-control', 'placeholder' => 'Enter Paying Amount']) !!}
                                                         </div>
                                                     </div>
                                                 </div>

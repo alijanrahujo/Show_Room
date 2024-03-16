@@ -69,7 +69,6 @@
                                                                         <th>Tax</th>
                                                                         <th>Total</th>
                                                                         <th>Status</th>
-                                                                        <th>Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -88,26 +87,6 @@
                                                                             <td>
                                                                                 <span
                                                                                     class="badge badge-{{ $purchase->status == 2 ? 'success' : 'danger' }} ">{{ status($purchase->status) }}</span>
-                                                                            </td>
-                                                                            <td>
-                                                                                {{-- <a href="{{ route('invoices', $purchase->id) }}"
-                                                                                    class="btn btn-sm btn-primary">
-                                                                                    <i class="fas fa-file-invoice"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a> --}}
-
-                                                                                {{-- <a href="{{ Route('dealer-purchase.edit', $purchase->id) }}"
-                                                                                    class="btn btn-sm btn-warning">
-                                                                                    <i class="fa fa-edit"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a> --}}
-                                                                                {{-- {!! Form::open([
-                                                                                    'method' => 'DELETE',
-                                                                                    'route' => ['dealer-purchase.destroy', $purchase->id],
-                                                                                    'style' => 'display:inline',
-                                                                                ]) !!}
-                                                                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
-                                                                                {!! Form::close() !!} --}}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach

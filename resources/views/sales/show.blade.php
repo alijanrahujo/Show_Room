@@ -91,27 +91,21 @@
                                                                             <td> {{ $sale->model }} </td>
                                                                             <td> {{ $sale->total }} </td>
                                                                             <td>
-                                                                                <span
-                                                                                    class="badge badge-{{ $sales->status == 2 ? 'success' : 'danger' }} ">{{ status($sales->status) }}</span>
-                                                                            </td>
+                                                                                @if ($sales->customer->due_amount == 0)
+                                                                                    <span class="badge badge-success">
+                                                                                        Paid
+                                                                                    </span>
+                                                                                @else
+                                                                                    <span class="badge badge-danger">
+                                                                                        Partial Paid
+                                                                                    </span>
+                                                                                @endif
                                                                             <td>
                                                                                 <a href="{{ route('invoices', $sales->id) }}"
                                                                                     class="btn btn-sm btn-primary">
                                                                                     <i class="fas fa-file-invoice"
                                                                                         aria-hidden="true"></i>
                                                                                 </a>
-                                                                                <a href="{{ Route('dealer-purchase.edit', $sale->id) }}"
-                                                                                    class="btn btn-sm btn-warning">
-                                                                                    <i class="fa fa-edit"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a>
-                                                                                {!! Form::open([
-                                                                                    'method' => 'DELETE',
-                                                                                    'route' => ['dealer-purchase.destroy', $sale->id],
-                                                                                    'style' => 'display:inline',
-                                                                                ]) !!}
-                                                                                {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
-                                                                                {!! Form::close() !!}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -179,12 +173,12 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div>
-                                            {{-- <a href="{{ Route('payments.create') }}"
-                                                class="mb-3 btn btn-primary float-right">Add</a> --}}
-                                        </div>
-                                        <button type="button" class="mb-3 float-right btn btn-primary" data-toggle="modal"
-                                            data-target="#exampleModal" data-whatever="@mdo">Add</button>
+                                        @if ($sales->customer->due_amount == 0)
+                                        @else
+                                            <button type="button" class="mb-3 float-right btn btn-primary"
+                                                data-toggle="modal" data-target="#exampleModal"
+                                                data-whatever="@mdo">Add</button>
+                                        @endif
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
@@ -329,7 +323,17 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>{{ status($payment->status) }}</td>
+                                                        <td>
+                                                            @if ($sales->customer->due_amount == 0)
+                                                                <span class="badge badge-success">
+                                                                    Paid
+                                                                </span>
+                                                            @else
+                                                                <span class="badge badge-danger">
+                                                                    Partial Paid
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <a href="{{ Route('sell.paymentreceipt', $payment->id) }}"
                                                                 class="btn btn-sm btn-primary">
@@ -379,18 +383,28 @@
                                                         <td>{{ $installment->date }}</td>
                                                         <td>{{ $installment->description }}</td>
                                                         <td>{{ $installment->amount }}</td>
-                                                        <td>{{ $installment->paid_amount??0 }}</td>
+                                                        <td>{{ $installment->paid_amount ?? 0 }}</td>
                                                         <td>{{ $balance }}</td>
-                                                        <td>{{ status($installment->status) }}</td>
+                                                        <td>
+                                                            @if ($sales->customer->due_amount == 0)
+                                                                <span class="badge badge-success">
+                                                                    Paid
+                                                                </span>
+                                                            @else
+                                                                <span class="badge badge-danger">
+                                                                    Partial Paid
+                                                                </span>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                             <tfoot>
                                                 <tr>
                                                     <th colspan="2">Total</th>
-                                                    <th>{{$total}}</th>
-                                                    <th>{{$paid}}</th>
-                                                    <th>{{$balance}}</th>
+                                                    <th>{{ $total }}</th>
+                                                    <th>{{ $paid }}</th>
+                                                    <th>{{ $balance }}</th>
                                                     <th></th>
                                                 </tr>
                                             </tfoot>

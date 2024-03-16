@@ -57,7 +57,12 @@
                                             <td> {{ $sale->due_amount }} </td>
                                             <td> {{ $sale->installment == 'Yes' ? $sale->months . ' Month' : 'No' }} </td>
                                             <td> {{ $sale->date }} </td>
-                                            <td> {{ status($sale->status) }} </td>
+                                            <td>
+                                                <span
+                                                    class='{{ $sale->due_amount == 0 ? 'badge badge-success' : 'badge badge-danger' }}'>
+                                                    {{ $sale->due_amount == 0 ? 'Paid' : 'Parital Paid' }}
+                                                </span>
+                                            </td>
                                             <td>
                                                 <a href="{{ Route('sell.receipt', $sale->id) }}"
                                                     class="btn btn-sm btn-success">

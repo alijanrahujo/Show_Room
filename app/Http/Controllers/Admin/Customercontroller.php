@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Sale;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class Customercontroller extends Controller
 {
@@ -54,7 +55,9 @@ class Customercontroller extends Controller
     public function show($id)
     {
         $customer = Customer::find($id);
-        return view('customers.show', compact('customer'));
+        $sales = Sale::where('customer_id', $customer->id)->with('saleDetail')->get();
+        $purchases = $customer->purchaseable;
+        return view('customers.show', compact('customer', 'sales', 'purchases'));
     }
 
     /**
