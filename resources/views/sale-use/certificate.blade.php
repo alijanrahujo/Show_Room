@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://unpkg.com/bs-brain@2.0.3/components/logins/login-7/assets/css/login-7.css">
 
+
     <style>
         .table-1 {
             font-weight: bold;
@@ -240,11 +241,11 @@
                             <tr>
                                 <td colspan=" 2">
                                     <span> Sale Receipt No: </span>
-                                    <span class="text-1" style="width: 10pc;">1834448</span>
+                                    <span class="text-1" style="width: 10pc;">{{ $detail->id }}</span>
                                     <span>Date: </span>
-                                    <span class="text-1" style="width: 10pc;">12/03/2024</span>
+                                    <span class="text-1" style="width: 10pc;">{{ $detail->sale->date }}</span>
                                     <span>Time: </span>
-                                    <span class="text-1" style="width: 10pc;">12:38 PM</span>
+                                    <span class="text-1" style="width: 10pc;">{{ $detail->sale->time }}</span>
                                 </td>
                             </tr>
                         </thead>
@@ -254,30 +255,30 @@
                                     <span>Regd No: </span>
                                     <span class="text-1" style="width: 9.8pc;">135-F</span>
                                     <span>Maker: </span>
-                                    <span class="text-1" style="width: 9.7pc;">Honda</span>
+                                    <span class="text-1" style="width: 9.7pc;">{{ $detail->maker }}</span>
                                     <span>Horse Power: </span>
-                                    <span class="text-1" style="width: 9.8pc;">200HP </span>
+                                    <span class="text-1" style="width: 9.8pc;">{{ $detail->horse_power }} </span>
 
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Model: </span>
-                                    <span class="text-1" style="width:9.7pc;"> Honda CD-70</span>
+                                    <span class="text-1" style="width:9.7pc;"> {{ $detail->model }}</span>
                                     <span>Engine No: </span>
-                                    <span class="text-1" style="width:9.7pc;"> 1MM2056</span>
+                                    <span class="text-1" style="width:9.7pc;"> {{ $detail->engine }}</span>
                                     <span>Chassis Nos: </span>
-                                    <span class="text-1" style="width: 9.8pc;">CD-70 HONDA-BLACK</span>
+                                    <span class="text-1" style="width: 9.8pc;">{{ $detail->chassis }}</span>
 
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Name Of Purchaser: </span>
-                                    <span class="text-1" style="width: 15.6pc;">Uzair Anees Bhutto
+                                    <span class="text-1" style="width: 15.6pc;">{{ $detail->buyer_name }}
                                     </span>
                                     <span>S/O: </span>
-                                    <span class="text-1" style="width: 15.6pc;">Anees Ahmed Bhutto</span>
+                                    <span class="text-1" style="width: 15.6pc;">{{ $detail->buyer_father }}</span>
                                 </td>
 
                             </tr>
@@ -285,31 +286,34 @@
                                 <td colspan="2">
                                     <span>Residance
                                         Address: </span>
-                                    <span class="text-1" style="width: 33.1pc;">Muhalla Bhutta Near Primary School,
-                                        Banguldero, Tehsil Ratodero, District Larkana</span>
+                                    <span class="text-1" style="width: 33.1pc;">{{ $detail->buyer_address }}</span>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Name Of Seller: </span>
-                                    <span class="text-1" style="width: 16.2pc;"> Wasi Ahmed Chandio </span>
+                                    <span class="text-1" style="width: 16.2pc;"> {{ $detail->purchase->owner_name }}
+                                    </span>
                                     <span>S/O: </span>
-                                    <span class="text-1" style="width:16.2pc;"> Muhammad Usman Chandio</span>
+                                    <span class="text-1" style="width:16.2pc;">
+                                        {{ $detail->purchase->owner_father }}</span>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Residence Address: </span>
-                                    <span class="text-1" style="width: 33pc;"> Shaikh Zaid Colony Larkana</span>
+                                    <span class="text-1" style="width: 33pc;">
+                                        {{ $detail->purchase->owner_address }}</span>
                                 </td>
 
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Phone#: </span>
-                                    <span class="text-1" style="width: 36.2pc;"> 0337-7142266</span>
+                                    <span class="text-1" style="width: 36.2pc;">
+                                        {{ $detail->purchase->owner_phone }}</span>
                                 </td>
                             </tr>
 
@@ -319,11 +323,11 @@
                                 <td colspan="2">
                                     <span>Guarantor Name: </span>
                                     <span class="text-1" style="width: 15.9pc;">
-                                        Raafiue Rehman Meerani
+                                        {{ $detail->guarantor_name }}
                                     </span>
                                     <span>S/O: </span>
                                     <span class="text-1" style="width: 16pc;">
-                                        Muhammad Ali Meerani</span>
+                                        {{ $detail->guarantor_father }}</span>
                                 </td>
 
 
@@ -332,9 +336,9 @@
                                 <td colspan="2">
                                     <span>Owner Name: </span>
                                     <span class="text-1" style="width: 14.2pc;">
-                                        Tahir Nazeer </span>
+                                        {{ $detail->purchase->owner_name }} </span>
                                     <span>Previous Reference: </span>
-                                    <span class="text-1" style="width: 14.3pc;">Honda-1122233456 </span>
+                                    <span class="text-1" style="width: 14.3pc;">{{ $detail->pre_refrence }} </span>
 
                                 </td>
 
@@ -342,13 +346,16 @@
                             <tr>
                                 <td colspan="2">
                                     <span>Value: </span>
-                                    <span class="text-1" style="width: 7.2pc;"> 110,000/=</span>
+                                    <span class="text-1" style="width: 7.2pc;"> {{ $detail->total }}</span>
                                     <span>Advance: </span>
-                                    <span class="text-1" style="width: 7.2pc;"> 25,000/=</span>
+                                    <span class="text-1" style="width: 7.2pc;">
+                                        {{ $detail->sale->payments->sum('received') }}</span>
                                     <span>Balance: </span>
-                                    <span class="text-1" style="width: 7.2pc;"> 85,000/=</span>
+                                    <span class="text-1" style="width: 7.2pc;">
+                                        {{ $detail->sale->due_amount }}</span>
                                     <span>Dated: </span>
-                                    <span class="text-1" style="width: 7.2pc;"> 12/03/2024</span>
+                                    <span class="text-1" style="width: 7.2pc;">
+                                        {{ $detail->sale->payments()->latest()->first()->date ?? '' }}</span>
 
 
 
@@ -358,7 +365,7 @@
                             <tr>
                                 <td colspan="2">
                                     <span>Total Value in Words: </span>
-                                    <span class="text-1" style="width: 32.4pc;"> ONE LAC TEN THOUSAND PKR ONLY/=
+                                    <span class="text-1" style="width: 32.4pc;"> {{ num2word($detail->total) }}
                                     </span>
 
                                 </td>
@@ -370,7 +377,8 @@
                                 <td class="text-end">
                                     <span class="text-start" style='margin-right:6px;'>Balance Amount Paid Date:
                                     </span>
-                                    <span class="text-1" style="margin-right: 1pc;"> 13/03/2024</span>
+                                    <span class="text-1" style="margin-right: 1pc;">
+                                        {{ $detail->sale->payments()->latest()->first()->date ?? '' }}</span></span>
                                 </td>
 
                             </tr>
@@ -385,20 +393,21 @@
                     <div class="row mt-4" style="font-weight: bold; margin-left: 80px;">
                         <div class="col-6 text-start" style="font-size:15px">
                             <span>Seller Signature: </span>
-                            <span class="text-1">wasichandio</span>
+                            <span class="text-1"></span>
                         </div>
                         <div class="col-6 text-start" style="font-size:15px">
                             <span>Purchaser Signature: </span>
-                            <span class="text-1">uzairanees</span>
+                            <span class="text-1"></span>
                         </div>
                     </div>
                     <div class="row mt-2 mb-3" style="font-weight: bold; margin-left: 80px;">
                         <div class="col-6 text-start" style="font-size:15px">
-                            <p>CNIC No: <span style="border: 1px solid black;">XXXXX-XXXXXXX-X</span>
+                            <p>CNIC No: <span
+                                    style="border: 1px solid black;">{{ $detail->purchase->owner_cnic }}</span>
                             </p>
                         </div>
                         <div class="col-6 text-start" style="font-size:15px">
-                            <p>CNIC No: <span style="border: 1px solid black;">XXXXX-XXXXXXX-X</span>
+                            <p>CNIC No: <span style="border: 1px solid black;">{{ $detail->buyer_cnic }}</span>
                             </p>
                         </div>
                     </div>
@@ -408,15 +417,16 @@
             <!-- ========================================== 3rd table start here ================================================== -->
             <div class="col-lg-2 col-sm-6 mb-4">
                 <div class="card h-auto">
-                    <a href="#"><img class="card-img-top" src="images/col-3.jpg" alt=""></a>
+                    <img class="card-img-top" height="50px" src="{{ asset('assets/images/sale-img2.png') }}"
+                        alt="">
                     <table class="mt-4  text-start table-3"
-                        style="font-size :12px;line-height: 60px; margin-left: 10px;">
+                        style="font-size :12px;line-height: 50px; margin-left: 10px;">
 
                         <thead>
                             <tr>
                                 <td colspan="2">
                                     <span>Regd No: </span>
-                                    <span class="text-2" style="width: 7.5pc;">135-F</span>
+                                    <span class="text-2" style="width: 7.5pc;">{{ $detail->registration_no }}</span>
 
                                 </td>
 
@@ -427,21 +437,23 @@
                             <tr>
                                 <td colspan="2">
                                     <span>S.Receipt No: </span>
-                                    <span class="text-2" style="width: 6pc;"> 1834448</span>
+                                    <span class="text-2" style="width: 6pc;"> {{ $detail->id }}</span>
 
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Time: </span>
-                                    <span class="text-2" style="width:8.8pc;">12:38 PM</span>
+                                    <span class="text-2"
+                                        style="width:8.8pc;">{{ \Carbon\Carbon::now()->format('H:i') }}</span>
 
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <span>Date: </span>
-                                    <span class="text-2" style="width: 8.8pc;">12/03/2024</span>
+                                    <span class="text-2"
+                                        style="width: 8.8pc;">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</span>
 
                                 </td>
 
@@ -449,7 +461,7 @@
                             <tr>
                                 <td colspan="2">
                                     <span class="">Name of Show Room</span>
-                                    <span class="text-2" style="width: 11pc;">GARHI KHATA Hyderabad</span>
+                                    <span class="text-2" style="width: 11pc;">Auto Time</span>
 
 
                                 </td>
@@ -458,7 +470,7 @@
                             <tr>
                                 <td colspan="2">
                                     <span class="">Seal & Signature:</span>
-                                    <span class="text-2" style="width: 4.7pc;">fazalali</span>
+                                    <span class="text-2" style="width: 4.7pc;"></span>
                                 </td>
 
 
@@ -467,7 +479,7 @@
                             <tr>
                                 <td colspan="2">
                                     <span>Signature of Physical Checking Incharge:</span>
-                                    <span class="text-2" style="width: 7.4pc;">Hashim</span>
+                                    <span class="text-2" style="width: 7.4pc;">{{ Auth()->user()->name }}</span>
 
                                 </td>
 
@@ -477,7 +489,8 @@
                                     <span style="margin-left: 3pc;">Stamp & Date</span> <br />
                                     <span>Stamp Here </span> <br /> <br />
                                     <span>Dated: </span>
-                                    <span class="text-2" style="width:8.4pc;">12/03/2024</span>
+                                    <span class="text-2"
+                                        style="width:8.4pc;">{{ \Carbon\Carbon::now()->format('d-m-Y') }}</span>
 
 
                                 </td>
