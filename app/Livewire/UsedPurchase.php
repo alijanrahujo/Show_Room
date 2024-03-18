@@ -15,7 +15,7 @@ class UsedPurchase extends Component
     public $date, $time, $total_amount, $paid;
     public $engine, $title, $chassis, $model, $color, $horse_power, $maker, $tc_no, $register_no;
     public $cnic, $phone, $customer_name, $father_name, $address;
-    public $owner_name, $owner_father, $owner_cnic, $owner_address, $extra;
+    public $owner_name, $owner_father, $owner_cnic, $owner_address, $owner_phone, $extra;
 
     public function mount()
     {
@@ -30,13 +30,13 @@ class UsedPurchase extends Component
         return view('livewire.used-purchase');
     }
 
-    public function updatedEngine()
+    public function updatedChassis()
     {
-        $purchaseDetail = PurchaseDetail::where('engine', $this->engine)->latest()->first();
+        $purchaseDetail = PurchaseDetail::where('chassis', $this->chassis)->latest()->first();
         if ($purchaseDetail) {
             $this->title = $purchaseDetail->vehicle->vehicle_type;
             $this->horse_power = $purchaseDetail->vehicle->horse_power;
-            $this->chassis = $purchaseDetail->chassis;
+            $this->engine = $purchaseDetail->engine;
             $this->model = $purchaseDetail->model;
             $this->color = $purchaseDetail->color;
             $this->vehicle_id = $purchaseDetail->vehicle_id;
@@ -61,6 +61,7 @@ class UsedPurchase extends Component
         $this->owner_name = $this->customer_name;
         $this->owner_father = $this->father_name;
         $this->owner_address = $this->address;
+        $this->owner_phone = $this->phone;
     }
 
     public function updatedVehicleId($id)
@@ -108,7 +109,7 @@ class UsedPurchase extends Component
             'total' => $this->total_amount,
             'received' => $this->paid,
             'pending' => $this->total_amount - $this->paid,
-            'status' => 6,
+            'status' => ($this->total_amount == $this->paid)?6:5,
         ]);
 
         PurchaseDetail::create([
@@ -124,6 +125,7 @@ class UsedPurchase extends Component
             'owner_father' => $this->owner_father,
             'owner_cnic' => $this->owner_cnic,
             'owner_address' => $this->owner_address,
+            'owner_phone' => $this->owner_phone,
             'engine' => $this->engine,
             'title' => $this->title,
             'chassis' => $this->chassis,

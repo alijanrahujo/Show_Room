@@ -68,12 +68,16 @@ class PermissionSeeder extends Seeder
             'report-sale',
             'report-purchase',
             'report-customer',
+            'invoices-create',
+            'invoices-edit',
+            'invoices-delete',
+            'invoices-show',
         ];
 
-        foreach($permissions as $val){
+        foreach ($permissions as $val) {
             Permission::create([
-                'name'=>$val,
-                'guard_name'=>'web'
+                'name' => $val,
+                'guard_name' => 'web'
             ]);
         }
     }

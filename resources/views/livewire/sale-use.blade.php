@@ -57,15 +57,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('title', 'Title *') !!}
-                                {!! Form::text('title', null, [
-                                    'wire:model' => 'title',
+                                {!! Form::label('maker', 'Maker *') !!}
+                                {!! Form::select('maker', ['Honda' => 'Honda', 'China' => 'China'], null, [
+                                    'wire:model' => 'maker',
                                     'class' => 'form-control',
-                                    'placeholder' => 'Example CD 70 CD 125',
+                                    'id' => 'maker',
+                                    'placeholder' => 'Maker',
                                 ]) !!}
-                                @error('title')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+
+                                <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
                     </div>
@@ -229,7 +229,6 @@
                                 {!! Form::label('phone', 'Phone Number *') !!}
                                 {!! Form::text('phone', null, [
                                     'wire:model' => 'phone',
-                                    // 'wire:blur' => 'updatephone',
                                     'class' => 'form-control',
                                     'placeholder' => 'Phone Number',
                                 ]) !!}
@@ -314,6 +313,20 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! Form::label('refrence', 'Refrence Name *') !!}
+                            {!! Form::text('refrence', null, [
+                                'wire:model' => 'refrence',
+                                'class' => 'form-control',
+                                'placeholder' => 'Refrence Name',
+                            ]) !!}
+                            @error('refrence')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-6"></div>
                     </div>
                 </div>
             </div>

@@ -237,6 +237,16 @@
                 display: none;
             }
         }
+        .text
+        {
+            border-bottom: solid 1px black;
+            display: inline-block;
+            /* flex-grow: 0;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap; */
+        }
     </style>
 
 </head>
@@ -294,58 +304,44 @@
                     <div class="invoice-body">
                         <table>
                             <thead>
-                                <!-- <tr>
-                                    <td colspan="2" class="text-bold" style="text-align: center;">Customer Details</td>
-                                    <td class="text-bold">Description</td>
-                                    <td class="text-bold">Invoice</td>
-                                    <td class="text-bold">Payment</td>
-
-                                </tr> -->
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="text-bold" colspan="2">Name: {{ $sale->customer->customer_name }}</td>
-                                    <!-- <td style="width: 250px;"></td> -->
-                                    <td class="text-bold">Cash Price:</td>
-                                    <td class="text-bold">{{ $sale->amount }}</td>
-
+                                    <td class="text-bold" colspan="2">Name: <span class="text" style="width: calc(100% - 56px)">{{ $sale->customer->customer_name }}</span></td>
+                                    <td class="text-bold">Price + Tax:</td>
+                                    <td class="text-bold"><span class="text" style="width: calc(100% - 0px)">{{ $sale->saleDetail()->sum(\DB::raw('(sale_price /100* sale_tax) + sale_price ')) }}</span></td>
                                 </tr>
                                 <tr>
                                     <td class="text-bold" colspan="2">Father's Name :
-                                        {{ $sale->customer->father_name }}</td>
-                                    <!-- <td></td> -->
+                                        <span class="text" style="width: calc(100% - 120px)">{{ $sale->customer->father_name }}</span>
+                                    </td>
                                     <td class="text-bold">Fitting Charges:</td>
                                     <td class="text-bold">
+                                        <span class="text" style="width: calc(100% - 0px)">
                                         {{ $sale->saleDetail()->sum('fitting_price') > 0 ? $sale->saleDetail()->sum('fitting_price') : ' ' }}
+                                        </span>
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">Address: {{ $sale->customer->address }}</td>
-                                    <!-- <td rowspan="2"></td> -->
+                                    <td colspan="2" class="text-bold">Address: <span class="text" style="width: calc(100% - 76px)">{{ $sale->customer->address }}</span></td>
                                     <td class="text-bold">Registration Fee:</td>
                                     <td class="text-bold">
+                                        <span class="text" style="width: calc(100% - 0px)">
                                         {{ $sale->saleDetail()->sum('reg_fee') > 0 ? $sale->saleDetail()->sum('reg_fee') : ' ' }}
+                                        </span>
                                     </td>
 
                                 </tr>
                                 <tr>
-                                    <!-- <td>SEO</td> -->
-                                    <!-- <td>Optimize the site for search engines (SEO)</td> -->
-                                    <!-- <td></td> -->
-                                    <!-- <td></td> -->
-
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="text-bold">Contact: {{ $sale->customer->phone }}</td>
+                                    <td colspan="2" class="text-bold">Contact: <span class="text" style="width: calc(100% - 76px)">{{ $sale->customer->phone }}</span></td>
                                     <!-- <td></td> -->
                                     <td class="text-bold">Total</td>
-                                    <td class="text-bold">{{ $sale->saleDetail()->sum('total') }}</td>
+                                    <td class="text-bold"><span class="text" style="width: calc(100% - 0px)">{{ $sale->saleDetail()->sum('total') }}</span></td>
 
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="text-bold">CNIC No: {{ $sale->customer->cnic }}</td>
-                                    <!-- <td></td> -->
+                                    <td colspan="2" class="text-bold">CNIC No: <span class="text" style="width: calc(100% - 80px)">{{ $sale->customer->cnic }}</span></td>
                                     <td></td>
                                     <td><img height="100px" src="{{ asset('storage/' . $payment->image) }}">
                                     </td>
@@ -353,39 +349,28 @@
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Honda:
-                                        {{ implode(', ', $sale->saleDetail()->pluck('title')->toArray()) }}</td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td> -->
-                                    <!-- <td></td> -->
+                                        <span class="text" style="width: calc(100% - 55px)">{{ implode(', ', $sale->saleDetail()->pluck('title')->toArray()) }}</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Model:
-                                        {{ implode(', ', $sale->saleDetail()->pluck('model')->toArray()) }}</td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td>
-                                    <td></td> -->
+                                        <span class="text" style="width: calc(100% - 51px)">{{ implode(', ', $sale->saleDetail()->pluck('model')->toArray()) }}</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Color:
-                                        {{ implode(', ', $sale->saleDetail()->pluck('color')->toArray()) }}
+                                        <span class="text" style="width: calc(100% - 46px)">{{ implode(', ', $sale->saleDetail()->pluck('color')->toArray()) }}</span>
                                     </td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td>
-                                    <td></td> -->
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Engine #:
-                                        {{ implode(', ', $sale->saleDetail()->pluck('engine')->toArray()) }}</td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td>
-                                    <td></td> -->
+                                        <span class="text" style="width: calc(100% - 72px)">{{ implode(', ', $sale->saleDetail()->pluck('engine')->toArray()) }}</span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="text-bold">Chassis #:
-                                        {{ implode(', ', $sale->saleDetail()->pluck('chassis')->toArray()) }}</td>
-                                    <!-- <td></td> -->
-                                    <!-- <td></td>
-                                    <td></td> -->
+                                        <span class="text" style="width: calc(100% - 80px)">{{ implode(', ', $sale->saleDetail()->pluck('chassis')->toArray()) }}</span>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -394,16 +379,14 @@
                 </div>
                 <div class="invoice-head-middle-right text-end" style="margin-top:20px">
                     <p>
-                        <spanf class="text-bold" style="margin-right: 150px;">Received Cash:
+                        <spanf class="text-bold">Received Cash:
                             {{ $sale->payments->sum('received') }}
-
                         </spanf>
                     </p>
 
                     <p>
-                        <spanf class="text-bold" style="margin-right: 150px;">Pending Cash:
+                        <spanf class="text-bold">Pending Cash:
                             {{ $sale->amount - $sale->payments->sum('received') }}
-
                         </spanf>
                     </p>
                 </div>

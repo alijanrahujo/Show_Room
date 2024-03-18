@@ -114,7 +114,7 @@
                                         <td>{{ $installment->installmentable->customer->phone }}</td>
                                         <td>{{ $installment->date }}</td>
                                         <td>{{ $installment->amount }}</td>
-                                        <td>{{ status($installment->status) }}</td>
+                                        <td>{!! $installment->status !!}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

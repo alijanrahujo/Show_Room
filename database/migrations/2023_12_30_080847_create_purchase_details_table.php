@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string("owner_father")->nullable();
             $table->string("owner_cnic")->nullable();
             $table->string("owner_address")->nullable();
+            $table->string("owner_phone")->nullable();
             $table->string('engine');
             $table->string('title')->nullable();
             $table->string('chassis');

@@ -59,7 +59,7 @@ class DealerPurchase extends Component
     {
         $this->validate([
             'vehicle_id' => 'required',
-            'chassis' => 'required',
+            'chassis' => 'required|unique:purchase_details',
             'engine' => 'required',
             'model' => 'required',
             'color' => 'required',
@@ -89,6 +89,13 @@ class DealerPurchase extends Component
                 'do_date' => $this->do_date,
             ];
         } else {
+
+            $existingChassis = collect($this->data)->pluck('chassis')->toArray();
+            if (in_array($this->chassis, $existingChassis)) {
+                $this->addError('chassis', 'Chassis already exists.');
+                return;
+            }
+
             $this->data[] = [
                 'vehicle_id' => $this->vehicle_id,
                 'title' => $this->title,
@@ -128,8 +135,8 @@ class DealerPurchase extends Component
             $this->rate_tax += is_array($item) ? ($item['purchase_tax'] ?? 0) : ($item->purchase_tax ?? 0);
             $this->including_tax += is_array($item) ? ($item['total'] ?? 0) : ($item->total ?? 0);
         }
-        $this->rate_tax = $this->rate_tax/count($this->data);
-        $this->paybel_tax = $this->total_amount/100*$this->rate_tax;
+        $this->rate_tax = $this->rate_tax / count($this->data);
+        $this->paybel_tax = $this->total_amount / 100 * $this->rate_tax;
     }
 
     function submit()
@@ -143,7 +150,7 @@ class DealerPurchase extends Component
 
         $dealer = Dealer::find($this->dealer_id);
 
-        if(!$this->edit_form_id) {
+        if (!$this->edit_form_id) {
             //Store New Data
             $purchase = $dealer->purchaseable()->create([
                 'date' => $this->date,

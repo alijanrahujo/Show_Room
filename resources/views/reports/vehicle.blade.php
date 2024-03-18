@@ -71,7 +71,6 @@
                                             <th>Type</th>
                                             <th>Seller</th>
                                             <th>Buyer Name</th>
-                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -84,12 +83,8 @@
                                                 <td>{{ $val->chassis }}</td>
                                                 <td>{{ $val->model . ' - ' . $val->color }}</td>
                                                 <td>{{ $val->type }}</td>
-                                                <td>{{ $val->type === 'New' ? 'Auto Time' : $val->sale->customer->customer_name }}
-                                                <td>{{ $val->type === 'Used' ? 'Auto Time' : $val->sale->customer->customer_name }}
-                                                </td>
-                                                <td>
-                                                    {{ $val->type === 'Used' ? 'Repeated' : 'New' }}
-                                                </td>
+                                                <td>{{ ($val->type === 'New')? 'Auto Time' : $val->sale->customer->customer_name }}
+                                                <td>{{ ($val->type === 'Used') ? 'Auto Time' : $val->sale->customer->customer_name }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -113,6 +108,7 @@
                                             <th>Engine No</th>
                                             <th>Model - Color</th>
                                             <th>Type</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -126,6 +122,7 @@
                                                 <td>{{ $val->engine }}</td>
                                                 <td>{{ $val->model . ' - ' . $val->color }}</td>
                                                 <td>{{ $val->type }}</td>
+                                                <td>{{ $val->vehicle_status }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

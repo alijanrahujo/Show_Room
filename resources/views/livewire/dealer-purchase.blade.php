@@ -28,6 +28,19 @@
 
                     <div class="col-md-4">
                         <div class="form-group">
+                            {!! Form::label('chassis', 'Chassis Number *') !!}
+                            {!! Form::text('chassis', null, [
+                                'wire:model' => 'chassis',
+                                'class' => 'form-control',
+                                'placeholder' => 'Chassis Number',
+                            ]) !!}
+                            @error('chassis')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
                             {!! Form::label('engine', 'Engine Number *') !!}
                             {!! Form::text('engine', null, [
                                 'wire:model' => 'engine',
@@ -40,19 +53,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            {!! Form::label('chassis', 'Chassis Number *') !!}
-                            {!! Form::text('chassis', null, [
-                                'wire:model' => 'chassis',
-                                'class' => 'form-control',
-                                'placeholder' => 'Chassis Number',
-                            ]) !!}
-                            @error('chassis')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
                 </div>
 
                 <div class="row">

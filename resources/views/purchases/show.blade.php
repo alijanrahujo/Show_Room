@@ -29,7 +29,7 @@
                                     <li class="nav-item"><a class="nav-link active" id="general_detail_tab"
                                             data-toggle="pill" href="#general_detail">Purchase Detail</a></li>
                                     <li class="nav-item"><a class="nav-link" id="activity_detail_tab" data-toggle="pill"
-                                            href="#activity_detail">{{ $purchase->purchaseable->customer_name ?? '' ? 'Customer' : 'Dealer' }}</a>
+                                            href="#activity_detail">{{ $purchase->purchaseable->customer_name ?? '' ? 'Seller & Owner' : 'Dealer' }}</a>
                                     </li>
                                     <li class="nav-item"><a class="nav-link" id="portfolio_detail_tab" data-toggle="pill"
                                             href="#portfolio_detail">Payment Detail</a></li>
@@ -96,7 +96,7 @@
                                                                 </tr>
                                                                 <tr class="h5">
                                                                     <th>Status</th>
-                                                                    <td>{{ status($purchase->status) }}
+                                                                    <td>{!! $purchase->status !!}
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -122,23 +122,23 @@
                                             <div class="col-lg-12 bg-white">
                                                 <div class="tab-content" id="files-tabContent">
                                                     <div class="tab-pane fade show active" id="files-pdf">
-                                                        <h4 class="mt-0 header-title mb-3"></h4>
+                                                        <h4 class="mt-0 header-title mb-3">Seller Detail</h4>
                                                         <div class="file-box-content">
                                                             <table class="table table-striped-columns">
                                                                 <tr class="h5">
-                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Customer' : 'Dealer' }}
+                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Seller' : 'Dealer' }}
                                                                         Name</th>
                                                                     <td>{{ $purchase->purchaseable->customer_name ?? 'Not Available' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Customer' : 'Dealer' }}
+                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Seller' : 'Dealer' }}
                                                                         Phone</th>
                                                                     <td>{{ $purchase->purchaseable->phone ?? 'Not Available' }}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Customer' : 'Dealer' }}
+                                                                    <th>{{ $purchase->purchaseable->customer_name ?? '' ? 'Seller' : 'Dealer' }}
                                                                         Cnic</th>
                                                                     <td>{{ $purchase->purchaseable->cnic ?? 'Not Available' }}
                                                                     </td>
@@ -146,6 +146,31 @@
                                                                 <tr>
                                                                     <th>Address</th>
                                                                     <td>{{ $purchase->purchaseable->address ?? 'Not Available' }}
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <h4 class="mt-5 header-title mb-3">Owner Detail</h4>
+                                                        <div class="file-box-content">
+                                                            <table class="table table-striped-columns">
+                                                                <tr class="h5">
+                                                                    <th>Owner Name</th>
+                                                                    <td>{{ $detail->owner_name ?? 'Not Available' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Owner Phone</th>
+                                                                    <td>{{ $detail->owner_phone ?? 'Not Available' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Owner Cnic</th>
+                                                                    <td>{{ $detail->owner_cnic ?? 'Not Available' }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Address</th>
+                                                                    <td>{{ $detail->owner_address ?? 'Not Available' }}
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -184,17 +209,7 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>
-                                                            @if ($payment->stats = 6)
-                                                                <span class="badge badge-success">
-                                                                    Paid
-                                                                </span>
-                                                            @else
-                                                                <span class="badge badge-danger">
-                                                                    Partial Paid
-                                                                </span>
-                                                            @endif
-                                                        </td>
+                                                        <td>{!! $payment->status !!}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

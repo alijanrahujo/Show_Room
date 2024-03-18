@@ -86,7 +86,8 @@ class PurchaseController extends Controller
      */
     public function show($id)
     {
-        $purchase = Purchase::where('id',$id)->with('payments')->first();
+        $purchase = Purchase::where('id', $id)->with('payments')->first();
+        $detail = $purchase->purchaseDetail->first();
         $payments = $purchase->payments;
 
         $paymentsWithoutImage = $purchase->payments->where('image', null);
@@ -94,7 +95,7 @@ class PurchaseController extends Controller
             return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
         }
 
-        return view('purchases.show', compact('purchase', 'payments'));
+        return view('purchases.show', compact('purchase', 'payments', 'detail'));
     }
 
     /**

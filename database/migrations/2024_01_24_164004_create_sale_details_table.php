@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('register_no')->nullable();
             $table->string('purchase_id');
             $table->string('type');
-            $table->string('title');
+            $table->string('title')->nullable();
+            $table->string('maker')->nullable();
             $table->string('engine');
             $table->string('chassis');
             $table->string('model');
@@ -27,13 +28,18 @@ return new class extends Migration
             $table->string('horse_power');
             $table->string('sale_price');
             $table->string('sale_tax');
-            $table->string('reg_fee')->nullable();
-            $table->string('fitting_price')->nullable();
-            $table->string('total');
+            $table->string('buyer_name')->nullable();
+            $table->string('buyer_father')->nullable();
+            $table->string('buyer_cnic')->nullable();
+            $table->string('buyer_phone')->nullable();
+            $table->string('buyer_address')->nullable();
             $table->string('guarantor_name')->nullable();
             $table->string('guarantor_father')->nullable();
             $table->string('owner_name')->nullable();
             $table->string('pre_refrence')->nullable();
+            $table->string('reg_fee')->nullable();
+            $table->string('fitting_price')->nullable();
+            $table->string('total');
             $table->timestamps();
         });
     }

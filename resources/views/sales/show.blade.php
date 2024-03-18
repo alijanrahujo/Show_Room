@@ -71,13 +71,12 @@
                                                                     <tr>
                                                                         <th>#</th>
                                                                         <th>Title</th>
-                                                                        <th>Enging</th>
-                                                                        <th>Chaches</th>
+                                                                        <th>Chassis</th>
+                                                                        <th>Engine</th>
                                                                         <th>Color</th>
                                                                         <th>Model</th>
                                                                         <th>Sale Amount</th>
                                                                         <th>Status</th>
-                                                                        <th>Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -85,27 +84,12 @@
                                                                         <tr>
                                                                             <td>{{ $loop->iteration }}</td>
                                                                             <td> {{ $sale->title }}</td>
-                                                                            <td> {{ $sale->engine }} </td>
                                                                             <td> {{ $sale->chassis }} </td>
+                                                                            <td> {{ $sale->engine }} </td>
                                                                             <td> {{ $sale->color }} </td>
                                                                             <td> {{ $sale->model }} </td>
                                                                             <td> {{ $sale->total }} </td>
-                                                                            <td>
-                                                                                @if ($sales->customer->due_amount == 0)
-                                                                                    <span class="badge badge-success">
-                                                                                        Paid
-                                                                                    </span>
-                                                                                @else
-                                                                                    <span class="badge badge-danger">
-                                                                                        Partial Paid
-                                                                                    </span>
-                                                                                @endif
-                                                                            <td>
-                                                                                <a href="{{ route('invoices', $sales->id) }}"
-                                                                                    class="btn btn-sm btn-primary">
-                                                                                    <i class="fas fa-file-invoice"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a>
+                                                                            <td> {!! $sale->status !!}
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -323,17 +307,7 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>
-                                                            @if ($sales->customer->due_amount == 0)
-                                                                <span class="badge badge-success">
-                                                                    Paid
-                                                                </span>
-                                                            @else
-                                                                <span class="badge badge-danger">
-                                                                    Partial Paid
-                                                                </span>
-                                                            @endif
-                                                        </td>
+                                                        <td>{!! $payment->status !!}</td>
                                                         <td>
                                                             <a href="{{ Route('sell.paymentreceipt', $payment->id) }}"
                                                                 class="btn btn-sm btn-primary">
@@ -385,17 +359,7 @@
                                                         <td>{{ $installment->amount }}</td>
                                                         <td>{{ $installment->paid_amount ?? 0 }}</td>
                                                         <td>{{ $balance }}</td>
-                                                        <td>
-                                                            @if ($sales->customer->due_amount == 0)
-                                                                <span class="badge badge-success">
-                                                                    Paid
-                                                                </span>
-                                                            @else
-                                                                <span class="badge badge-danger">
-                                                                    Partial Paid
-                                                                </span>
-                                                            @endif
-                                                        </td>
+                                                        <td>{!! $installment->status !!}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

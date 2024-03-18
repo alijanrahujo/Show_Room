@@ -24,15 +24,19 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        {!! Form::open([
-                            'route' => 'reports.letter',
-                            'method' => 'post',
-                            'class' => 'parsley-examples',
-                            'novalidate' => '',
-                            'enctype' => 'multipart/form-data',
-                        ]) !!}
+                        {!! Form::model($data, ['enctype'=>'multipart/form-data','method' => 'post', 'route' => 'reports.letter']) !!}
                         <div class="row" id="dynamic-fields">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    {!! Form::label('chassis', 'Chassis') !!}
+                                    {!! Form::text('chassis', null, ['class' => 'form-control', 'placeholder' => 'Enter chassis']) !!}
+                                    @error('chassis')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('from', 'From date') !!}
                                     {!! Form::date('from', null, ['class' => 'form-control', 'placeholder' => 'Enter From Date']) !!}
@@ -42,7 +46,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     {!! Form::label('to', 'To date') !!}
                                     {!! Form::date('to', null, ['class' => 'form-control', 'placeholder' => 'Enter To Date']) !!}
@@ -51,7 +55,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-4 mt-4">
+                            <div class="col-md-3 mt-4">
                                 <div class="form-group">
                                     {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                                 </div>
@@ -63,7 +67,7 @@
             </div>
         </div>
 
-        @if (isset($letters))
+        @if (isset($combinedData))
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -83,22 +87,24 @@
                                             <th>Chassis No</th>
                                             <th>Model - Color</th>
                                             <th>Amount</th>
+                                            <th>Type</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($letters as $val)
+                                        @foreach ($combinedData as $val)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $val->date }}</td>
-                                                <td>{{ $val->name }}</td>
-                                                <td>{{ $val->phone }}</td>
-                                                <td>{{ $val->title }}</td>
-                                                <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
-                                                <td>{{ $val->model . ' - ' . $val->color }}</td>
-                                                <td>{{ $val->payment }}</td>
-                                                <td>{{ status($val->status) }}</td>
+                                                <td>{{ $val['date'] }}</td>
+                                                <td>{{ $val['name'] }}</td>
+                                                <td>{{ $val['phone'] }}</td>
+                                                <td>{{ $val['title'] }}</td>
+                                                <td>{{ $val['engine'] }}</td>
+                                                <td>{{ $val['chassis'] }}</td>
+                                                <td>{{ $val['model'] }}</td>
+                                                <td>{{ $val['payment'] }}</td>
+                                                <td>{{ $val['type'] }}</td>
+                                                <td>{!! $val['status'] !!}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -55,7 +55,7 @@
                                             <td> {{ $purchase->purchaseable->company_name }} </td>
                                             <td> {{ $purchase->purchaseDetail()->count() }} </td>
                                             <td> {{ $purchase->total_amount }} </td>
-                                            <td> {{ status($purchase->status) }} </td>
+                                            <td> {!! $purchase->status !!} </td>
                                             <td>
                                                 <a href="{{ Route('dealer-purchase.show', $purchase->id) }}"
                                                     class="btn btn-sm btn-primary">

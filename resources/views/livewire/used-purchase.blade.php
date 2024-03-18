@@ -16,16 +16,17 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('engine', 'Engine Number *') !!}
-                                {!! Form::text('engine', null, [
-                                    'wire:model.blur' => 'engine',
+                                {!! Form::label('chassis', 'Chassis Number *') !!}
+                                {!! Form::text('chassis', null, [
+                                    'wire:model.blur' => 'chassis',
                                     'class' => 'form-control',
-                                    'id' => 'engine',
-                                    'placeholder' => 'Engine Number',
+                                    'id' => 'chassis',
+                                    'placeholder' => 'Chassis Number',
                                 ]) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('vehicle_id', 'Vehicle *') !!}
@@ -44,12 +45,12 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('chassis', 'Chassis Number *') !!}
-                                {!! Form::text('chassis', null, [
-                                    'wire:model' => 'chassis',
+                                {!! Form::label('engine', 'Engine Number *') !!}
+                                {!! Form::text('engine', null, [
+                                    'wire:model' => 'engine',
                                     'class' => 'form-control',
-                                    'id' => 'chassis',
-                                    'placeholder' => 'Chassis Number',
+                                    'id' => 'engine',
+                                    'placeholder' => 'Engine Number',
                                 ]) !!}
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
@@ -218,7 +219,20 @@
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('owner_phone', 'Owner Phone *') !!}
+                                {!! Form::text('owner_phone', null, [
+                                    'wire:model.blur' => 'owner_phone',
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Owner Phone',
+                                ]) !!}
+                                <small id="emailHelp" class="form-text text-muted"></small>
+                            </div>
+                        </div>
 
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('owner_name', 'Owner Name *') !!}
@@ -231,8 +245,6 @@
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 {!! Form::label('owner_father', 'Owner Father *') !!}
@@ -245,8 +257,10 @@
                                 <small id="emailHelp" class="form-text text-muted"></small>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 {!! Form::label('owner_address', 'Owner Address *') !!}
                                 {!! Form::text('owner_address', null, [
@@ -301,7 +315,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('paid', 'paid Amount*') !!}
+                                {!! Form::label('paid', 'Paid Amount*') !!}
                                 {!! Form::number('paid', null, [
                                     'wire:model' => 'paid',
                                     'class' => 'form-control',

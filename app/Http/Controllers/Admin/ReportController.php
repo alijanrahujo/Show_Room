@@ -197,7 +197,7 @@ class ReportController extends Controller
                 if ($payment->received > 0) {
                     $combinedData[] = [
                         'date' => $payment->date,
-                        'particular' => $payment->type . ' (' . $payment->id . ')',
+                        'particular' => $payment->type,
                         'debit' => 0,
                         'credit' => $payment->received,
                     ];
@@ -300,15 +300,66 @@ class ReportController extends Controller
 
     function letter()
     {
-        return view("reports.letter");
+        $data = collect();
+        return view("reports.letter",compact('data'));
     }
     function letterDetail(Request $request)
     {
-        if (!empty($request->input('from') && $request->input('to'))) {
-            $letters = Registration::whereBetween('date', [$request->input('from'), $request->input('to')])->get();
-        } else {
-            $letters = Registration::get();
+        $data = $request;
+        $letters = Registration::select('*');
+        $sales = SaleDetail::where('type','New');
+
+        if($request->input('from') && $request->input('to')) {
+            $letters = $letters->whereBetween('date', [$request->input('from'), $request->input('to')]);
+
+            $sales = $sales->whereHas('sale',function($query) use ($request) {
+                $query->whereBetween('date', [$request->input('from'), $request->input('to')]);
+            });
         }
-        return view("reports.letter", compact('letters'));
+        if($request->chassis)
+        {
+            $letters = $letters->where('chassis',$request->chassis);
+            $sales = $sales->where('chassis',$request->chassis);
+        }
+
+        $letters = $letters->get();
+        $sales = $sales->get();
+        $combinedData = [];
+        $letters->each(function ($letter) use (&$combinedData) {
+            $combinedData[] = [
+                'date' => $letter->date,
+                'name' => $letter->name,
+                'phone' => $letter->phone,
+                'title' => $letter->title,
+                'chassis' => $letter->chassis,
+                'engine' => $letter->engine,
+                'model' => $letter->model .' - '.$letter->color,
+                'payment' => $letter->payment,
+                'type' => $letter->type,
+                'status' => $letter->status,
+            ];
+        });
+
+
+        $sales->each(function ($sale) use (&$combinedData) {
+            $combinedData[] = [
+                'date' => $sale->sale->date,
+                'name' => $sale->full_name,
+                'phone' => $sale->sale->customer->phone,
+                'title' => $sale->title,
+                'chassis' => $sale->chassis,
+                'engine' => $sale->engine,
+                'model' => $sale->model .' - '.$sale->color,
+                'payment' => $sale->total,
+                'type' => $sale->type,
+                'status' => $sale->sale->status,
+            ];
+        });
+
+        usort($combinedData, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        return view("reports.letter", compact('combinedData','data'));
     }
 }

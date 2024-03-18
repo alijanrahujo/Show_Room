@@ -285,6 +285,11 @@
                     <a href="{{ Route('dailyexp.index') }}"><i class="fas fa-money-bill"></i><span>Expenses</span></a>
                 </li>
             @endcan
+            @can('invoices-show')
+                <li class="{{ Route::currentRouteName() == 'invoices.index' ? 'mm-active' : '' }}">
+                    <a href="{{ Route('invoices.index') }}"><i class="fas fa-fill"></i><span>Invoices</span></a>
+                </li>
+            @endcan
 
             {{-- Report Section --}}
             <li>

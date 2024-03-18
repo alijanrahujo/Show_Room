@@ -29,6 +29,8 @@ class SaleCreate extends Component
 
     public $instaDate, $instaAmount, $instaDesc;
 
+    public $chassises;
+
     public function mount()
     {
         $this->customers = Customer::pluck('customer_name', 'id');
@@ -45,6 +47,8 @@ class SaleCreate extends Component
         $this->instaAmount = [];
         $this->instaDesc = [];
         $this->down_payment_amount = 0;
+
+        $this->chassises = collect();
     }
 
     public function updated($field)
@@ -84,7 +88,7 @@ class SaleCreate extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'New', 'status' => 2])->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'New', 'status' => 2])->wherenotin('chassis',$this->chassises)->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
         $this->sale_price = $this->vehicle_type->sale_price ?? 0;
         $this->updateTotal();
@@ -140,7 +144,9 @@ class SaleCreate extends Component
             'color' => $purchase->color,
             'horse_power' => $purchase->horse_power,
         ];
+        $this->chassises[] = $purchase->chassis;
         $this->purchase_id = null;
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $this->vehicle_id, 'type' => 'New', 'status' => 2])->wherenotin('chassis',$this->chassises)->get()->pluck('FullTitle', 'id');
         $this->grandTotal();
     }
 

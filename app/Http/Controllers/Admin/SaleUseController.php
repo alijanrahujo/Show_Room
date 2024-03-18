@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 
 class SaleUseController extends Controller
@@ -70,5 +71,11 @@ class SaleUseController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    function certificate($id)
+    {
+        $detail = SaleDetail::where(['type' => 'Used', 'sale_id' => $id])->with('sale.payments')->first();
+        return view("sale-use.certificate", compact('detail'));
     }
 }

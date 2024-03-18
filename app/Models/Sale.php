@@ -21,10 +21,15 @@ class Sale extends Model
         'status',
     ];
 
+    protected $appends = ['paid_amount', 'due_amount', 'status'];
 
     public function payments()
     {
         return $this->morphMany(Payment::class, 'paymentable');
+    }
+    public function invoices()
+    {
+        return $this->morphMany(Invoice::class, 'invoiceable');
     }
 
     public function customer()
@@ -50,6 +55,19 @@ class Sale extends Model
     public function getDueAmountAttribute()
     {
         return ($this->amount ?? 0) - ($this->payments->sum('received') ?? 0);
+    }
+
+    public function getStatusAttribute()
+    {
+        $status = 0;
+        if ($this->amount == $this->payments->sum('received')) {
+            $status = '<span class="badge badge-success">' . status(6) . '</span>';
+        } else if ($this->payments->sum('received') == 0) {
+            $status = '<span class="badge badge-danger">' . status(4) . '</span>';
+        } else {
+            $status = '<span class="badge badge-warning">' . status(5) . '</span>';
+        }
+        return $status;
     }
 
     protected static function boot()
@@ -78,5 +96,4 @@ class Sale extends Model
             }
         });
     }
-
 }

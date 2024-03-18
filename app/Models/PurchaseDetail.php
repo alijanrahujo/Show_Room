@@ -22,6 +22,7 @@ class PurchaseDetail extends Model
         'owner_father',
         'owner_cnic',
         'owner_address',
+        'owner_phone',
         'engine',
         'title',
         'chassis',
@@ -40,6 +41,8 @@ class PurchaseDetail extends Model
         'status',
     ];
 
+    protected $appends = ['full_title','status'];
+
     public function getFullTitleAttribute()
     {
         return $this->title . ' (' . $this->model . ' - ' . $this->color . ' - Ch: ' . $this->chassis .')';
@@ -52,6 +55,26 @@ class PurchaseDetail extends Model
     public function purchase()
     {
         return $this->belongsTo(Purchase::class);
+    }
+
+    public function getStatusAttribute()
+    {
+        $status = 0;
+        if(!SaleDetail::where('chassis',$this->chassis)->first())
+        {
+            $status = '<span class="badge badge-success">'.status(2).'</span>';
+        }
+        else
+        {
+            $status = '<span class="badge badge-danger">'.status(3).'</span>';
+        }
+
+        return $status;
+    }
+
+    public function getVehicleStatusAttribute()
+    {
+        return (PurchaseDetail::where('chassis',$this->chassis)->where('id','<',$this->id)->count() >0)?'Repeat':'New';
     }
 
     protected static function boot()

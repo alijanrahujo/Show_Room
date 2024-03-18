@@ -45,6 +45,20 @@ class Purchase extends Model
         return $this->morphMany(Installment::class, 'installmentable');
     }
 
+    public function getStatusAttribute()
+    {
+        $status = 0;
+        if($this->purchaseDetail()->where('status',2)->first())
+        {
+            $status = '<span class="badge badge-success">'.status(2).'</span>';
+        }
+        else
+        {
+            $status = '<span class="badge badge-danger">'.status(3).'</span>';
+        }
+        return $status;
+    }
+
     public static function boot(): void
     {
         parent::boot();

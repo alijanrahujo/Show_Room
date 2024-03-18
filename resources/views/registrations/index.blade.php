@@ -44,6 +44,7 @@
                                         <th>Type</th>
                                         <th>Customer Name</th>
                                         <th>Phone</th>
+                                        <th>Type</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -59,6 +60,7 @@
                                             <td>{{ $register->type }}</td>
                                             <td>{{ $register->name }}</td>
                                             <td>{{ $register->phone }}</td>
+                                            <td>{{ $register->type }}</td>
                                             <td>{{ status($register->status) }}</td>
                                             <td>
                                                 <a href="{{ Route('registration.show', $register->id) }}"

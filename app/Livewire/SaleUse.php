@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Sale;
 use Livewire\Component;
 use App\Models\Customer;
+use App\Models\Invoice;
 use App\Models\SaleDetail;
 use App\Models\VehicleType;
 use App\Models\PurchaseDetail;
@@ -13,8 +14,8 @@ use Illuminate\Support\Facades\DB;
 class SaleUse extends Component
 {
     public $purchases, $vehicles, $pre_refrence;
-    public $vehicle_type, $purchase_id, $title, $vehicle_id, $engine, $chassis, $model, $color, $horse_power, $tc_no, $register_no;
-    public $owner_cnic, $owner_name, $owner_father, $owner_address;
+    public $vehicle_type, $purchase_id, $title, $vehicle_id, $engine, $chassis, $model, $color, $horse_power, $tc_no, $register_no, $maker;
+    public $owner_cnic, $owner_name, $owner_father, $owner_address, $buyer_name, $buyer_father, $buyer_cnic, $buyer_address, $buyer_phone, $refrence;
     public $cnic, $phone, $customer_name, $father_name, $address;
     public $guarantor_name, $guarantor_father;
     public $total, $date, $time, $installment, $months, $down_payment_amount;
@@ -24,6 +25,7 @@ class SaleUse extends Component
         $this->vehicles = VehicleType::pluck('vehicle_type', 'id');
         $this->date = \Carbon\Carbon::now()->format('Y-m-d');
         $this->time = \Carbon\Carbon::now()->format('H:i');
+        $this->maker = 'Honda';
         $this->purchases = collect();
     }
 
@@ -45,6 +47,7 @@ class SaleUse extends Component
         $this->title = $purchase->title ?? '';
         $this->chassis = $purchase->chassis ?? '';
         $this->model = $purchase->model ?? '';
+        $this->maker = $purchase->maker ?? '';
         $this->color = $purchase->color ?? '';
         $this->horse_power = $purchase->horse_power ?? '';
         $this->tc_no = $purchase->tc_no ?? '';
@@ -73,8 +76,8 @@ class SaleUse extends Component
         $this->validate([
             'vehicle_type' => 'required',
             'purchase_id' => 'required',
-            'title' => 'required',
             'vehicle_id' => 'required',
+            'title' => 'required',
             'engine' => 'required',
             'chassis' => 'required',
             'model' => 'required',
@@ -127,7 +130,6 @@ class SaleUse extends Component
             'down_payment_amount' => $this->down_payment_amount,
             'status' => $status,
         ]);
-
         if ($this->installment == 'Yes') {
             $sale->payments()->create([
                 'date' => $this->date,
@@ -153,22 +155,29 @@ class SaleUse extends Component
         $details = new SaleDetail;
         $details->sale_id = $sale->id;
         $details->tc_no = $this->tc_no;
+        $details->vehicle_id = $this->vehicle_id;
         $details->register_no = $this->register_no;
         $details->purchase_id = $this->purchase_id;
         $details->type = 'Used';
-        $details->title = $this->title;
         $details->engine = $this->engine;
+        $details->title = $this->title;
         $details->chassis = $this->chassis;
         $details->model = $this->model;
         $details->color = $this->color;
         $details->horse_power = $this->horse_power;
         $details->sale_price = $this->total;
         $details->sale_tax = 0;
+        $details->buyer_name = $this->customer_name;
+        $details->buyer_father = $this->father_name;
+        $details->buyer_cnic = $this->cnic;
+        $details->buyer_phone = $this->phone;
+        $details->buyer_address = $this->address;
+        $details->maker = $this->maker;
         $details->total = $this->total;
         $details->guarantor_name = $this->guarantor_name;
         $details->guarantor_father = $this->guarantor_father;
         $details->owner_name = $this->owner_name;
-        $details->pre_refrence = $this->pre_refrence;
+        $details->pre_refrence = $this->refrence;
         $details->save();
 
         PurchaseDetail::where(['id' => $this->purchase_id, 'chassis' => $this->chassis])->update(['status' => 3]);

@@ -86,10 +86,7 @@
                                                                             <td> {{ $sale->color }} </td>
                                                                             <td> {{ $sale->model }} </td>
                                                                             <td> {{ $sale->total }} </td>
-                                                                            <td>
-                                                                                <span
-                                                                                    class="badge badge-{{ $sales->status == 2 ? 'success' : 'danger' }} ">{{ status($sales->status) }}</span>
-                                                                            </td>
+                                                                            <td> {!! $sale->status !!} </td>
                                                                             <td>
                                                                                 <a href="{{ route('invoices', $sales->id) }}"
                                                                                     class="btn btn-sm btn-primary">
@@ -304,7 +301,7 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td>{{ status($payment->status) }}</td>
+                                                        <td>{!! $payment->status !!}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

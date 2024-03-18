@@ -84,10 +84,7 @@
                                                                             <td> {{ $purchase->purchase_amount }} </td>
                                                                             <td> {{ $purchase->purchase_tax }} </td>
                                                                             <td> {{ $purchase->total }} </td>
-                                                                            <td>
-                                                                                <span
-                                                                                    class="badge badge-{{ $purchase->status == 2 ? 'success' : 'danger' }} ">{{ status($purchase->status) }}</span>
-                                                                            </td>
+                                                                            <td> {!! $purchase->status !!} </td>
                                                                         </tr>
                                                                     @endforeach
 
@@ -300,9 +297,7 @@
                                                         <td>{{ $payment->total }}</td>
                                                         <td>{{ $payment->received }}</td>
                                                         <td>{{ $payment->pending }}</td>
-                                                        <td><span class="badge badge-lg badge-success">
-                                                                {{ status($payment->status) }}
-                                                            </span></td>
+                                                        <td>{!! $payment->status !!}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
