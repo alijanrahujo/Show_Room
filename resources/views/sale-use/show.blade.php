@@ -38,6 +38,10 @@
                                         <a class="nav-link" id="portfolio_detail_tab" data-toggle="pill"
                                             href="#portfolio_detail">Payment Detail</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="installment_detail_tab" data-toggle="pill"
+                                            href="#installment_detail">Installment Detail</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -303,6 +307,61 @@
                             </div>
                         </div><!--end row-->
                     </div><!--end portfolio detail-->
+                    <div class="tab-pane fade" id="installment_detail">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-striped table-bordered dt-responsive nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Description</th>
+                                                    <th>Amount</th>
+                                                    <th>Paid Amount</th>
+                                                    <th>Due Amount</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $balance = 0;
+                                                    $total = 0;
+                                                    $paid = 0;
+                                                @endphp
+                                                @foreach ($sales->installments as $installment)
+                                                    @php
+                                                        $total += $installment->amount;
+                                                        $paid += $installment->paid_amount;
+
+                                                        $balance += $installment->amount;
+                                                        $balance -= $installment->paid_amount;
+                                                    @endphp
+                                                    <tr>
+                                                        <td>{{ $installment->date }}</td>
+                                                        <td>{{ $installment->description }}</td>
+                                                        <td>{{ $installment->amount }}</td>
+                                                        <td>{{ $installment->paid_amount ?? 0 }}</td>
+                                                        <td>{{ $balance }}</td>
+                                                        <td>{!! $installment->status !!}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="2">Total</th>
+                                                    <th>{{ $total }}</th>
+                                                    <th>{{ $paid }}</th>
+                                                    <th>{{ $balance }}</th>
+                                                    <th></th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end row-->
+                    </div>
                 </div><!--end tab-content-->
             </div><!--end col-->
         </div>

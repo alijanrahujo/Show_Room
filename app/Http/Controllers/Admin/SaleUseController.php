@@ -39,7 +39,7 @@ class SaleUseController extends Controller
      */
     public function show(string $id)
     {
-        $sales = Sale::find($id)->with('saleDetail', 'payments')->where('id', $id)->first();
+        $sales = Sale::find($id)->with('saleDetail', 'payments', 'installments')->where('id', $id)->first();
 
         $paymentsWithoutImage = $sales->payments->where('image', null);
         if ($paymentsWithoutImage->isNotEmpty()) {

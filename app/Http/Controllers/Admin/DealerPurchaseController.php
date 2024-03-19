@@ -95,7 +95,7 @@ class DealerPurchaseController extends Controller
 
         $paymentsWithoutImage = $purchases->payments->where('image', null);
         if ($paymentsWithoutImage->isNotEmpty()) {
-            return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
+            //return view('payments.show_with_out_image', compact('paymentsWithoutImage'));
         }
 
         return view('dealer-purchase.show', compact('purchases'));
