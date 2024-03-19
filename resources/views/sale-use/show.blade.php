@@ -73,7 +73,6 @@
                                                                         <th>Model</th>
                                                                         <th>Sale Amount</th>
                                                                         <th>Status</th>
-                                                                        <th>Action</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -87,13 +86,6 @@
                                                                             <td> {{ $sale->model }} </td>
                                                                             <td> {{ $sale->total }} </td>
                                                                             <td> {!! $sale->status !!} </td>
-                                                                            <td>
-                                                                                <a href="{{ route('invoices', $sales->id) }}"
-                                                                                    class="btn btn-sm btn-primary">
-                                                                                    <i class="fas fa-file-invoice"
-                                                                                        aria-hidden="true"></i>
-                                                                                </a>
-                                                                            </td>
                                                                         </tr>
                                                                     @endforeach
 

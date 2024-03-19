@@ -63,10 +63,15 @@
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="{{ Route('sale-use.certificate', $sale->id) }}"
-                                                    class="btn btn-sm btn-warning">
-                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    class="btn btn-sm btn-success">
+                                                    <i class="fa fa-file" aria-hidden="true"></i>
                                                 </a>
-                                                {!! Form::open(['method' => 'DELETE', 'route' => ['sale-use.destroy', $sale->id], 'style' => 'display:inline','onsubmit' => 'return confirm("Are you sure you want to delete this?");']) !!}
+                                                {!! Form::open([
+                                                    'method' => 'DELETE',
+                                                    'route' => ['sale-use.destroy', $sale->id],
+                                                    'style' => 'display:inline',
+                                                    'onsubmit' => 'return confirm("Are you sure you want to delete this?");',
+                                                ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
                                                 {!! Form::close() !!}
                                             </td>
