@@ -52,6 +52,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="tab-content detail-list" id="pills-tabContent">
@@ -94,10 +95,8 @@
 
                                                             </table>
                                                         </div>
-                                                    </div><!--end tab-pane-->
-
-                                                    <!--end tab-content-->
-                                                </div><!--end card-body-->
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -105,6 +104,7 @@
                             </div>
                         </div>
                     </div><!--end general detail-->
+
                     <div class="tab-pane fade" id="activity_detail">
                         <div class="row">
                             <div class="col-md-12">
@@ -150,6 +150,7 @@
                             </div>
                         </div><!--end row-->
                     </div><!--end education detail-->
+
                     <div class="tab-pane fade" id="owner_detail">
                         <div class="row">
                             <div class="col-md-12">
@@ -183,6 +184,7 @@
                             </div>
                         </div><!--end row-->
                     </div>
+
                     <div class="tab-pane fade" id="delivery_detail">
                         <div class="row">
                             <div class="col-md-12">
@@ -212,7 +214,8 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Image</th>
-                                                    <td><img src="{{ asset('storage/'.$register->image) }}" class="img-thumbnail" width="150"></td>
+                                                    <td><img src="{{ asset('storage/' . $register->image) }}"
+                                                            class="img-thumbnail" width="150"></td>
                                                 </tr>
                                             </table>
                                     </div>
@@ -231,7 +234,8 @@
     <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
+        type="text/css" />
 @endsection
 @section('script')
     <!-- Required datatable js -->

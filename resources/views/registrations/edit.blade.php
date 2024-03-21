@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'Roles')
+@section('title', 'Registration')
 
 @section('content')
     <div class="container-fluid">
@@ -28,7 +28,7 @@
                         @endforeach
                     </ul>
                 </div>
-            @endift
+            @endif
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">

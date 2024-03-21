@@ -64,14 +64,15 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Invoice $invoice)
+    public function destroy($id)
     {
-        //
+        // return $id;
+        Invoice::find($id)->delete();
+        return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully');
     }
 
     public function change($id)
     {
-        // return $id;
         $data = Invoice::find($id);
         $data->update(['status' => 9]);
         $sale = Invoice::find($id);

@@ -22,7 +22,9 @@
                                     'id' => 'chassis',
                                     'placeholder' => 'Chassis Number',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('chassis')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -50,7 +52,9 @@
                                     'id' => 'engine',
                                     'placeholder' => 'Engine Number',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('engine')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -62,7 +66,9 @@
                                     'id' => 'model',
                                     'placeholder' => 'Model',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('model')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -77,7 +83,9 @@
                                     'id' => 'color',
                                     'placeholder' => 'Color',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('color')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -89,7 +97,9 @@
                                     'id' => 'horse_power',
                                     'placeholder' => 'Horse Power',
                                 ]) !!}
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                @error('horse_power')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -100,9 +110,10 @@
                                     'class' => 'form-control',
                                     'id' => 'maker',
                                     'placeholder' => 'Maker',
-                                ]) !!}
-
-                                <small id="emailHelp" class="form-text text-muted"></small>
+                                ]) !!}  
+                                @error('maker')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

@@ -67,15 +67,11 @@
                                                     class="btn btn-sm btn-primary">
                                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ Route('registration.edit', $register->id) }}"
-                                                    class="btn btn-sm btn-warning">
-                                                    <i class="fa fa-edit" aria-hidden="true"></i>
-                                                </a>
                                                 {!! Form::open([
                                                     'method' => 'DELETE',
                                                     'route' => ['registration.destroy', $register->id],
                                                     'style' => 'display:inline',
-                                                    'onsubmit' => 'return confirm("Are you sure you want to delete this?");'
+                                                    'onsubmit' => 'return confirm("Are you sure you want to delete this?");',
                                                 ]) !!}
                                                 {!! Form::button('<i class="fa fa-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-sm btn-danger btn-xs']) !!}
                                                 {!! Form::close() !!}

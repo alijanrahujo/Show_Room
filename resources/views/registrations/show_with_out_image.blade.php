@@ -61,11 +61,16 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             {!! Form::label('type', 'Type *') !!}
-                                                            {!! Form::select('type', ['Registration' => 'Registration', 'Plate' => 'Plate No', 'Letter' => 'Letter'], null, [
-                                                                'placeholder' => 'Select',
-                                                                'class' => 'form-control',
-                                                                'disabled' => 'disabled',
-                                                            ]) !!}
+                                                            {!! Form::select(
+                                                                'type',
+                                                                ['Registration' => 'Registration', 'Plate' => 'Plate No', 'Letter' => 'Letter'],
+                                                                $register->type,
+                                                                [
+                                                                    'placeholder' => 'Select',
+                                                                    'class' => 'form-control',
+                                                                    'disabled' => 'disabled',
+                                                                ],
+                                                            ) !!}
                                                             @error('type')
                                                                 <span class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -115,9 +120,10 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             {!! Form::label('status', 'Status *') !!}
-                                                            {!! Form::select('status', ['8' => 'Inprocess', '9' => 'Issued', '10' => 'Not Issued'], null, [
+                                                            {!! Form::select('status', ['8' => 'Inprocess', '9' => 'Issued', '10' => 'Not Issued'], $register->status, [
                                                                 'placeholder' => 'Select',
                                                                 'class' => 'form-control',
+                                                                'readonly' => 'readonly',
                                                             ]) !!}
                                                             @error('status')
                                                                 <span class="text-danger">{{ $message }}</span>

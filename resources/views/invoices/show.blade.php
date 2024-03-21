@@ -39,6 +39,11 @@
                                 <h5
                                     style="font-size: 20px; padding: 3px; height: 25px; margin-top: -20px; background-color: white; border:1px solid black;width:100px; line-height: 20px; text-align: center;border-radius: 5px;color: brown; position: absolute;">
                                     INVOICE</h5>
+                                @if ($sale->status == 9)
+                                    <img src="{{ asset('assets/images/duplicate.jpg') }}"
+                                        style="position:absolute ; top:3px; margin-left:-75px;width:80px; "
+                                        alt="">
+                                @endif
 
                             </div>
                             <div class="invoice-head-right text-bold">
@@ -171,8 +176,6 @@
                             </button>
                             @if ($sale->status == 10)
                                 <a class="invoice-btn" href="{{ Route('invoices.change', $sale->id) }}">Issued</a>
-                            @else
-                                <p style="margin-left: 10px">Invoice Issued on {{ $sale->updated_at }}</p>
                             @endif
                         </div>
                     </div>

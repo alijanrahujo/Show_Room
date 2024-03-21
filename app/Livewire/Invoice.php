@@ -66,7 +66,11 @@ class Invoice extends Component
             'buyer_phone' => 'required',
             'buyer_address' => 'required',
         ]);
-        // dd($this);
+        $existingChassis = ModelsInvoice::pluck('chassis')->toArray();
+        if (in_array($this->chassis, $existingChassis)) {
+            $this->addError('chassis', 'Chassis already exists.');
+            return;
+        }
         $inovice = ModelsInvoice::create([
             'date' => $this->date,
             'sale_id' => $this->id,

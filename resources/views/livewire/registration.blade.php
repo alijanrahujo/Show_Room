@@ -3,17 +3,6 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-
                     <h5 class="card-title">Vehicle Detail</h5>
                     {!! Form::open([
                         'wire:submit.prevent' => 'submit',
@@ -135,7 +124,6 @@
                                 {!! Form::label('phone', 'Phone Number *') !!}
                                 {!! Form::text('phone', null, [
                                     'wire:model' => 'phone',
-                                    // 'wire:blur' => 'updatephone',
                                     'class' => 'form-control',
                                     'placeholder' => 'Phone Number',
                                 ]) !!}
@@ -304,7 +292,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 {!! Form::label('status', 'Status *') !!}
-                                {!! Form::select('status', ['8' => 'Inprocess', '9' => 'Issued', '10' => 'Not Issued'], null, [
+                                {!! Form::select('status', ['9' => 'Issued', '10' => 'Not Issued'], null, [
                                     'wire:model' => 'status',
                                     'placeholder' => 'Select',
                                     'class' => 'form-control',

@@ -50,8 +50,8 @@ class Registration extends Component
         $this->payment = $detail->payment ?? '';
         $this->status = $detail->status ?? '';
 
-        if(!$detail)
-        {
+        if (!$detail) {
+            // dd("ok");
             $detail = SaleDetail::where('chassis', $this->chassis)->with('sale.customer')->orderby('id', 'desc')->first();
             $this->title = $detail->title ?? '';
             $this->vehicle_id = $detail->vehicle_id ?? '';
@@ -92,7 +92,9 @@ class Registration extends Component
 
     function updatedType()
     {
-        $this->payment = ($this->type == 'Registration')? $this->reg_fee : 0;
+        // dd("working");
+        $this->status = '10';
+        $this->payment = ($this->type == 'Registration') ? $this->reg_fee : 0;
     }
 
     function submit()
@@ -114,9 +116,16 @@ class Registration extends Component
             'status' => 'required',
             'description' => 'required',
             'payment' => 'required',
+            'status' => 'required',
         ]);
 
-        // dd($this);
+        $existingChassis = regModal::where(['type' => $this->type, 'status' => $this->status])->pluck('chassis')->toArray();
+        if (in_array($this->chassis, $existingChassis)) {
+            $this->addError('type', 'Type already exists.');
+            $this->addError('status', 'Status already exists.');
+            $this->addError('chassis', 'Chassis already exists.');
+            return;
+        }
         DB::beginTransaction();
 
         $registration = regModal::create([

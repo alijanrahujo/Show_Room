@@ -33,104 +33,67 @@ class ReportController extends Controller
     }
     function dailyexpDetail(Request $request)
     {
-        // return $request;
-        if (!empty($request->input('from') && $request->input('to'))) {
-            $customers = Customer::pluck('customer_name', 'id');
+        $customers = Customer::pluck('customer_name', 'id');
 
-            $expenses = Expenses::select('*');
-            $payments = Payment::with('paymentable');
+        $expenses = Expenses::select('*');
+        $payments = Payment::with('paymentable');
 
-            if ($request->customer_id > 0) {
-                $payments = $payments;
-                $expenses = $expenses;
-            }
-            if ($request->from && $request->to) {
-                $payments = $payments->whereBetween('date', [$request->from, $request->to]);
-                $expenses = $expenses->whereBetween('date', [$request->from, $request->to]);
-            }
-            $payments = $payments->get();
-            $expenses = $expenses->get();
-
-
-            $combinedData = [];
-            $payments->each(function ($payment) use (&$combinedData) {
-                $combinedData[] = [
-                    'date' => $payment->date,
-                    'particular' => ($payment->paymentable_type == 'App\\Models\\Sale') ? (($payment->paymentable->type == 'New') ? $payment->paymentable->customer->customer_name . ' Qty ' . $payment->paymentable->saleDetail->count() . ' (' . $payment->id . ') - NS' : $payment->paymentable->customer->customer_name . ' Qty ' . $payment->paymentable->saleDetail->count() . ' (' . $payment->id . ') - US') : (($payment->paymentable->type == 'New') ? 'NP' : 'UP'),
-                    'debit' => ($payment->paymentable_type == 'App\\Models\\Sale') ? $payment->received : 0,
-                    'credit' => ($payment->paymentable_type == 'App\\Models\\Purchase') ? $payment->received : 0,
-                ];
-            });
-
-            $expenses->each(function ($expense) use (&$combinedData) {
-                $combinedData[] = [
-                    'date' => $expense->date,
-                    'particular' => $expense->title,
-                    'debit' => 0,
-                    'credit' => $expense->amount,
-                ];
-            });
-
-            // Sort combinedData by date
-            usort($combinedData, function ($a, $b) {
-                return strtotime($a['date']) - strtotime($b['date']);
-            });
-
-            // Calculate balance
-            $balance = 0;
-            foreach ($combinedData as &$data) {
-                $balance += $data['debit'] - $data['credit'];
-                $data['balance'] = $balance;
-            }
-        } else {
-            $customers = Customer::pluck('customer_name', 'id');
-
-            $expenses = Expenses::select('*');
-            $payments = Payment::with('paymentable');
-
-            if ($request->customer_id > 0) {
-                $payments = $payments;
-                $expenses = $expenses;
-            }
-            if ($request->from && $request->to) {
-                $payments = $payments;
-                $expenses = $expenses;
-            }
-            $payments = $payments->get();
-            $expenses = $expenses->get();
-
-
-            $combinedData = [];
-            $payments->each(function ($payment) use (&$combinedData) {
-                $combinedData[] = [
-                    'date' => $payment->date,
-                    'particular' => ($payment->paymentable_type == 'App\\Models\\Sale') ? (($payment->paymentable->type == 'New') ? $payment->paymentable->customer->customer_name . ' Qty ' . $payment->paymentable->saleDetail->count() . ' (' . $payment->id . ') - NS' : $payment->paymentable->customer->customer_name . ' Qty ' . $payment->paymentable->saleDetail->count() . ' (' . $payment->id . ') - US') : (($payment->paymentable->type == 'New') ? 'NP' : 'UP'),
-                    'debit' => ($payment->paymentable_type == 'App\\Models\\Sale') ? $payment->received : 0,
-                    'credit' => ($payment->paymentable_type == 'App\\Models\\Purchase') ? $payment->received : 0,
-                ];
-            });
-
-            $expenses->each(function ($expense) use (&$combinedData) {
-                $combinedData[] = [
-                    'date' => $expense->date,
-                    'particular' => $expense->title,
-                    'debit' => 0,
-                    'credit' => $expense->amount,
-                ];
-            });
-
-            // Sort combinedData by date
-            usort($combinedData, function ($a, $b) {
-                return strtotime($a['date']) - strtotime($b['date']);
-            });
-
-            // Calculate balance
-            $balance = 0;
-            foreach ($combinedData as &$data) {
-                $balance += $data['debit'] - $data['credit'];
-                $data['balance'] = $balance;
-            }
+        if ($request->from && $request->to) {
+            $payments = $payments->whereBetween('date', [$request->from, $request->to]);
+            $expenses = $expenses->whereBetween('date', [$request->from, $request->to]);
         }
+        $payments = $payments->get();
+        $expenses = $expenses->get();
+
+        $payments->each(function ($payment) use (&$combinedData) {
+            if ($payment->paymentable) {
+                $particular = '';
+                $debit = 0;
+                $credit = 0;
+
+                if ($payment->paymentable_type === 'App\Models\Sale') {
+                    $particular = $payment->paymentable->customer->customer_name . ' Qty ' . $payment->paymentable->saleDetail->count() . ' - ' . ($payment->paymentable->type === 'New' ? 'NS' : 'US');
+                    $debit = $payment->received;
+                } elseif ($payment->paymentable_type === 'App\Models\Purchase' && $payment->paymentable->type === 'Used') {
+                    $particular = $payment->paymentable->purchaseable->customer_name . ' Qty ' . $payment->paymentable->PurchaseDetail->count() . ' - UP';
+                    $credit = $payment->received;
+                } elseif ($payment->paymentable_type === 'App\Models\Registration') {
+                    $particular = $payment->paymentable->type . ' ' . $payment->paymentable->title . ' Chas: ' . $payment->paymentable->chassis;
+                    $debit = $payment->received;
+                }
+
+                if (!($payment->paymentable_type === 'App\Models\Purchase' && $payment->paymentable->type === 'New')) {
+                    $combinedData[] = [
+                        'date' => $payment->date,
+                        'particular' => $particular,
+                        'debit' => $debit,
+                        'credit' => $credit,
+                    ];
+                }
+            }
+        });
+
+        $expenses->each(function ($expense) use (&$combinedData) {
+            $combinedData[] = [
+                'date' => $expense->date,
+                'particular' => $expense->title,
+                'debit' => 0,
+                'credit' => $expense->amount,
+            ];
+        });
+
+        // Sort combinedData by date
+        usort($combinedData, function ($a, $b) {
+            return strtotime($a['date']) - strtotime($b['date']);
+        });
+
+        // Calculate balance
+        $balance = 0;
+        foreach ($combinedData as &$data) {
+            $balance += $data['debit'] - $data['credit'];
+            $data['balance'] = $balance;
+        }
+
 
         return view("reports.dailyExp", compact('customers', 'combinedData'));
     }
@@ -301,25 +264,24 @@ class ReportController extends Controller
     function letter()
     {
         $data = collect();
-        return view("reports.letter",compact('data'));
+        return view("reports.letter", compact('data'));
     }
     function letterDetail(Request $request)
     {
         $data = $request;
         $letters = Registration::select('*');
-        $sales = SaleDetail::where('type','New');
+        $sales = SaleDetail::where('type', 'New');
 
-        if($request->input('from') && $request->input('to')) {
+        if ($request->input('from') && $request->input('to')) {
             $letters = $letters->whereBetween('date', [$request->input('from'), $request->input('to')]);
 
-            $sales = $sales->whereHas('sale',function($query) use ($request) {
+            $sales = $sales->whereHas('sale', function ($query) use ($request) {
                 $query->whereBetween('date', [$request->input('from'), $request->input('to')]);
             });
         }
-        if($request->chassis)
-        {
-            $letters = $letters->where('chassis',$request->chassis);
-            $sales = $sales->where('chassis',$request->chassis);
+        if ($request->chassis) {
+            $letters = $letters->where('chassis', $request->chassis);
+            $sales = $sales->where('chassis', $request->chassis);
         }
 
         $letters = $letters->get();
@@ -333,7 +295,7 @@ class ReportController extends Controller
                 'title' => $letter->title,
                 'chassis' => $letter->chassis,
                 'engine' => $letter->engine,
-                'model' => $letter->model .' - '.$letter->color,
+                'model' => $letter->model . ' - ' . $letter->color,
                 'payment' => $letter->payment,
                 'type' => $letter->type,
                 'status' => $letter->status,
@@ -349,7 +311,7 @@ class ReportController extends Controller
                 'title' => $sale->title,
                 'chassis' => $sale->chassis,
                 'engine' => $sale->engine,
-                'model' => $sale->model .' - '.$sale->color,
+                'model' => $sale->model . ' - ' . $sale->color,
                 'payment' => $sale->total,
                 'type' => $sale->type,
                 'status' => $sale->sale->status,
@@ -360,6 +322,6 @@ class ReportController extends Controller
             return strtotime($a['date']) - strtotime($b['date']);
         });
 
-        return view("reports.letter", compact('combinedData','data'));
+        return view("reports.letter", compact('combinedData', 'data'));
     }
 }
