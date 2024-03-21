@@ -82,16 +82,19 @@ class ReportController extends Controller
             ];
         });
 
-        // Sort combinedData by date
-        usort($combinedData, function ($a, $b) {
-            return strtotime($a['date']) - strtotime($b['date']);
-        });
+        if($combinedData)
+        {
+            // Sort combinedData by date
+            usort($combinedData, function ($a, $b) {
+                return strtotime($a['date']) - strtotime($b['date']);
+            });
 
-        // Calculate balance
-        $balance = 0;
-        foreach ($combinedData as &$data) {
-            $balance += $data['debit'] - $data['credit'];
-            $data['balance'] = $balance;
+            // Calculate balance
+            $balance = 0;
+            foreach ($combinedData as &$data) {
+                $balance += $data['debit'] - $data['credit'];
+                $data['balance'] = $balance;
+            }
         }
 
 
