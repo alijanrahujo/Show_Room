@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string("description")->nullable();
             $table->integer("payment")->nullable();
             $table->text('image')->nullable();
+            $table->text('file')->nullable();
             $table->string("status")->nullable();
             $table->timestamps();
         });

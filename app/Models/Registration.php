@@ -31,6 +31,7 @@ class Registration extends Model
         'description',
         'payment',
         'image',
+        'file',
         'status',
     ];
 

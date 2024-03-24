@@ -12,10 +12,13 @@ use App\Models\PurchaseDetail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Registration as regModal;
+use Livewire\WithFileUploads;
 
 class Registration extends Component
 {
+    use WithFileUploads;
     public $vehicles, $vehicle_id, $chassis, $title, $type, $status, $engine, $model, $color, $horse_power, $date, $name, $father_name, $phone, $cnic, $address, $ref_name, $refrence, $ref_father, $ref_phone, $ref_address, $payment, $description, $reg_fee;
+    public $file;
 
     public function render()
     {
@@ -126,6 +129,13 @@ class Registration extends Component
             $this->addError('chassis', 'Chassis already exists.');
             return;
         }
+
+        $file_name = '';
+        if($this->file)
+        {
+            $file_name = $this->file->store('public/uploads/files/registration');
+        }
+
         DB::beginTransaction();
 
         $registration = regModal::create([
@@ -151,6 +161,7 @@ class Registration extends Component
             'description' => $this->description,
             'payment' => $this->payment,
             'image' => null,
+            'file' => str_replace('public/', '', $file_name),
             'status' => $this->status
         ]);
 

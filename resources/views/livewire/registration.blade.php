@@ -335,6 +335,22 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {!! Form::label('file', 'File') !!}
+                                {!! Form::file('file', [
+                                    'class' => 'form-control',
+                                    'wire:model' => 'file',
+                                    'id' => 'file',
+                                    'placeholder' => 'Enter file',
+                                ]) !!}
+                                @error('file')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 mt-4">
                             {!! Form::submit('Submit', ['class' => 'btn btn-primary']) !!}
                         </div>

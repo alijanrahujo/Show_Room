@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('maker')->nullable();
             $table->string('engine')->nullable();
             $table->string('chassis')->nullable();
+            $table->string('horse_power')->nullable();
             $table->string('model')->nullable();
             $table->string('color')->nullable();
             $table->string('buyer_name')->nullable();

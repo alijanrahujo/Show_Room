@@ -302,6 +302,7 @@ class ReportController extends Controller
                 'payment' => $letter->payment,
                 'type' => $letter->type,
                 'status' => $letter->status,
+                'file' => $letter->file,
             ];
         });
 
@@ -318,6 +319,7 @@ class ReportController extends Controller
                 'payment' => $sale->total,
                 'type' => $sale->type,
                 'status' => $sale->sale->status,
+                'file' => '',
             ];
         });
 

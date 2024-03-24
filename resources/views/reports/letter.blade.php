@@ -88,6 +88,7 @@
                                             <th>Model - Color</th>
                                             <th>Amount</th>
                                             <th>Type</th>
+                                            <th>file</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -104,6 +105,11 @@
                                                 <td>{{ $val['model'] }}</td>
                                                 <td>{{ $val['payment'] }}</td>
                                                 <td>{{ $val['type'] }}</td>
+                                                <td>
+                                                    @if($val['file'])
+                                                        <a href="{{ asset('storage/' . $val['file']) }}" target="_blank"><i class="fa fa-download"></i></a>
+                                                    @endif
+                                                </td>
                                                 <td>{!! $val['status'] !!}</td>
                                             </tr>
                                         @endforeach
