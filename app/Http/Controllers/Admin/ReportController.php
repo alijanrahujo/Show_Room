@@ -301,7 +301,7 @@ class ReportController extends Controller
                 'model' => $letter->model . ' - ' . $letter->color,
                 'payment' => $letter->payment,
                 'type' => $letter->type,
-                'status' => $letter->status,
+                'status' => status($letter->status),
                 'file' => $letter->file,
             ];
         });
