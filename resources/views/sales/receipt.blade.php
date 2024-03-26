@@ -293,9 +293,10 @@
                     </div>
                     <div class="invoice-head-middle-right text-end">
                         <p>
-                            <spanf class="text-bold">Dated: {{ $sale->date }}
-
-                            </spanf>
+                            <spanf class="text-bold">Dated: {{ $sale->date }}</spanf>
+                        </p>
+                        <p>
+                            <spanf class="text-bold">Sr No: {{ $sale->id }}</spanf>
                         </p>
                     </div>
 
@@ -370,6 +371,11 @@
                                 <tr>
                                     <td colspan="4" class="text-bold">Chassis #:
                                         <span class="text" style="width: calc(100% - 80px)">{{ implode(', ', $sale->saleDetail()->pluck('chassis')->toArray()) }}</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="text-bold">Remarks:
+                                        <span class="text" style="width: calc(100% - 76px)">{{ $sale->payments()->first()->description ?? '' }}</span>
                                     </td>
                                 </tr>
                             </tbody>

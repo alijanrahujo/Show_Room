@@ -62,6 +62,8 @@
                                                 <spanf>on Account
                                                     of {{$payment->received}}
                                                 </spanf>
+                                                <br>
+                                                <span>Remarks: {{$payment->description}}</span>
                                             </div>
                                         </div>
                                     </div>
