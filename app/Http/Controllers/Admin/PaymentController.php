@@ -39,7 +39,7 @@ class PaymentController extends Controller
         $this->validate($request, [
             'pending' => 'required',
             'paid' => 'required',
-            'description' => 'required',
+            // 'description' => 'required',
             'image' => 'required',
         ]);
 

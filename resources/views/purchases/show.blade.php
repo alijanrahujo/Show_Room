@@ -190,7 +190,7 @@
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        @if ($purchase->payments->due_amount == 0)
+                                        @if ($purchase->due_amount == 0)
                                         @else
                                             <button type="button" class="mb-3 float-right btn btn-primary"
                                                 data-toggle="modal" data-target="#exampleModal"
