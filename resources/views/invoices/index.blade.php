@@ -57,9 +57,9 @@
                                                     class="btn btn-sm btn-primary">
                                                     <i class="fas fa-file" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ Route('invoices.edit', $invoice->id) }}"
+                                                {{-- <a href="{{ Route('invoices.edit', $invoice->id) }}"
                                                     class="btn btn-sm btn-warning">
-                                                    <i class="fa fa-edit" aria-hidden="true"></i></a>
+                                                    <i class="fa fa-edit" aria-hidden="true"></i></a> --}}
                                                 {!! Form::open([
                                                     'method' => 'DELETE',
                                                     'route' => ['invoices.destroy', $invoice->id],
