@@ -41,7 +41,6 @@ class PaymentController extends Controller
             'paid' => 'required',
             'description' => 'required',
             'image' => 'required',
-            'sale_id' => 'required',
         ]);
 
         DB::beginTransaction();
@@ -58,9 +57,11 @@ class PaymentController extends Controller
 
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
-
-        $sale = Sale::find($request->sale_id);
-
+        if (isset($request->purchase_id)) {
+            $sale = Purchase::find($request->purchase_id);
+        } else {
+            $sale = Sale::find($request->sale_id);
+        }
         $sale->payments()->create([
             'date' => $request->date,
             'type' => $request->type,
@@ -102,8 +103,7 @@ class PaymentController extends Controller
         $payment = $request->paid;
         foreach ($customer->sales as $sale) {
             $due_payment = $sale->due_amount;
-            if($payment <= $due_payment)
-            {
+            if ($payment <= $due_payment) {
                 $sale->payments()->create([
                     'date' => $request->date,
                     'type' => $request->type,
@@ -112,13 +112,11 @@ class PaymentController extends Controller
                     'received' => $request->paid,
                     'description' => $request->description,
                     'image' => str_replace('public/', '', $file),
-                    'status' => ($payment == $due_payment)?6:5,
+                    'status' => ($payment == $due_payment) ? 6 : 5,
                 ]);
                 $this->installment($sale, $payment, $request->date);
                 break;
-            }
-            else
-            {
+            } else {
                 $payment -= $due_payment;
                 $sale->payments()->create([
                     'date' => $request->date,
@@ -142,7 +140,7 @@ class PaymentController extends Controller
             'received' => $request->paid,
             'description' => $request->description,
             'image' => str_replace('public/', '', $file),
-            'status' => ($request->paid == $request->pending)?6:5,
+            'status' => ($request->paid == $request->pending) ? 6 : 5,
         ]);
 
         DB::commit();
@@ -196,8 +194,9 @@ class PaymentController extends Controller
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
 
-        Payment::find($id)->update([
-            'pending' => $request->pending,
+        $payment = Payment::find($id);
+        $payment->update([
+            'pending' => $payment->total - $request->received,
             'received' => $request->received,
             'date' => $request->date,
             'type' => $request->type,
@@ -232,10 +231,10 @@ class PaymentController extends Controller
                         'paid_amount' => $c_pay,
                         'paid_date' => $date,
                         'due_amount' => $installment->amount - $c_pay,
-                        'status' => ($payment == $due_amount)?6:5
+                        'status' => ($payment == $due_amount) ? 6 : 5
                     ]);
                     break;
-                } else if($due_amount >0) {
+                } else if ($due_amount > 0) {
                     $c_pay = $installment->paid_amount + $due_amount;
                     $payment -= $due_amount;
                     $installment->update([

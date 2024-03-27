@@ -34,17 +34,12 @@ class Payment extends Model
     public function getStatusAttribute()
     {
         $status = 0;
-        if($this->total == $this->received)
-        {
-            $status = '<span class="badge badge-success">'.status(6).'</span>';
-        }
-        else if($this->received == 0)
-        {
-            $status = '<span class="badge badge-danger">'.status(4).'</span>';
-        }
-        else
-        {
-            $status = '<span class="badge badge-warning">'.status(5).'</span>';
+        if ($this->total == $this->received) {
+            $status = '<span class="badge badge-success">' . status(6) . '</span>';
+        } else if ($this->received == 0) {
+            $status = '<span class="badge badge-danger">' . status(4) . '</span>';
+        } else {
+            $status = '<span class="badge badge-warning">' . status(5) . '</span>';
         }
         return $status;
     }

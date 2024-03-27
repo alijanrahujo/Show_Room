@@ -109,7 +109,6 @@
                                                         <div class="form-group">
                                                             {!! Form::label('cash', 'Cash Type *') !!}
                                                             {!! Form::select('cash', ['Cash' => 'Cash', 'Online' => 'Online'], null, [
-                                                                'placeholder' => 'Select',
                                                                 'class' => 'form-control',
                                                             ]) !!}
                                                             @error('cash')

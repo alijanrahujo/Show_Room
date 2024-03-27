@@ -58,7 +58,6 @@ class SaleCreate extends Component
         }
         $this->updateAmount();
         $this->grandTotal();
-
     }
 
     public function render()
@@ -88,7 +87,7 @@ class SaleCreate extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'New', 'status' => 2])->wherenotin('chassis',$this->chassises)->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'New', 'status' => 2])->wherenotin('chassis', $this->chassises)->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
         $this->sale_price = $this->vehicle_type->sale_price ?? 0;
         $this->updateTotal();
@@ -146,7 +145,7 @@ class SaleCreate extends Component
         ];
         $this->chassises[] = $purchase->chassis;
         $this->purchase_id = null;
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $this->vehicle_id, 'type' => 'New', 'status' => 2])->wherenotin('chassis',$this->chassises)->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $this->vehicle_id, 'type' => 'New', 'status' => 2])->wherenotin('chassis', $this->chassises)->get()->pluck('FullTitle', 'id');
         $this->grandTotal();
     }
 
@@ -197,16 +196,11 @@ class SaleCreate extends Component
 
         $customer = Customer::where('cnic', $this->cnic)->first();
 
-        if($this->down_payment_amount == 0)
-        {
+        if ($this->down_payment_amount == 0) {
             $status = 4;
-        }
-        else if($this->down_payment_amount < $this->grand_total)
-        {
+        } else if ($this->down_payment_amount < $this->grand_total) {
             $status = 5;
-        }
-        else if($this->down_payment_amount >= $this->grand_total)
-        {
+        } else if ($this->down_payment_amount >= $this->grand_total) {
             $status = 6;
         }
 
@@ -237,14 +231,12 @@ class SaleCreate extends Component
                 $currentMonth = \Carbon\Carbon::now()->addMonths($i)->format('Y-m-d');
                 $sale->installments()->create([
                     'date' => $currentMonth,
-                    'amount' => ($this->grand_total-$this->down_payment_amount) / $this->months,
-                    'due_amount' => ($this->grand_total-$this->down_payment_amount) / $this->months,
+                    'amount' => ($this->grand_total - $this->down_payment_amount) / $this->months,
+                    'due_amount' => ($this->grand_total - $this->down_payment_amount) / $this->months,
                     'description' => 'Sale new bike'
                 ]);
             }
-        }
-        else if($this->down_payment_amount == 0)
-        {
+        } else {
             $sale->payments()->create([
                 'date' => $this->date,
                 'type' => 'Cash',

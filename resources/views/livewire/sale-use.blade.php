@@ -289,7 +289,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('guarantor_name', 'Guarantor Name *') !!}
+                                {!! Form::label('guarantor_name', 'Guarantor Name') !!}
                                 {!! Form::text('guarantor_name', null, [
                                     'wire:model' => 'guarantor_name',
                                     'class' => 'form-control',
@@ -302,7 +302,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {!! Form::label('guarantor_father', 'Guarantor Father *') !!}
+                                {!! Form::label('guarantor_father', 'Guarantor Father') !!}
                                 {!! Form::text('guarantor_father', null, [
                                     'wire:model' => 'guarantor_father',
                                     'class' => 'form-control',
@@ -316,7 +316,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            {!! Form::label('refrence', 'Refrence Name *') !!}
+                            {!! Form::label('refrence', 'Refrence Name') !!}
                             {!! Form::text('refrence', null, [
                                 'wire:model' => 'refrence',
                                 'class' => 'form-control',

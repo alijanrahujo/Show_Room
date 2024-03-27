@@ -37,7 +37,11 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                {!! Form::model($paymentsWithoutImage[0], ['enctype'=>'multipart/form-data','method' => 'PATCH','route' => ['payments.update', $paymentsWithoutImage[0]->id]]) !!}
+                                                {!! Form::model($paymentsWithoutImage[0], [
+                                                    'enctype' => 'multipart/form-data',
+                                                    'method' => 'PATCH',
+                                                    'route' => ['payments.update', $paymentsWithoutImage[0]->id],
+                                                ]) !!}
 
                                                 <div class="row" id="dynamic-fields">
                                                     <div class="col-md-6">
@@ -54,7 +58,11 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             {!! Form::label('received', 'Paying Amount*') !!}
-                                                            {!! Form::text('received', null, ['class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Enter Paying Amount']) !!}
+                                                            {!! Form::text('received', null, [
+                                                                'class' => 'form-control',
+                                                                'readonly' => 'readonly',
+                                                                'placeholder' => 'Enter Paying Amount',
+                                                            ]) !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -62,7 +70,11 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             {!! Form::label('date', 'Date *') !!}
-                                                            {!! Form::date('date', null, ['class' => 'form-control', 'readonly' => 'readonly', 'placeholder' => 'Enter date']) !!}
+                                                            {!! Form::date('date', null, [
+                                                                'class' => 'form-control',
+                                                                'readonly' => 'readonly',
+                                                                'placeholder' => 'Enter date',
+                                                            ]) !!}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
@@ -90,13 +102,15 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12 text-center">
-                                                        <img id="captured_image" src="" alt="Captured Image">
-                                                        <input type="hidden" name="image" class="image-tag">
-                                                        <br>
-                                                        <button type="button" class="btn btn-success my-4"
-                                                            data-toggle="modal" data-target="#imageModal">
-                                                            Take Picture
-                                                        </button>
+                                                        <div class="form-group">
+                                                            <img id="captured_image" src="" alt="Captured Image">
+                                                            <input type="hidden" name="image" class="image-tag">
+                                                            <br>
+                                                            <button type="button" class="btn btn-success my-4"
+                                                                data-toggle="modal" data-target="#imageModal">
+                                                                Take Picture
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -145,12 +159,10 @@
 @endsection
 @section('style')
     <!-- DataTables -->
-    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/plugins/datatables/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
     <!-- Responsive datatable examples -->
-    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
+    <link href="{{ asset('assets/plugins/datatables/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
         #captured_image {

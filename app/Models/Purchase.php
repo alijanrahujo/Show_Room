@@ -59,6 +59,11 @@ class Purchase extends Model
         return $status;
     }
 
+    public function getDueAmountAttribute()
+    {
+        return ($this->total_amount ?? 0) - ($this->payments->sum('received') ?? 0);
+    }
+
     public static function boot(): void
     {
         parent::boot();

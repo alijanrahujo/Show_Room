@@ -40,7 +40,7 @@ class UsedPurchase extends Component
             $this->model = $purchaseDetail->model;
             $this->color = $purchaseDetail->color;
             $this->vehicle_id = $purchaseDetail->vehicle_id;
-            $this->title = $purchaseDetail->vehicle_type;
+            // $this->title = $purchaseDetail->vehicle_type;
         }
     }
 
@@ -109,7 +109,7 @@ class UsedPurchase extends Component
             'total' => $this->total_amount,
             'received' => $this->paid,
             'pending' => $this->total_amount - $this->paid,
-            'status' => ($this->total_amount == $this->paid)?6:5,
+            'status' => ($this->total_amount == $this->paid) ? 6 : 5,
         ]);
 
         PurchaseDetail::create([

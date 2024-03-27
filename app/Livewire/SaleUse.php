@@ -36,7 +36,7 @@ class SaleUse extends Component
 
     public function updatedVehicleId($id)
     {
-        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'Used'])->get()->pluck('FullTitle', 'id');
+        $this->purchases = PurchaseDetail::where(['vehicle_id' => $id, 'type' => 'Used', 'status' => 2])->get()->pluck('FullTitle', 'id');
         $this->vehicle_type = VehicleType::find($id);
     }
 
@@ -92,8 +92,8 @@ class SaleUse extends Component
             'customer_name' => 'required',
             'father_name' => 'required',
             'address' => 'required',
-            'guarantor_name' => 'required',
-            'guarantor_father' => 'required',
+            // 'guarantor_name' => 'required',
+            // 'guarantor_father' => 'required',
             'total' => 'required',
             'date' => 'required',
             'time' => 'required',
@@ -139,6 +139,26 @@ class SaleUse extends Component
                 'received' => $this->down_payment_amount,
                 'description' => 'Down Payment',
                 'status' => 6,
+            ]);
+
+            for ($i = 0; $i < $this->months; $i++) {
+                $currentMonth = \Carbon\Carbon::now()->addMonths($i)->format('Y-m-d');
+                $sale->installments()->create([
+                    'date' => $currentMonth,
+                    'amount' => ($this->total - $this->down_payment_amount) / $this->months,
+                    'due_amount' => ($this->total - $this->down_payment_amount) / $this->months,
+                    'description' => 'Sale used bike'
+                ]);
+            }
+        } else {
+            $sale->payments()->create([
+                'date' => $this->date,
+                'type' => 'Cash',
+                'total' => $this->total,
+                'pending' => $this->total - $this->down_payment_amount,
+                'received' => $this->down_payment_amount,
+                'description' => 'Not Payments',
+                'status' => 4,
             ]);
         }
 
