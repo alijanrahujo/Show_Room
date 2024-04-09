@@ -100,10 +100,10 @@
                                     <td>Honda Motorcycle</td>
                                     <td rowspan="6">{{ $sale->sale->sale_price ?? 0 }}</td>
                                     <td rowspan="6">{{ $sale->sale->sale_tax ?? 0 }}%</td>
-                                    <td rowspan="6">{{ ($sale->sale->sale_price ?? 0 / 100) * $sale->sale->sale_tax ?? 0 }}
+                                    <td rowspan="6">{{ (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
                                     </td>
                                     <td rowspan="6">
-                                        {{ $sale->sale->sale_price ?? 0 + ($sale->sale->sale_price ?? 0 / 100) * $sale->sale->sale_tax ?? 0 }}
+                                        {{ ($sale->sale->sale_price ?? 0) + (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -130,7 +130,7 @@
                                     <td></td>
                                     <td class="text-bold text-center">TOTAL</td>
                                     <td colspan="4" class="text-end">
-                                        {{ $sale->sale->sale_price ?? 0 + ($sale->sale->sale_price ?? 0 / 100) * $sale->sale->sale_tax ?? 0 }}
+                                        {{ ($sale->sale->sale_price ?? 0) + (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
                                     </td>
                                 </tr>
                             </tbody>
