@@ -68,6 +68,7 @@ Route::middleware([
     Route::get('/sell/receipt/{id}', [Salescontroller::class, 'receipt'])->name('sell.receipt');
     Route::get('/sell/paymentreceipt/{id}', [Salescontroller::class, 'paymentreceipt'])->name('sell.paymentreceipt');
     Route::get('/invoices/change/{id}', [InvoiceController::class, 'change'])->name('invoices.change');
+    Route::get('/invoices-blank', [InvoiceController::class, 'blank'])->name('invoices-blank');
     Route::get('/sale-use/certificate/{id}', [SaleUseController::class, 'certificate'])->name('sale-use.certificate');
     Route::get('/get-balance/{accountId}', [LedgerController::class, 'getBalance']);
     Route::get('/get-balance/{accountId}', [LedgerController::class, 'getBalance']);

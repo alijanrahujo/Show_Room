@@ -291,6 +291,12 @@
                 </li>
             @endcan
 
+            @can('invoices-show')
+                <li class="{{ Route::currentRouteName() == 'invoices-blank' ? 'mm-active' : '' }}">
+                    <a href="{{ Route('invoices-blank') }}"><i class="fas fa-fill"></i><span>Blank Invoices</span></a>
+                </li>
+            @endcan
+
             {{-- Report Section --}}
             <li>
                 <a href="javascript: void(0);">

@@ -39,12 +39,6 @@
                                 <h5
                                     style="font-size: 20px; padding: 3px; height: 25px; margin-top: -20px; background-color: white; border:1px solid black;width:100px; line-height: 20px; text-align: center;border-radius: 5px;color: brown; position: absolute;">
                                     INVOICE</h5>
-                                @if ($sale->status == 9 && !isset($_GET['status']))
-                                    <img src="{{ asset('assets/images/duplicate.jpg') }}"
-                                        style="position:absolute ; top:3px; margin-left:-75px;width:80px; "
-                                        alt="">
-                                @endif
-
                             </div>
                             <div class="invoice-head-right text-bold">
 
@@ -69,13 +63,14 @@
                     </div>
                     <div class="invoice-head-middle text-bold">
                         <div class="invoice-head-middle-left text-start">
-                            <p><span>No:</span> {{ $sale->id }}</p>
-                            <p><span>Date:</span> {{ $sale->date }}</p>
+                            <p><span>No:</span> </p>
+                            <p><span>Date:</span> </p>
                             <p style="border-bottom: 1px solid rgb(56, 48, 48);width:718px"><span
                                     style="font-weight:bold">Name:</span>
-                                {{ $sale->buyer_name }}</p>
+                            </p>
                             <p style="border-bottom: 1px solid rgb(39, 37, 37);width:718px"><span>Address:</span>
-                                {{ $sale->buyer_address }}</p>
+
+                            </p>
                         </div>
                     </div>
 
@@ -98,39 +93,36 @@
                                 <tr class="text-center">
                                     <td rowspan="6">1</td>
                                     <td>Honda Motorcycle</td>
-                                    <td rowspan="6">{{ $sale->sale->sale_price ?? 0 }}</td>
-                                    <td rowspan="6">{{ $sale->sale->sale_tax ?? 0 }}%</td>
-                                    <td rowspan="6">{{ (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
-                                    </td>
-                                    <td rowspan="6">
-                                        {{ ($sale->sale->sale_price ?? 0) + (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
-                                    </td>
+                                    <td rowspan="6"></td>
+                                    <td rowspan="6"></td>
+                                    <td rowspan="6"></td>
+                                    <td rowspan="6"></td>
                                 </tr>
                                 <tr>
 
-                                    <td><span>Engine No:</span> {{ $sale->engine }}</td>
+                                    <td><span>Engine No:</span> </td>
                                 </tr>
 
 
                                 <tr>
 
-                                    <td><span>Chassis No:</span> {{ $sale->chassis }}</td>
+                                    <td><span>Chassis No:</span> </td>
                                 </tr>
 
                                 <tr>
-                                    <td><span>Model:</span> {{ $sale->model }}</td>
+                                    <td><span>Model:&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;</span> </td>
                                 </tr>
                                 <tr>
-                                    <td><span>Colour:</span> {{ $sale->color }}</td>
+                                    <td><span>Colour:</span> </td>
                                 </tr>
                                 <tr>
-                                    <td><span>Registration letter No:</span> {{ $sale->register_no }}</td>
+                                    <td><span>Registration letter No:</span> </td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td class="text-bold text-center">TOTAL</td>
                                     <td colspan="4" class="text-end">
-                                        {{ ($sale->sale->sale_price ?? 0) + (($sale->sale->sale_price ?? 0) / 100) * ($sale->sale->sale_tax ?? 0) }}
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -174,9 +166,7 @@
                                 </span>
                                 <span>Print</span>
                             </button>
-                            @if ($sale->status == 10)
-                                <a class="invoice-btn" href="{{ Route('invoices.change', $sale->id) }}">Issued</a>
-                            @endif
+
                         </div>
                     </div>
                 </div>

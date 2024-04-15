@@ -78,4 +78,9 @@ class InvoiceController extends Controller
         $sale = Invoice::find($id);
         return view('invoices.show', compact('sale'));
     }
+    public function blank()
+    {
+        $sale = Invoice::with('sale')->find(1);
+        return view("invoices.blank", compact('sale'));
+    }
 }

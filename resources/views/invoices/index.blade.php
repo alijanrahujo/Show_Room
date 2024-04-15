@@ -55,7 +55,11 @@
                                             <td>
                                                 <a href="{{ Route('invoices.show', $invoice->id) }}"
                                                     class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-file" aria-hidden="true"></i>
+                                                    <i class="fas fa-print" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ Route('invoices.show', $invoice->id) }}?status=1"
+                                                    class="btn btn-sm btn-success">
+                                                    <i class="fas fa-print" aria-hidden="true"></i>
                                                 </a>
                                                 {{-- <a href="{{ Route('invoices.edit', $invoice->id) }}"
                                                     class="btn btn-sm btn-warning">
