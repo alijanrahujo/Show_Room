@@ -80,7 +80,7 @@
                                                 <td>{{ $val->sale->date }}</td>
                                                 <td>{{ $val->title }}</td>
                                                 <td>{{ $val->engine }}</td>
-                                                <td>{{ $val->chassis }}</td>
+                                                <td><a href="{{Route('sales.show',$val->sale_id)}}">{{ $val->chassis }}</a></td>
                                                 <td>{{ $val->model . ' - ' . $val->color }}</td>
                                                 <td>{{ $val->type }}</td>
                                                 <td>{{ ($val->type === 'New')? 'Auto Time' : $val->sale->customer->customer_name }}
@@ -116,9 +116,8 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $val->purchase->date }}</td>
-                                                <td>{{ $val->owner_name == '' ? $val->purchase->purchaseable->company_name : $val->owner_name }}
-                                                </td>
-                                                <td>{{ $val->chassis }}</td>
+                                                <td>{{ $val->owner_name == '' ? $val->purchase->purchaseable->company_name : $val->owner_name }}</td>
+                                                <td><a href="{{Route('dealer-purchase.show',$val->purchase_id)}}">{{ $val->chassis }}</a></td>
                                                 <td>{{ $val->engine }}</td>
                                                 <td>{{ $val->model . ' - ' . $val->color }}</td>
                                                 <td>{{ $val->type }}</td>
