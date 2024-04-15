@@ -66,7 +66,7 @@ class DealerPurchase extends Component
             'horse_power' => 'required',
             'purchase_amount' => 'required',
             'purchase_tax' => 'required',
-            'do_number' => 'required',
+            // 'do_number' => 'required',
             'do_date' => 'required',
         ]);
 

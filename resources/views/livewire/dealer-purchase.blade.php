@@ -125,7 +125,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            {!! Form::label('do_number', 'DO Number *') !!}
+                            {!! Form::label('do_number', 'DO Number') !!}
                             {!! Form::number('do_number', null, [
                                 'wire:model' => 'do_number',
                                 'class' => 'form-control',
