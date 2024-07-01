@@ -111,7 +111,7 @@
                             {!! Form::select('vehicle_id', $vehicles, null, [
                                 'wire:model.live' => 'vehicle_id',
                                 'placeholder' => 'Select',
-                                'class' => 'form-control',
+                                'class' => 'form-control select2 vehicle_id',
                             ]) !!}
                             @error('vehicle_id')
                                 <span class="text-danger">{{ $message }}</span>
@@ -124,7 +124,7 @@
                             {!! Form::select('purchase_id', $purchases, null, [
                                 'wire:model.live' => 'purchase_id',
                                 'placeholder' => 'Select',
-                                'class' => 'form-control',
+                                'class' => 'form-control select2',
                             ]) !!}
                             @error('purchase_id')
                                 <span class="text-danger">{{ $message }}</span>
@@ -370,3 +370,15 @@
         </div>
     </div><!--end card-->
 </div><!--end col-->
+
+@push('scripts')
+<script>
+    $(function() {
+        $('.select2').select2();
+    });
+
+    $('.vehicle_id').on('change',function(){
+        @this.set('vehicle_id',$(this).val());
+    })
+</script>
+@endpush
